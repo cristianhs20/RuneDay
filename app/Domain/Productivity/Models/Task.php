@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property int $priority
  * @property Carbon|null $due_at
  * @property Carbon|null $remind_at
+ * @property Carbon|null $reminder_sent_at
  * @property int|null $estimate_minutes
  * @property int $sort_order
  * @property Carbon|null $completed_at
@@ -29,7 +30,7 @@ class Task extends Model
 {
     protected $fillable = [
         'user_id', 'project_id', 'parent_id', 'title', 'notes', 'status',
-        'difficulty', 'priority', 'due_at', 'remind_at', 'estimate_minutes',
+        'difficulty', 'priority', 'due_at', 'remind_at', 'reminder_sent_at', 'estimate_minutes',
         'sort_order', 'completed_at',
     ];
 
@@ -39,6 +40,7 @@ class Task extends Model
             'difficulty' => TaskDifficulty::class,
             'due_at' => 'datetime',
             'remind_at' => 'datetime',
+            'reminder_sent_at' => 'datetime',
             'completed_at' => 'datetime',
         ];
     }

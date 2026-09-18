@@ -6,6 +6,7 @@ use App\Domain\Productivity\Actions\RecordFocusSession;
 use App\Domain\Productivity\Models\FocusSession;
 use App\Domain\Productivity\Models\Task;
 use App\Http\Requests\Focus\StoreFocusSessionRequest;
+use App\Support\UserTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,9 +14,11 @@ use Inertia\Response;
 
 class FocusController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request, UserTime $time): Response
     {
-        $userId = $request->user()->id;
+        $user = $request->user();
+        $userId = $user->id;
+        [$dayStart, $dayEnd] = $time->dayBoundsUtc($user);
         $sessions = FocusSession::query()
             ->where('user_id', $userId)
             ->with('task:id,title')
@@ -25,7 +28,7 @@ class FocusController extends Controller
 
         $todayMinutes = FocusSession::query()
             ->where('user_id', $userId)
-            ->whereDate('completed_at', today())
+            ->whereBetween('completed_at', [$dayStart, $dayEnd])
             ->sum('duration_minutes');
 
         $tasks = Task::query()

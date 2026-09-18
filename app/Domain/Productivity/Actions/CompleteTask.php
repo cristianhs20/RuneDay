@@ -5,12 +5,16 @@ namespace App\Domain\Productivity\Actions;
 use App\Domain\Game\Models\RewardTransaction;
 use App\Domain\Game\Services\RewardEngine;
 use App\Domain\Productivity\Models\Task;
+use App\Support\UserTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class CompleteTask
 {
-    public function __construct(private readonly RewardEngine $rewards) {}
+    public function __construct(
+        private readonly RewardEngine $rewards,
+        private readonly UserTime $time,
+    ) {}
 
     /** @return array{granted: bool, xp: int, gold: int} */
     public function handle(Task $task): array
@@ -32,10 +36,13 @@ class CompleteTask
 
             $baseXp = $task->difficulty->xp();
             $baseGold = $task->difficulty->gold();
+            $user = $task->user()->firstOrFail();
+            [$dayStart, $dayEnd] = $this->time->dayBoundsUtc($user);
+
             $rewardedToday = RewardTransaction::query()
                 ->where('user_id', $task->user_id)
                 ->where('source_type', 'task_completion')
-                ->whereDate('created_at', today())
+                ->whereBetween('created_at', [$dayStart, $dayEnd])
                 ->count();
 
             $factor = match (true) {
@@ -55,6 +62,7 @@ class CompleteTask
                     'base_xp' => $baseXp,
                     'base_gold' => $baseGold,
                     'reward_factor' => $factor,
+                    'local_date' => $this->time->today($user)->toDateString(),
                 ],
             );
         });

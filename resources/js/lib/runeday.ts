@@ -49,3 +49,12 @@ export const formatDateTime = (value?: string | null) => {
         timeStyle: 'short',
     }).format(new Date(value));
 };
+
+export const toLocalDateTimeInput = (value?: string | null) => {
+    if (!value) return '';
+
+    const date = new Date(value);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+
+    return date.toISOString().slice(0, 16);
+};

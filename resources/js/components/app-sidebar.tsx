@@ -1,5 +1,7 @@
 import { Link } from '@inertiajs/react';
 import {
+    BarChart3,
+    Bell,
     CalendarDays,
     CheckSquare2,
     Flame,
@@ -30,6 +32,8 @@ const mainNavItems: NavItem[] = [
     { title: 'Habits', href: '/habits', icon: Flame },
     { title: 'Focus', href: '/focus', icon: TimerReset },
     { title: 'Calendar', href: '/calendar', icon: CalendarDays },
+    { title: 'Progress', href: '/insights', icon: BarChart3 },
+    { title: 'Notifications', href: '/notifications', icon: Bell },
 ];
 
 export function AppSidebar() {

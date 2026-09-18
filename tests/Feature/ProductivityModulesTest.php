@@ -10,6 +10,7 @@ use App\Domain\Productivity\Models\HabitLog;
 use App\Domain\Productivity\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class ProductivityModulesTest extends TestCase
@@ -139,5 +140,89 @@ class ProductivityModulesTest extends TestCase
         $profile = CharacterProfile::where('user_id', $user->id)->firstOrFail();
         $this->assertSame(15, $profile->total_xp);
         $this->assertSame(1, $profile->gold);
+    }
+
+    public function test_user_timezone_controls_daily_completion_date(): void
+    {
+        Carbon::setTestNow(Carbon::parse('2026-09-18 02:00:00', 'UTC'));
+
+        try {
+            $user = User::factory()->create([
+                'email_verified_at' => now(),
+                'timezone' => 'America/Bogota',
+            ]);
+            $daily = Daily::create([
+                'user_id' => $user->id,
+                'title' => 'Evening reading',
+                'difficulty' => 'normal',
+                'frequency' => 'daily',
+                'is_active' => true,
+            ]);
+
+            $this->actingAs($user)
+                ->post("/dailies/{$daily->id}/complete")
+                ->assertRedirect();
+
+            $completion = $daily->completions()->firstOrFail();
+            $this->assertSame('2026-09-17', $completion->completed_on?->toDateString());
+        } finally {
+            Carbon::setTestNow();
+        }
+    }
+
+    public function test_local_task_datetime_is_stored_in_utc(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+            'timezone' => 'America/Bogota',
+        ]);
+
+        $this->actingAs($user)->post('/tasks', [
+            'title' => 'Morning quest',
+            'difficulty' => 'normal',
+            'priority' => 2,
+            'due_at' => '2026-09-18T09:00',
+            'remind_at' => '2026-09-18T08:30',
+        ])->assertRedirect();
+
+        $task = Task::where('user_id', $user->id)->firstOrFail();
+
+        $this->assertSame('2026-09-18 14:00:00', $task->due_at?->utc()->format('Y-m-d H:i:s'));
+        $this->assertSame('2026-09-18 13:30:00', $task->remind_at?->utc()->format('Y-m-d H:i:s'));
+    }
+
+    public function test_due_task_reminder_is_sent_only_once(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+            'timezone' => 'America/Bogota',
+        ]);
+        $task = Task::create([
+            'user_id' => $user->id,
+            'title' => 'Remember this quest',
+            'difficulty' => 'normal',
+            'priority' => 2,
+            'remind_at' => now()->subMinute(),
+        ]);
+
+        $this->artisan('runeday:send-reminders')->assertSuccessful();
+
+        $this->assertDatabaseCount('notifications', 1);
+        $this->assertNotNull($task->fresh()->reminder_sent_at);
+
+        $this->artisan('runeday:send-reminders')->assertSuccessful();
+
+        $this->assertDatabaseCount('notifications', 1);
+    }
+
+    public function test_progress_and_notification_pages_render(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+            'timezone' => 'America/Bogota',
+        ]);
+
+        $this->actingAs($user)->get('/insights')->assertOk();
+        $this->actingAs($user)->get('/notifications')->assertOk();
     }
 }

@@ -4,6 +4,8 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DailyController;
 use App\Http\Controllers\FocusController;
 use App\Http\Controllers\HabitController;
+use App\Http\Controllers\InsightsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodayController;
@@ -42,6 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('focus-sessions', [FocusController::class, 'store'])->name('focus.store');
 
     Route::get('calendar', CalendarController::class)->name('calendar');
+    Route::get('insights', InsightsController::class)->name('insights');
+
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+    Route::post('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
 });
 
 require __DIR__.'/settings.php';

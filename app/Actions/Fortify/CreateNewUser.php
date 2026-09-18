@@ -21,12 +21,14 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
+            'timezone' => ['nullable', 'timezone'],
             'password' => $this->passwordRules(),
         ])->validate();
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'timezone' => $input['timezone'] ?? 'UTC',
             'password' => $input['password'],
         ]);
     }

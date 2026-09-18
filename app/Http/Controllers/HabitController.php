@@ -6,6 +6,7 @@ use App\Domain\Productivity\Actions\LogHabit;
 use App\Domain\Productivity\Models\Habit;
 use App\Http\Requests\Habits\LogHabitRequest;
 use App\Http\Requests\Habits\StoreHabitRequest;
+use App\Support\UserTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,30 +14,37 @@ use Inertia\Response;
 
 class HabitController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request, UserTime $time): Response
     {
-        $today = today();
-        $weekStart = now()->startOfDay()->subDays(6);
+        $today = $time->today($request->user());
+        $localDate = $today->toDateString();
+        $weekStart = $today->copy()->subDays(6)->toDateString();
 
         $habits = Habit::query()
             ->where('user_id', $request->user()->id)
             ->where('is_active', true)
-            ->with(['logs' => fn ($query) => $query->where('logged_at', '>=', $weekStart)])
+            ->with(['logs' => fn ($query) => $query->whereDate('logged_on', '>=', $weekStart)])
             ->orderBy('title')
             ->get()
-            ->map(fn (Habit $habit) => [
-                'id' => $habit->id,
-                'title' => $habit->title,
-                'notes' => $habit->notes,
-                'mode' => $habit->mode,
-                'difficulty' => $habit->difficulty->value,
-                'today' => [
-                    'positive' => $habit->logs->where('logged_on', $today)->where('direction', 'positive')->count(),
-                    'negative' => $habit->logs->where('logged_on', $today)->where('direction', 'negative')->count(),
-                    'neutral' => $habit->logs->where('logged_on', $today)->where('direction', 'neutral')->count(),
-                ],
-                'last_7_days' => $habit->logs->count(),
-            ]);
+            ->map(function (Habit $habit) use ($localDate) {
+                $todayLogs = $habit->logs->filter(
+                    fn ($log) => $log->logged_on->toDateString() === $localDate,
+                );
+
+                return [
+                    'id' => $habit->id,
+                    'title' => $habit->title,
+                    'notes' => $habit->notes,
+                    'mode' => $habit->mode,
+                    'difficulty' => $habit->difficulty->value,
+                    'today' => [
+                        'positive' => $todayLogs->where('direction', 'positive')->count(),
+                        'negative' => $todayLogs->where('direction', 'negative')->count(),
+                        'neutral' => $todayLogs->where('direction', 'neutral')->count(),
+                    ],
+                    'last_7_days' => $habit->logs->count(),
+                ];
+            });
 
         return Inertia::render('habits', ['habits' => $habits]);
     }

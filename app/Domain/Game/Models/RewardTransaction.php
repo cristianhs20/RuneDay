@@ -5,6 +5,7 @@ namespace App\Domain\Game\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $user_id
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $xp_delta
  * @property int $gold_delta
  * @property array<string, mixed>|null $metadata
+ * @property Carbon|null $created_at
  */
 class RewardTransaction extends Model
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Domain\Productivity\Models\Daily;
 use App\Domain\Productivity\Models\Task;
+use App\Support\UserTime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -11,16 +12,17 @@ use Inertia\Response;
 
 class CalendarController extends Controller
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, UserTime $time): Response
     {
+        $user = $request->user();
+        $timezone = $user->timezone ?: 'UTC';
         $month = $request->string('month')->toString();
         $cursor = preg_match('/^\d{4}-\d{2}$/', $month)
-            ? Carbon::createFromFormat('Y-m', $month)->startOfMonth()
-            : now()->startOfMonth();
+            ? Carbon::createFromFormat('Y-m', $month, $timezone)->startOfMonth()
+            : $time->now($user)->startOfMonth();
 
-        $start = $cursor->copy()->startOfMonth();
-        $end = $cursor->copy()->endOfMonth();
-        $userId = $request->user()->id;
+        [$start, $end] = $time->monthBoundsUtc($user, $cursor->format('Y-m'));
+        $userId = $user->id;
 
         $tasks = Task::query()
             ->where('user_id', $userId)

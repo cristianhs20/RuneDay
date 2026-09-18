@@ -20,7 +20,7 @@ RuneDay is a productivity product first and an RPG second. The game should make 
 
 ## Current milestone
 
-Phase 1 — Productivity Core is in active development.
+Phase 1 — Productivity Core MVP is complete.
 
 Implemented web flows include:
 
@@ -32,10 +32,13 @@ Implemented web flows include:
 - Habits
 - Focus timer
 - Calendar
+- timezone-safe daily boundaries
+- quest reminders + notification center
+- 7-day Progress / Insights
 - XP/gold reward ledger
 - provisional anti-farming controls
 
-See [docs/phase-1.md](docs/phase-1.md) for the detailed status and remaining scope.
+See [docs/phase-1.md](docs/phase-1.md) for the completed Phase 1 scope, quality gate and intentionally deferred work.
 
 ## Local setup
 

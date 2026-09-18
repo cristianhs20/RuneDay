@@ -5,21 +5,28 @@ namespace App\Domain\Productivity\Actions;
 use App\Domain\Game\Services\RewardEngine;
 use App\Domain\Productivity\Models\Habit;
 use App\Domain\Productivity\Models\HabitLog;
+use App\Support\UserTime;
 use Illuminate\Support\Facades\DB;
 
 class LogHabit
 {
-    public function __construct(private readonly RewardEngine $rewards) {}
+    public function __construct(
+        private readonly RewardEngine $rewards,
+        private readonly UserTime $time,
+    ) {}
 
     /** @return array{granted: bool, xp: int, gold: int} */
     public function handle(Habit $habit, string $direction, ?string $note = null): array
     {
         return DB::transaction(function () use ($habit, $direction, $note) {
+            $user = $habit->user()->firstOrFail();
+            $localDate = $this->time->today($user)->toDateString();
+
             $log = HabitLog::create([
                 'habit_id' => $habit->id,
                 'user_id' => $habit->user_id,
                 'direction' => $direction,
-                'logged_on' => today(),
+                'logged_on' => $localDate,
                 'logged_at' => now(),
                 'note' => $note,
             ]);
@@ -27,7 +34,7 @@ class LogHabit
             $firstPositiveToday = $direction === 'positive'
                 && ! HabitLog::query()
                     ->where('habit_id', $habit->id)
-                    ->whereDate('logged_on', today())
+                    ->whereDate('logged_on', $localDate)
                     ->where('direction', 'positive')
                     ->where('id', '!=', $log->id)
                     ->exists();
@@ -42,7 +49,11 @@ class LogHabit
                 $log->id,
                 max(5, intdiv($habit->difficulty->xp(), 2)),
                 max(1, intdiv($habit->difficulty->gold(), 2)),
-                ['habit_id' => $habit->id, 'difficulty' => $habit->difficulty->value],
+                [
+                    'habit_id' => $habit->id,
+                    'difficulty' => $habit->difficulty->value,
+                    'local_date' => $localDate,
+                ],
             );
         });
     }

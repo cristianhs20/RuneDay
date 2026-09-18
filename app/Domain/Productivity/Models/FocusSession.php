@@ -5,6 +5,7 @@ namespace App\Domain\Productivity\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $task_id
  * @property int $duration_minutes
  * @property string $mode
+ * @property Carbon $started_at
+ * @property Carbon $completed_at
  */
 class FocusSession extends Model
 {

@@ -1,4 +1,5 @@
 import { Form, Head } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
@@ -14,6 +15,12 @@ type Props = {
 };
 
 export default function Register({ passwordRules }: Props) {
+    const [timezone, setTimezone] = useState('UTC');
+
+    useEffect(() => {
+        setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC');
+    }, []);
+
     return (
         <>
             <Head title="Register" />
@@ -25,6 +32,7 @@ export default function Register({ passwordRules }: Props) {
             >
                 {({ processing, errors }) => (
                     <>
+                        <input type="hidden" name="timezone" value={timezone} />
                         <div className="grid gap-6">
                             <div className="grid gap-2">
                                 <Label htmlFor="name">Name</Label>

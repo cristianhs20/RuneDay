@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import type { Difficulty, Project, Quest } from '@/lib/runeday';
-import { formatDateTime, rewards } from '@/lib/runeday';
+import { formatDateTime, rewards, toLocalDateTimeInput } from '@/lib/runeday';
 
 export default function Quests({
     tasks,
@@ -223,6 +223,21 @@ export default function Quests({
                                             )
                                         }
                                     />
+                                    <div className="space-y-1">
+                                        <label className="text-muted-foreground text-xs">
+                                            Remind me
+                                        </label>
+                                        <Input
+                                            type="datetime-local"
+                                            value={taskForm.data.remind_at}
+                                            onChange={(event) =>
+                                                taskForm.setData(
+                                                    'remind_at',
+                                                    event.target.value,
+                                                )
+                                            }
+                                        />
+                                    </div>
                                     <Input
                                         type="number"
                                         min="1"
@@ -437,8 +452,8 @@ function EditQuestForm({
         priority: task.priority,
         project_id: task.project_id ? String(task.project_id) : '',
         parent_id: task.parent_id ? String(task.parent_id) : '',
-        due_at: task.due_at ? task.due_at.slice(0, 16) : '',
-        remind_at: task.remind_at ? task.remind_at.slice(0, 16) : '',
+        due_at: toLocalDateTimeInput(task.due_at),
+        remind_at: toLocalDateTimeInput(task.remind_at),
         estimate_minutes: task.estimate_minutes
             ? String(task.estimate_minutes)
             : '',
@@ -476,6 +491,18 @@ function EditQuestForm({
                 value={form.data.due_at}
                 onChange={(event) => form.setData('due_at', event.target.value)}
             />
+            <div className="space-y-1">
+                <label className="text-muted-foreground text-xs">
+                    Remind me
+                </label>
+                <Input
+                    type="datetime-local"
+                    value={form.data.remind_at}
+                    onChange={(event) =>
+                        form.setData('remind_at', event.target.value)
+                    }
+                />
+            </div>
             <Button size="sm" disabled={form.processing}>
                 Save changes
             </Button>

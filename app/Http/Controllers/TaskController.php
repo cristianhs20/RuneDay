@@ -9,6 +9,7 @@ use App\Http\Requests\Tasks\StoreTaskRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -78,7 +79,18 @@ class TaskController extends Controller
         $this->authorizeTask($request, $task);
         $data = $request->validated();
 
-        if (($data['parent_id'] ?? null) === $task->id) {
+        $newReminder = isset($data['remind_at'])
+            ? Carbon::parse((string) $data['remind_at'])
+            : null;
+        $reminderChanged = $newReminder === null
+            ? $task->remind_at !== null
+            : $task->remind_at === null || ! $task->remind_at->equalTo($newReminder);
+
+        if ($reminderChanged) {
+            $data['reminder_sent_at'] = null;
+        }
+
+        if (isset($data['parent_id']) && (int) $data['parent_id'] === $task->id) {
             return back()->withErrors(['parent_id' => 'A quest cannot be its own subtask.']);
         }
 

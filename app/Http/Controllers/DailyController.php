@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Domain\Productivity\Actions\CompleteDaily;
 use App\Domain\Productivity\Models\Daily;
 use App\Http\Requests\Dailies\StoreDailyRequest;
+use App\Support\UserTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,13 +13,15 @@ use Inertia\Response;
 
 class DailyController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request, UserTime $time): Response
     {
-        $today = today();
+        $today = $time->today($request->user());
+        $localDate = $today->toDateString();
+
         $dailies = Daily::query()
             ->where('user_id', $request->user()->id)
             ->where('is_active', true)
-            ->with(['completions' => fn ($query) => $query->whereDate('completed_on', $today)])
+            ->with(['completions' => fn ($query) => $query->whereDate('completed_on', $localDate)])
             ->orderBy('title')
             ->get()
             ->map(fn (Daily $daily) => [

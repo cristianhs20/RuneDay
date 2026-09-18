@@ -7,23 +7,28 @@ use App\Domain\Productivity\Models\Daily;
 use App\Domain\Productivity\Models\FocusSession;
 use App\Domain\Productivity\Models\HabitLog;
 use App\Domain\Productivity\Models\Task;
+use App\Support\UserTime;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class TodayController extends Controller
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, UserTime $time): Response
     {
-        $userId = $request->user()->id;
+        $user = $request->user();
+        $userId = $user->id;
         $profile = CharacterProfile::firstOrCreate(['user_id' => $userId]);
+        $today = $time->today($user);
+        $localDate = $today->toDateString();
+        [$dayStart, $dayEnd] = $time->dayBoundsUtc($user, $today);
 
         $tasks = Task::query()
             ->where('user_id', $userId)
             ->whereNull('parent_id')
             ->whereNull('completed_at')
             ->whereNotNull('due_at')
-            ->where('due_at', '<=', now()->endOfDay())
+            ->where('due_at', '<=', $dayEnd)
             ->withCount(['subtasks as open_subtasks_count' => fn ($query) => $query->whereNull('completed_at')])
             ->with('project:id,title')
             ->orderByRaw('due_at is null, due_at')
@@ -34,11 +39,10 @@ class TodayController extends Controller
                 'due_at', 'estimate_minutes', 'completed_at',
             ]);
 
-        $today = today();
         $dailies = Daily::query()
             ->where('user_id', $userId)
             ->where('is_active', true)
-            ->with(['completions' => fn ($query) => $query->whereDate('completed_on', $today)])
+            ->with(['completions' => fn ($query) => $query->whereDate('completed_on', $localDate)])
             ->get()
             ->filter(fn (Daily $daily) => $daily->isDueOn($today))
             ->values()
@@ -56,17 +60,19 @@ class TodayController extends Controller
             'stats' => [
                 'completed_today' => Task::query()
                     ->where('user_id', $userId)
-                    ->whereDate('completed_at', $today)
+                    ->whereBetween('completed_at', [$dayStart, $dayEnd])
                     ->count(),
                 'focus_minutes_today' => FocusSession::query()
                     ->where('user_id', $userId)
-                    ->whereDate('completed_at', $today)
+                    ->whereBetween('completed_at', [$dayStart, $dayEnd])
                     ->sum('duration_minutes'),
                 'habit_logs_today' => HabitLog::query()
                     ->where('user_id', $userId)
-                    ->whereDate('logged_on', $today)
+                    ->whereDate('logged_on', $localDate)
                     ->count(),
             ],
+            'localDate' => $localDate,
+            'timezone' => $user->timezone,
         ]);
     }
 }

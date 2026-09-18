@@ -5,12 +5,16 @@ namespace App\Domain\Productivity\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $habit_id
  * @property int $user_id
  * @property string $direction
+ * @property Carbon $logged_on
+ * @property Carbon $logged_at
+ * @property string|null $note
  */
 class HabitLog extends Model
 {

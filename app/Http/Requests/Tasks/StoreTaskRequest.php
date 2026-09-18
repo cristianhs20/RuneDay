@@ -2,11 +2,32 @@
 
 namespace App\Http\Requests\Tasks;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreTaskRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $timezone = $this->user()->timezone ?: 'UTC';
+        $dates = [];
+
+        foreach (['due_at', 'remind_at'] as $field) {
+            $value = $this->input($field);
+
+            if (is_string($value) && $value !== '') {
+                $dates[$field] = Carbon::parse($value, $timezone)
+                    ->utc()
+                    ->format('Y-m-d H:i:s');
+            }
+        }
+
+        if ($dates !== []) {
+            $this->merge($dates);
+        }
+    }
+
     /** @return array<string, list<mixed>> */
     public function rules(): array
     {

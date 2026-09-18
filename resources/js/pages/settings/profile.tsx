@@ -42,7 +42,7 @@ export default function Profile(
                 <Heading
                     variant="small"
                     title="Profile"
-                    description="Update your name and email address"
+                    description="Update your identity, email and local timezone"
                 />
 
                 <Form
@@ -90,6 +90,27 @@ export default function Profile(
                                 <InputError
                                     className="mt-2"
                                     message={errors.email}
+                                />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="timezone">Timezone</Label>
+                                <Input
+                                    id="timezone"
+                                    className="mt-1 block w-full"
+                                    defaultValue={auth.user.timezone}
+                                    name="timezone"
+                                    required
+                                    placeholder="America/Bogota"
+                                    autoComplete="off"
+                                />
+                                <p className="text-muted-foreground text-xs">
+                                    RuneDay uses this for Today, Dailies,
+                                    streaks and reminders.
+                                </p>
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.timezone}
                                 />
                             </div>
 
