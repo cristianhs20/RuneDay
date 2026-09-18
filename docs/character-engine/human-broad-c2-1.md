@@ -2,11 +2,11 @@
 
 ## Status
 
-**Implemented — awaiting visual approval.**
+**Prototype experiment — rejected as final production art.**
 
-C2.1 is the first production art pass in Phase C.
+C2.1 was the first production art experiment in Phase C.
 
-Only the **Human + Broad** canonical body uses this refined branch.
+Only the **Human + Broad** canonical body uses this refined branch in the legacy prototype renderer.
 
 Human Lean, Elf Broad/Lean, Skeleton Broad/Lean and Ogre Heavy remain on Phase B art until they receive their own review.
 
@@ -197,3 +197,11 @@ C2.1 is **implemented** but should not be marked **artistically approved** until
 The next production step after approval is:
 
 **C2.2 — Human Lean Art Pass.**
+
+## Outcome
+
+The experiment validated routing, sockets and fit-profile ideas, but the SVG/shape result did not approach the approved pixel-art concept quality.
+
+It is therefore retained only as a technical prototype and historical comparison.
+
+Final production art has moved to [Phase D — Production Pixel Sprite Pipeline v2](phase-d.md).

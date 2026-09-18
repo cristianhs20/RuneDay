@@ -1,0 +1,216 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://runeday.local/schemas/sprite-manifest-v2.schema.json",
+    "title": "RuneDay Sprite Manifest v2",
+    "type": "object",
+    "required": ["engine", "version", "asset_id", "type"],
+    "properties": {
+        "engine": {
+            "const": "runeday-sprite-v2"
+        },
+        "version": {
+            "type": "string",
+            "pattern": "^2\\.\\d+\\.\\d+$"
+        },
+        "asset_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9_\\-]+$"
+        },
+        "type": {
+            "enum": [
+                "character_base",
+                "equipment",
+                "customization",
+                "fx",
+                "portrait"
+            ]
+        },
+        "lineage": {
+            "enum": ["human", "elf", "skeleton", "ogre"]
+        },
+        "fit_profile": {
+            "enum": ["broad", "lean", "heavy"]
+        },
+        "slot": {
+            "enum": ["weapon", "head", "chest", "feet", "back", "accessory"]
+        },
+        "item_slug": {
+            "type": "string"
+        },
+        "cell": {
+            "type": "object",
+            "required": ["width", "height"],
+            "properties": {
+                "width": {
+                    "const": 128
+                },
+                "height": {
+                    "const": 128
+                }
+            },
+            "additionalProperties": false
+        },
+        "views": {
+            "$ref": "#/$defs/views"
+        },
+        "fits": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/$defs/fit"
+            }
+        }
+    },
+    "$defs": {
+        "sheet": {
+            "type": "object",
+            "required": ["sheet", "frames"],
+            "properties": {
+                "sheet": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "frames": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "fps": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                },
+                "loop": {
+                    "type": "boolean"
+                },
+                "mirror_safe": {
+                    "type": "boolean"
+                },
+                "sockets": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["frame"],
+                        "properties": {
+                            "frame": {
+                                "type": "integer",
+                                "minimum": 0
+                            },
+                            "weapon_grip": {
+                                "$ref": "#/$defs/point"
+                            },
+                            "offhand": {
+                                "$ref": "#/$defs/point"
+                            },
+                            "head": {
+                                "$ref": "#/$defs/point"
+                            },
+                            "back": {
+                                "$ref": "#/$defs/point"
+                            },
+                            "fx_origin": {
+                                "$ref": "#/$defs/point"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "point": {
+            "type": "array",
+            "prefixItems": [
+                {
+                    "type": "integer"
+                },
+                {
+                    "type": "integer"
+                }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+        },
+        "animations": {
+            "type": "object",
+            "properties": {
+                "idle": {
+                    "$ref": "#/$defs/sheet"
+                },
+                "walk": {
+                    "$ref": "#/$defs/sheet"
+                },
+                "attack": {
+                    "$ref": "#/$defs/sheet"
+                },
+                "cast": {
+                    "$ref": "#/$defs/sheet"
+                },
+                "celebrate": {
+                    "$ref": "#/$defs/sheet"
+                },
+                "hurt": {
+                    "$ref": "#/$defs/sheet"
+                }
+            },
+            "additionalProperties": false
+        },
+        "views": {
+            "type": "object",
+            "properties": {
+                "front": {
+                    "$ref": "#/$defs/animations"
+                },
+                "side": {
+                    "$ref": "#/$defs/animations"
+                },
+                "back": {
+                    "$ref": "#/$defs/animations"
+                }
+            },
+            "additionalProperties": false
+        },
+        "fit": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "required": ["alias"],
+                    "properties": {
+                        "alias": {
+                            "enum": ["broad", "lean", "heavy"]
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "$ref": "#/$defs/views"
+                }
+            ]
+        }
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "equipment"
+                    }
+                }
+            },
+            "then": {
+                "required": ["slot", "item_slug", "fits"]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "character_base"
+                    }
+                }
+            },
+            "then": {
+                "required": ["lineage", "fit_profile", "cell", "views"]
+            }
+        }
+    ],
+    "additionalProperties": true
+}

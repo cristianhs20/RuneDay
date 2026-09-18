@@ -181,9 +181,11 @@ See:
 
 Mass equipment production should still remain controlled: Phase B proves the rig, lineage and compatibility architecture. Future authored frame-by-frame animation and production asset packs must continue to pass the Character QA system.
 
-**Character Engine — Phase C: Base Hero Art Pass & Authored Motion: planned and approved for execution.**
+**Character Engine — Phase C: superseded for production art.**
 
-Phase C is intentionally art-first and is split into gated subphases:
+Phase C proved useful rig/lineage ideas, but its SVG/shape renderer failed the approved visual-quality target. It remains only as a technical prototype/reference.
+
+The former Phase C plan was:
 
 - C1 — approved Art Target extraction
 - C2 — production Base Hero redraw for 7 canonical lineage/frame targets
@@ -192,14 +194,11 @@ Phase C is intentionally art-first and is split into gated subphases:
 - C5 — production-quality lineage personalization art
 - C6 — controlled equipment integration benchmark
 
-Current execution:
+Current production decision:
 
-- C1 — complete
-- C2.1 Human Broad — implemented, awaiting visual approval
-
-Review Human Broad in `/character/lineage-lab`.
-
-Execution rule: do not scale equipment quantity until the Base Hero, multi-view set, authored motion and benchmark equipment pass visual approval.
+- SVG CharacterSprite = technical prototype only
+- C2.1 Human Broad SVG art = rejected as final production art
+- production art continues in Phase D
 
 See:
 
@@ -207,6 +206,29 @@ See:
 - [Base Hero Art Target v1](docs/character-engine/base-hero-art-target-v1.md)
 - [Authored Animation Spec v1](docs/character-engine/authored-animation-spec-v1.md)
 - [Human Broad C2.1](docs/character-engine/human-broad-c2-1.md)
+
+**Character Engine — Phase D: Production Pixel Sprite Pipeline v2: official replacement phase.**
+
+Production characters now target:
+
+- real authored pixel-art PNG layers
+- 128×128 transparent frame cells
+- manifest-driven spritesheets
+- authored frame-by-frame animation
+- Broad / Lean / Heavy visual fit profiles
+- shared gameplay item catalog with visual fit variants
+- Canvas 2D layer compositor with image smoothing disabled
+- Human Broad as the first production master asset
+
+The SVG/shape renderer remains temporarily only for rig/anchor debugging and legacy fallback.
+
+See:
+
+- [Phase D](docs/character-engine/phase-d.md)
+- [Sprite Pipeline v2](docs/character-engine/sprite-pipeline-v2.md)
+- [Sprite Manifest v2](docs/character-engine/sprite-manifest-v2.md)
+- [Production Art Gates v2](docs/character-engine/production-art-gates-v2.md)
+- [Manifest JSON Schema](resources/game/sprite-v2/manifest.schema.json)
 
 ## Local setup
 

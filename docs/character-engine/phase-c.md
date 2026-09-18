@@ -2,9 +2,9 @@
 
 ## Status
 
-**In execution. C1 complete. C2.1 Human Broad implemented and awaiting visual approval.**
+**Superseded for production art by Phase D — Production Pixel Sprite Pipeline v2.**
 
-Phase C is the Base Hero Art Pass & Authored Motion phase.
+Phase C remains as an architectural/art-direction exploration record. Its SVG/shape implementation is not the production art path.
 
 The goal is not to create more features.
 
@@ -19,6 +19,26 @@ Phase C should be treated as multiple art-review gates.
 A subphase is not complete because files exist.
 
 It is complete only after visual approval.
+
+## Supersession note
+
+The C2.1 SVG Human Broad experiment failed the production visual-quality gate.
+
+Keep from Phase C:
+
+- approved concept direction;
+- lineage/fit expectations;
+- animation-state goals;
+- art-review methodology.
+
+Do not keep as final production art:
+
+- procedural SVG anatomy;
+- SVG face/hair construction;
+- SVG equipment drawing;
+- CSS-only body motion.
+
+Production visual work continues in [Phase D](phase-d.md).
 
 # C1 — Art Target Extraction
 

@@ -203,5 +203,24 @@
             "views": ["front", "side", "back"],
             "reference": "docs/character-engine/human-broad-c2-1.md"
         }
+    },
+    "visualPipeline": {
+        "prototypeRenderer": {
+            "id": "prototype-svg-v1",
+            "status": "deprecated-for-production-art",
+            "allowedUses": ["rig-debug", "anchor-debug", "legacy-fallback"]
+        },
+        "productionRenderer": {
+            "id": "runeday-sprite-v2",
+            "status": "official-target",
+            "phase": "D",
+            "assetFormat": "layered-transparent-png",
+            "cell": {
+                "width": 128,
+                "height": 128
+            },
+            "composition": "manifest-driven",
+            "animation": "authored-spritesheets"
+        }
     }
 }

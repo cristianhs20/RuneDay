@@ -90,10 +90,10 @@ export default function CharacterLineageLab() {
                 <header className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
                     <div>
                         <p className="text-muted-foreground text-sm">
-                            Character Engine · Phase B
+                            Character Engine · Technical Prototype
                         </p>
                         <h1 className="text-3xl font-semibold tracking-tight">
-                            Humanoid Rig & Lineage Lab
+                            Prototype Rig & Lineage Lab
                         </h1>
                         <p className="text-muted-foreground mt-2 max-w-3xl text-sm">
                             B1–B5 acceptance environment. Human, Elf, Skeleton
@@ -134,10 +134,10 @@ export default function CharacterLineageLab() {
                         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
                             <div>
                                 <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">
-                                    Phase C · C2.1 implemented
+                                    Prototype SVG · deprecated for production
                                 </p>
                                 <CardTitle className="mt-1">
-                                    Human Broad refined art pass
+                                    Human Broad SVG prototype
                                 </CardTitle>
                             </div>
                             <span className="rounded-full border px-3 py-1 text-xs font-medium">
