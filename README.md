@@ -181,6 +181,25 @@ See:
 
 Mass equipment production should still remain controlled: Phase B proves the rig, lineage and compatibility architecture. Future authored frame-by-frame animation and production asset packs must continue to pass the Character QA system.
 
+**Character Engine — Phase C: Base Hero Art Pass & Authored Motion: planned and approved for execution.**
+
+Phase C is intentionally art-first and is split into gated subphases:
+
+- C1 — approved Art Target extraction
+- C2 — production Base Hero redraw for 7 canonical lineage/frame targets
+- C3 — Front / Side / Back polish
+- C4 — authored Idle / Walk / Attack / Cast / Celebrate / Hurt animation pass
+- C5 — production-quality lineage personalization art
+- C6 — controlled equipment integration benchmark
+
+Execution rule: do not scale equipment quantity until the Base Hero, multi-view set, authored motion and benchmark equipment pass visual approval.
+
+See:
+
+- [Phase C](docs/character-engine/phase-c.md)
+- [Base Hero Art Target v1](docs/character-engine/base-hero-art-target-v1.md)
+- [Authored Animation Spec v1](docs/character-engine/authored-animation-spec-v1.md)
+
 ## Local setup
 
 ```bash
