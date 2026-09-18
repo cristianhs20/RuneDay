@@ -34,11 +34,17 @@ import type {
 } from '@/types/game';
 
 const baseAppearance: GameAppearance = {
-    body: 'type_a',
+    body: 'broad',
     skin_tone: 'bronze',
+    bone_tone: 'none',
     hair_style: 'short',
     hair_color: 'onyx',
     eye_color: 'emerald',
+    eye_glow: 'none',
+    face_style: 'balanced',
+    ear_style: 'standard',
+    jaw_style: 'standard',
+    horn_style: 'none',
 };
 
 const emptyStats = {
@@ -171,12 +177,19 @@ export default function CharacterStyleLab() {
                         </p>
                     </div>
 
-                    <Button asChild variant="outline">
-                        <Link href="/character">
-                            <ArrowLeft />
-                            Back to Hero
-                        </Link>
-                    </Button>
+                    <div className="flex gap-2">
+                        <Button asChild variant="outline">
+                            <Link href="/character/lineage-lab">
+                                Lineage Lab
+                            </Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                            <Link href="/character">
+                                <ArrowLeft />
+                                Back to Hero
+                            </Link>
+                        </Button>
+                    </div>
                 </header>
 
                 <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -258,12 +271,12 @@ export default function CharacterStyleLab() {
                     <CardContent className="grid gap-6 lg:grid-cols-[1fr_1fr_340px]">
                         <DebugReference
                             title="Frame A · broad"
-                            body="type_a"
+                            body="broad"
                             debug="bounds"
                         />
                         <DebugReference
                             title="Frame B · lean"
-                            body="type_b"
+                            body="lean"
                             debug="anchors"
                         />
                         <div className="space-y-3">
@@ -352,7 +365,7 @@ export default function CharacterStyleLab() {
                                 archetype: 'warden',
                                 appearance: {
                                     ...baseAppearance,
-                                    body: 'type_b',
+                                    body: 'lean',
                                     hair_style: 'crest',
                                     hair_color: 'ember',
                                     eye_color: 'amber',
@@ -747,6 +760,8 @@ function previewCharacter(
         created: true,
         name: 'Rune',
         archetype: overrides.archetype ?? 'wanderer',
+        lineage: 'human',
+        character_system_version: '1.0.0',
         appearance: overrides.appearance ?? baseAppearance,
         level: 1,
         xp: 0,

@@ -111,6 +111,8 @@ function activityMessage(activity: SocialActivity): string {
                 'created ' +
                 stringValue(data.hero_name, 'a new hero') +
                 ' · ' +
+                capitalize(stringValue(data.lineage, 'human')) +
+                ' ' +
                 capitalize(stringValue(data.archetype, 'wanderer'))
             );
         case 'level_up':

@@ -14,35 +14,59 @@ class CharacterCreationService
         private readonly InventoryGrantService $inventory,
         private readonly EquipmentService $equipment,
         private readonly SocialActivityPublisher $social,
+        private readonly CharacterSystem $system,
     ) {}
 
     /**
-     * @param  array<string, string>  $appearance
+     * @param  array<string, mixed>  $appearance
      */
     public function save(
         User $user,
         string $name,
         string $archetype,
+        string $lineage,
         array $appearance,
     ): CharacterProfile {
-        return DB::transaction(function () use ($user, $name, $archetype, $appearance) {
+        return DB::transaction(function () use (
+            $user,
+            $name,
+            $archetype,
+            $lineage,
+            $appearance,
+        ) {
             $profile = CharacterProfile::firstOrCreate(
                 ['user_id' => $user->id],
-                ['appearance' => CharacterProfile::defaultAppearance()],
+                [
+                    'lineage' => 'human',
+                    'appearance' => $this->system->defaults('human'),
+                    'character_system_version' => $this->system->systemVersion(),
+                ],
             );
 
             $firstCreation = $profile->character_created_at === null;
+            $normalizedLineage = $this->system
+                ->normalizeLineage($lineage)
+                ->value;
+            $normalizedAppearance = $this->system->normalizeAppearance(
+                $normalizedLineage,
+                $appearance,
+            );
 
             $profile->forceFill([
                 'character_name' => $name,
                 'archetype' => $archetype,
-                'appearance' => $appearance,
+                'lineage' => $normalizedLineage,
+                'character_system_version' => $this->system->systemVersion(),
+                'appearance' => $normalizedAppearance,
                 'character_created_at' => $profile->character_created_at ?? now(),
             ])->save();
 
             if ($firstCreation) {
                 foreach (['training-sword', 'linen-tunic'] as $slug) {
-                    $item = ItemDefinition::query()->where('slug', $slug)->firstOrFail();
+                    $item = ItemDefinition::query()
+                        ->where('slug', $slug)
+                        ->firstOrFail();
+
                     $inventoryItem = $this->inventory->grant(
                         $user->id,
                         $item,
@@ -50,6 +74,7 @@ class CharacterCreationService
                         'character_creation',
                         $profile->id,
                     );
+
                     $this->equipment->equip($user, $inventoryItem);
                 }
 
@@ -61,6 +86,7 @@ class CharacterCreationService
                     [
                         'hero_name' => $name,
                         'archetype' => $archetype,
+                        'lineage' => $normalizedLineage,
                     ],
                 );
             }

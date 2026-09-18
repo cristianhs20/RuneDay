@@ -806,6 +806,7 @@ function MemberCard({
                     </div>
                     <p className="text-muted-foreground mt-0.5 text-xs">
                         @{member.handle} · Level {member.level} ·{' '}
+                        {capitalize(member.lineage)} ·{' '}
                         <span className="capitalize">{member.role}</span>
                     </p>
                     <div className="mt-3 flex flex-wrap gap-1.5">
@@ -1047,4 +1048,8 @@ function formatDeadline(value: string): string {
     }
 
     return 'in ' + Math.ceil(hours / 24) + 'd';
+}
+
+function capitalize(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1);
 }

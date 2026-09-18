@@ -29,6 +29,7 @@ class CharacterController extends Controller
             $request->user(),
             $data['character_name'],
             $data['archetype'],
+            $data['lineage'],
             $data['appearance'],
         );
 

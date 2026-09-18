@@ -1,4 +1,8 @@
-import type { GameAppearance, EquippedVisual } from '@/types/game';
+import type {
+    CharacterLineage,
+    GameAppearance,
+    EquippedVisual,
+} from '@/types/game';
 
 export type GuildHall = {
     level: number;
@@ -15,6 +19,7 @@ export type GuildHero = {
     name: string;
     level: number;
     archetype: 'wanderer' | 'warden' | 'rogue' | 'arcanist';
+    lineage: CharacterLineage;
     appearance: GameAppearance;
     equipment: Record<string, EquippedVisual>;
 };

@@ -226,3 +226,90 @@
         animation: none;
     }
 }
+
+@layer utilities {
+    .runeday-sprite-walk {
+        animation: runeday-walk 0.8s steps(4, end) infinite;
+    }
+
+    .runeday-sprite-cast {
+        animation: runeday-cast 0.85s ease-in-out 2;
+    }
+
+    .runeday-sprite-hurt {
+        animation: runeday-hurt 0.42s ease-out 2;
+    }
+
+    .runeday-sprite-cast .runeday-weapon-layer {
+        transform-origin: 48px 38px;
+        animation: runeday-cast-weapon 0.85s ease-in-out 2;
+    }
+}
+
+@keyframes runeday-walk {
+    0%,
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+
+    25% {
+        transform: translateY(-1px) translateX(1px);
+    }
+
+    50% {
+        transform: translateY(0) translateX(0);
+    }
+
+    75% {
+        transform: translateY(-1px) translateX(-1px);
+    }
+}
+
+@keyframes runeday-cast {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    45% {
+        transform: translateY(-2px) scale(1.025);
+    }
+}
+
+@keyframes runeday-cast-weapon {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-16deg) translateY(-2px);
+    }
+}
+
+@keyframes runeday-hurt {
+    0%,
+    100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    35% {
+        transform: translateX(-3px) rotate(-2deg);
+        opacity: 0.72;
+    }
+
+    65% {
+        transform: translateX(2px) rotate(1deg);
+        opacity: 0.88;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .runeday-sprite-walk,
+    .runeday-sprite-cast,
+    .runeday-sprite-hurt,
+    .runeday-sprite-cast .runeday-weapon-layer {
+        animation: none;
+    }
+}

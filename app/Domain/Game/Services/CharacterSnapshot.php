@@ -8,7 +8,10 @@ use App\Models\User;
 
 class CharacterSnapshot
 {
-    public function __construct(private readonly CharacterStats $stats) {}
+    public function __construct(
+        private readonly CharacterStats $stats,
+        private readonly CharacterSystem $system,
+    ) {}
 
     /**
      * @return array<string, mixed>
@@ -17,18 +20,44 @@ class CharacterSnapshot
     {
         $profile = CharacterProfile::firstOrCreate(
             ['user_id' => $user->id],
-            ['appearance' => CharacterProfile::defaultAppearance()],
+            [
+                'lineage' => 'human',
+                'appearance' => $this->system->defaults('human'),
+                'character_system_version' => $this->system->systemVersion(),
+            ],
         );
 
         $rawArchetype = $profile->getRawOriginal('archetype');
+        $rawLineage = $profile->getRawOriginal('lineage');
 
-        if (! $profile->appearance || ! is_string($rawArchetype) || $rawArchetype === '') {
+        $lineage = $this->system
+            ->normalizeLineage(
+                is_string($rawLineage) ? $rawLineage : null,
+            )
+            ->value;
+
+        $appearance = $this->system->normalizeAppearance(
+            $lineage,
+            $profile->appearance,
+        );
+
+        $needsNormalization = ! is_string($rawArchetype)
+            || $rawArchetype === ''
+            || ! is_string($rawLineage)
+            || $rawLineage !== $lineage
+            || $profile->appearance !== $appearance
+            || $profile->character_system_version !== $this->system->systemVersion();
+
+        if ($needsNormalization) {
             $profile->forceFill([
-                'appearance' => $profile->appearance ?: CharacterProfile::defaultAppearance(),
+                'appearance' => $appearance,
                 'archetype' => is_string($rawArchetype) && $rawArchetype !== ''
                     ? $rawArchetype
                     : 'wanderer',
+                'lineage' => $lineage,
+                'character_system_version' => $this->system->systemVersion(),
             ])->save();
+
             $profile->refresh();
         }
 
@@ -55,8 +84,12 @@ class CharacterSnapshot
         return [
             'created' => $profile->character_created_at !== null,
             'name' => $profile->character_name ?: $user->name,
-            'archetype' => (string) ($profile->getRawOriginal('archetype') ?: 'wanderer'),
-            'appearance' => $profile->appearance ?? CharacterProfile::defaultAppearance(),
+            'archetype' => (string) (
+                $profile->getRawOriginal('archetype') ?: 'wanderer'
+            ),
+            'lineage' => $lineage,
+            'character_system_version' => $this->system->systemVersion(),
+            'appearance' => $appearance,
             'level' => $profile->level,
             'xp' => $profile->xp,
             'total_xp' => $profile->total_xp,

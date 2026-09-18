@@ -113,6 +113,8 @@ export default function PublicProfile(props: PublicSocialProfile) {
                 '  ·  Level ' +
                 character.level +
                 '  ·  ' +
+                capitalize(character.lineage) +
+                '  ·  ' +
                 capitalize(character.archetype),
             455,
             260,
@@ -222,6 +224,8 @@ export default function PublicProfile(props: PublicSocialProfile) {
                                             <p className="text-muted-foreground mt-1 text-sm">
                                                 @{profile.handle} · Level{' '}
                                                 {character.level} ·{' '}
+                                                {capitalize(character.lineage)}{' '}
+                                                ·{' '}
                                                 {capitalize(
                                                     character.archetype,
                                                 )}

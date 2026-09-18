@@ -1,0 +1,197 @@
+{
+    "version": "1.0.0",
+    "styleId": "runeday-heroic-compact-fantasy",
+    "rig": {
+        "id": "humanoid",
+        "canvas": {
+            "width": 64,
+            "height": 64,
+            "baselineY": 58
+        },
+        "sharedEquipmentSockets": true,
+        "equipmentPolicy": "shared-humanoid"
+    },
+    "frames": {
+        "broad": {
+            "label": "Broad",
+            "description": "Heroic, grounded frame for armor and strong silhouettes.",
+            "scaleProfile": "standard-broad",
+            "allowedLineages": ["human", "elf", "skeleton"],
+            "heroBounds": {
+                "left": 17,
+                "top": 4,
+                "right": 47,
+                "bottom": 58
+            }
+        },
+        "lean": {
+            "label": "Lean",
+            "description": "Narrower frame for agile and arcane silhouettes.",
+            "scaleProfile": "standard-lean",
+            "allowedLineages": ["human", "elf", "skeleton"],
+            "heroBounds": {
+                "left": 18,
+                "top": 4,
+                "right": 46,
+                "bottom": 58
+            }
+        },
+        "heavy": {
+            "label": "Heavy",
+            "description": "Large ogre frame that preserves RuneDay equipment sockets.",
+            "scaleProfile": "heavy-ogre",
+            "allowedLineages": ["ogre"],
+            "heroBounds": {
+                "left": 11,
+                "top": 1,
+                "right": 53,
+                "bottom": 58
+            }
+        }
+    },
+    "lineages": {
+        "human": {
+            "label": "Human",
+            "description": "Versatile classic adventurer with the widest neutral customization.",
+            "rig": "humanoid",
+            "defaultFrame": "broad",
+            "allowedFrames": ["broad", "lean"],
+            "equipmentCompatibility": "shared-humanoid",
+            "defaults": {
+                "body": "broad",
+                "skin_tone": "bronze",
+                "bone_tone": "none",
+                "hair_style": "short",
+                "hair_color": "onyx",
+                "eye_color": "emerald",
+                "eye_glow": "none",
+                "face_style": "balanced",
+                "ear_style": "standard",
+                "jaw_style": "standard",
+                "horn_style": "none"
+            },
+            "options": {
+                "skin_tone": ["moon", "sun", "bronze", "deep"],
+                "bone_tone": ["none"],
+                "hair_style": ["short", "wild", "braid", "crest", "none"],
+                "hair_color": ["onyx", "chestnut", "blonde", "silver", "ember"],
+                "eye_color": ["emerald", "azure", "amber", "violet"],
+                "eye_glow": ["none"],
+                "face_style": ["balanced", "strong", "soft"],
+                "ear_style": ["standard"],
+                "jaw_style": ["standard"],
+                "horn_style": ["none"]
+            }
+        },
+        "elf": {
+            "label": "Elf",
+            "description": "Elegant humanoid lineage with long ears and refined facial silhouettes.",
+            "rig": "humanoid",
+            "defaultFrame": "lean",
+            "allowedFrames": ["broad", "lean"],
+            "equipmentCompatibility": "shared-humanoid",
+            "defaults": {
+                "body": "lean",
+                "skin_tone": "moon",
+                "bone_tone": "none",
+                "hair_style": "braid",
+                "hair_color": "silver",
+                "eye_color": "azure",
+                "eye_glow": "none",
+                "face_style": "refined",
+                "ear_style": "long",
+                "jaw_style": "refined",
+                "horn_style": "none"
+            },
+            "options": {
+                "skin_tone": ["moon", "sun", "bronze", "deep"],
+                "bone_tone": ["none"],
+                "hair_style": ["short", "wild", "braid", "crest", "none"],
+                "hair_color": ["onyx", "chestnut", "blonde", "silver", "ember"],
+                "eye_color": ["emerald", "azure", "amber", "violet"],
+                "eye_glow": ["none"],
+                "face_style": ["refined", "angular", "serene"],
+                "ear_style": ["long", "swept", "high"],
+                "jaw_style": ["refined"],
+                "horn_style": ["none"]
+            }
+        },
+        "skeleton": {
+            "label": "Skeleton",
+            "description": "Undead humanoid lineage with bone palettes, jaw variants and magical eye glow.",
+            "rig": "humanoid",
+            "defaultFrame": "broad",
+            "allowedFrames": ["broad", "lean"],
+            "equipmentCompatibility": "shared-humanoid",
+            "defaults": {
+                "body": "broad",
+                "skin_tone": "none",
+                "bone_tone": "ivory",
+                "hair_style": "none",
+                "hair_color": "onyx",
+                "eye_color": "azure",
+                "eye_glow": "azure",
+                "face_style": "classic_skull",
+                "ear_style": "none",
+                "jaw_style": "intact",
+                "horn_style": "none"
+            },
+            "options": {
+                "skin_tone": ["none"],
+                "bone_tone": ["ivory", "aged", "ash", "obsidian"],
+                "hair_style": ["none", "short", "wild", "crest"],
+                "hair_color": ["onyx", "chestnut", "silver", "ember"],
+                "eye_color": ["azure"],
+                "eye_glow": ["azure", "emerald", "amber", "violet", "ember"],
+                "face_style": [
+                    "classic_skull",
+                    "narrow_skull",
+                    "ancient_skull"
+                ],
+                "ear_style": ["none"],
+                "jaw_style": ["intact", "cracked", "missing"],
+                "horn_style": ["none"]
+            }
+        },
+        "ogre": {
+            "label": "Ogre",
+            "description": "Heavy humanoid lineage with larger mass, powerful jaw and optional horns.",
+            "rig": "humanoid",
+            "defaultFrame": "heavy",
+            "allowedFrames": ["heavy"],
+            "equipmentCompatibility": "shared-humanoid-heavy-mask",
+            "defaults": {
+                "body": "heavy",
+                "skin_tone": "moss",
+                "bone_tone": "none",
+                "hair_style": "crest",
+                "hair_color": "onyx",
+                "eye_color": "amber",
+                "eye_glow": "none",
+                "face_style": "brute",
+                "ear_style": "small",
+                "jaw_style": "broad",
+                "horn_style": "none"
+            },
+            "options": {
+                "skin_tone": ["moss", "ochre", "stone", "deep"],
+                "bone_tone": ["none"],
+                "hair_style": ["none", "short", "wild", "crest"],
+                "hair_color": ["onyx", "chestnut", "silver", "ember"],
+                "eye_color": ["emerald", "azure", "amber", "violet"],
+                "eye_glow": ["none"],
+                "face_style": ["brute", "elder", "scarred"],
+                "ear_style": ["small", "torn"],
+                "jaw_style": ["broad", "tusked"],
+                "horn_style": ["none", "short", "swept"]
+            }
+        }
+    },
+    "views": ["front", "side", "back"],
+    "animations": ["idle", "walk", "attack", "cast", "celebrate", "hurt"],
+    "equipmentSlots": ["weapon", "head", "chest", "feet", "back", "accessory"],
+    "legacyBodyMap": {
+        "type_a": "broad",
+        "type_b": "lean"
+    }
+}

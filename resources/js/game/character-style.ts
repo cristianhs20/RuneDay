@@ -1,4 +1,4 @@
-export const CHARACTER_STYLE_VERSION = '1.0.0' as const;
+export const CHARACTER_STYLE_VERSION = '1.1.0' as const;
 export const CHARACTER_STYLE_ID = 'runeday-heroic-compact-fantasy' as const;
 
 export const CHARACTER_CANVAS = {
@@ -93,6 +93,48 @@ export const CHARACTER_PALETTE = {
             base: '#704333',
             highlight: '#986552',
         },
+        moss: {
+            shadow: '#44502f',
+            base: '#657344',
+            highlight: '#8d9b61',
+        },
+        ochre: {
+            shadow: '#725133',
+            base: '#9e7449',
+            highlight: '#c79b68',
+        },
+        stone: {
+            shadow: '#5b5c58',
+            base: '#7d7f78',
+            highlight: '#a8aaa0',
+        },
+    },
+    bone: {
+        none: {
+            shadow: '#4a4d53',
+            base: '#747a82',
+            highlight: '#9da4ad',
+        },
+        ivory: {
+            shadow: '#9d9174',
+            base: '#d5c9a6',
+            highlight: '#f0e8cf',
+        },
+        aged: {
+            shadow: '#746447',
+            base: '#aa9669',
+            highlight: '#d2bf8d',
+        },
+        ash: {
+            shadow: '#65666b',
+            base: '#92949a',
+            highlight: '#c2c5ca',
+        },
+        obsidian: {
+            shadow: '#1d1d24',
+            base: '#353641',
+            highlight: '#575968',
+        },
     },
     hair: {
         onyx: {
@@ -126,6 +168,14 @@ export const CHARACTER_PALETTE = {
         azure: '#55a0dd',
         amber: '#d39943',
         violet: '#9b78dc',
+    },
+    eyeGlow: {
+        none: '#00000000',
+        emerald: '#68e19a',
+        azure: '#71c8ff',
+        amber: '#f4bf63',
+        violet: '#bd95ff',
+        ember: '#ff744e',
     },
     archetype: {
         wanderer: {
@@ -231,8 +281,10 @@ export const CHARACTER_PALETTE = {
     },
 } satisfies {
     skin: Record<string, ThreeTone>;
+    bone: Record<string, ThreeTone>;
     hair: Record<string, ThreeTone>;
     eyes: Record<string, string>;
+    eyeGlow: Record<string, string>;
     archetype: Record<string, ThreeTone>;
     material: Record<string, ThreeTone>;
     rarity: Record<string, string>;

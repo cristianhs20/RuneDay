@@ -266,7 +266,8 @@ export default function Social({
                                             </p>
                                         </div>
                                         <span className="rounded-full border px-2 py-1 text-[10px] font-medium">
-                                            Lv. {person.level}
+                                            Lv. {person.level} ·{' '}
+                                            {capitalize(person.lineage)}
                                         </span>
                                     </Link>
                                 ))}
@@ -320,7 +321,7 @@ function FriendCard({ person }: { person: SocialPerson }) {
                 </p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                     <span className="rounded-full border px-2 py-1 text-[10px]">
-                        Lv. {person.level}
+                        Lv. {person.level} · {capitalize(person.lineage)}
                     </span>
                     {person.renown !== null && (
                         <span className="rounded-full border px-2 py-1 text-[10px]">
@@ -416,4 +417,8 @@ function RequestRow({
             )}
         </div>
     );
+}
+
+function capitalize(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1);
 }

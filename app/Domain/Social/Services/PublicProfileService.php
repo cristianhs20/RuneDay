@@ -92,6 +92,7 @@ class PublicProfileService
                 'created' => $character['created'],
                 'name' => $character['name'],
                 'archetype' => $character['archetype'],
+                'lineage' => $character['lineage'],
                 'appearance' => $character['appearance'],
                 'level' => $character['level'],
                 'equipment' => $character['equipment'],

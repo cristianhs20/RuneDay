@@ -1,10 +1,15 @@
-import type { GameAppearance, EquippedVisual } from '@/types/game';
+import type {
+    CharacterLineage,
+    EquippedVisual,
+    GameAppearance,
+} from '@/types/game';
 
 export type SocialPerson = {
     handle: string;
     name: string;
     level: number;
     archetype: 'wanderer' | 'warden' | 'rogue' | 'arcanist';
+    lineage: CharacterLineage;
     appearance: GameAppearance;
     equipment: Record<string, EquippedVisual>;
     renown: number | null;
@@ -42,7 +47,13 @@ export type SocialActivity = {
     created_at?: string | null;
     actor: Pick<
         SocialPerson,
-        'handle' | 'name' | 'level' | 'archetype' | 'appearance' | 'equipment'
+        | 'handle'
+        | 'name'
+        | 'level'
+        | 'archetype'
+        | 'lineage'
+        | 'appearance'
+        | 'equipment'
     >;
     reactions: SocialReactionCounts;
     viewer_reaction?: 'cheer' | 'fire' | 'sword' | 'crown' | null;
@@ -71,6 +82,7 @@ export type PublicSocialProfile = {
         created: boolean;
         name: string;
         archetype: 'wanderer' | 'warden' | 'rogue' | 'arcanist';
+        lineage: CharacterLineage;
         appearance: GameAppearance;
         level: number;
         equipment: Record<string, EquippedVisual>;

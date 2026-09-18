@@ -65,6 +65,7 @@ class GuildSnapshotService
                 'name' => $character['name'],
                 'level' => $character['level'],
                 'archetype' => $character['archetype'],
+                'lineage' => $character['lineage'],
                 'appearance' => $character['appearance'],
                 'equipment' => $character['equipment'],
                 'contribution_xp' => $member->contribution_xp,
@@ -198,6 +199,7 @@ class GuildSnapshotService
                 'name' => $character['name'],
                 'level' => $character['level'],
                 'archetype' => $character['archetype'],
+                'lineage' => $character['lineage'],
                 'appearance' => $character['appearance'],
                 'equipment' => $character['equipment'],
             ];

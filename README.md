@@ -153,7 +153,33 @@ See:
 - [Asset Production Spec v1](docs/character-engine/asset-production-spec-v1.md)
 - [Visual QA Checklist v1](docs/character-engine/qa-checklist-v1.md)
 
-Phase A deliberately prioritizes **system consistency before asset quantity**. Large cosmetic production should wait until the authored base hero and animation set are approved in Character Engine Phase B.
+Phase A deliberately prioritizes **system consistency before asset quantity**.
+
+**Character Engine — Phase B: Base Hero + Lineage System v1: complete.**
+
+- shared Humanoid Rig contract consumed by Laravel + React
+- semantic Broad / Lean / Heavy body frames
+- legacy type_a / type_b normalization
+- Human lineage
+- Elf lineage with ear/face variants
+- Skeleton lineage with bone palettes, jaw variants and soul-eye glow
+- Ogre lineage with Heavy frame, tusks and horns
+- Front / Side / Back rendering
+- lineage-specific server-side personalization validation
+- one shared equipment catalog across all launch lineages
+- Ogre Heavy equipment mask without moving canonical sockets
+- Idle / Walk / Attack / Cast / Celebrate / Hurt states
+- 4-lineage × 6-state Epic equipment stress matrix
+- internal Lineage Lab at /character/lineage-lab
+- lineage identity propagated to Friends, public profiles and Guilds
+
+See:
+
+- [Phase B](docs/character-engine/phase-b.md)
+- [Lineage System v1](docs/character-engine/lineage-system-v1.md)
+- [Animation Stress Test v1](docs/character-engine/animation-stress-test-v1.md)
+
+Mass equipment production should still remain controlled: Phase B proves the rig, lineage and compatibility architecture. Future authored frame-by-frame animation and production asset packs must continue to pass the Character QA system.
 
 ## Local setup
 

@@ -99,6 +99,7 @@ class SocialFeedService
                 'name' => $character['name'],
                 'level' => $character['level'],
                 'archetype' => $character['archetype'],
+                'lineage' => $character['lineage'],
                 'appearance' => $character['appearance'],
                 'equipment' => $character['equipment'],
             ],
