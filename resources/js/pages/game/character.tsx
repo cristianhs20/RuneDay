@@ -114,6 +114,11 @@ export default function Character({ character }: { character: GameCharacter }) {
                         <Button asChild variant="outline">
                             <Link href="/character/style-lab">Style Lab</Link>
                         </Button>
+                        <Button asChild>
+                            <Link href="/character/sprite-v2-lab">
+                                Sprite v2 Lab
+                            </Link>
+                        </Button>
                         <Button asChild variant="outline">
                             <Link href="/character/lineage-lab">
                                 Lineage Lab

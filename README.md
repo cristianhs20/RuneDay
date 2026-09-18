@@ -222,6 +222,13 @@ Production characters now target:
 
 The SVG/shape renderer remains temporarily only for rig/anchor debugging and legacy fallback.
 
+Current Phase D execution:
+
+- D1 — Sprite Standard v2 complete
+- D2 — Human Broad Production Master implemented
+- D2 review — awaiting visual approval at `/character/sprite-v2-lab`
+- D4 authored animation is blocked until D2 visual approval
+
 See:
 
 - [Phase D](docs/character-engine/phase-d.md)
@@ -229,6 +236,7 @@ See:
 - [Sprite Manifest v2](docs/character-engine/sprite-manifest-v2.md)
 - [Production Art Gates v2](docs/character-engine/production-art-gates-v2.md)
 - [Manifest JSON Schema](resources/game/sprite-v2/manifest.schema.json)
+- [D2 Human Broad Master](docs/character-engine/d2-human-broad-master.md)
 
 ## Local setup
 

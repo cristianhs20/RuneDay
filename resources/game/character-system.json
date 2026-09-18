@@ -222,5 +222,23 @@
             "composition": "manifest-driven",
             "animation": "authored-spritesheets"
         }
+    },
+    "productionAssets": {
+        "humanBroadD2": {
+            "id": "human_broad_d2_master",
+            "engine": "runeday-sprite-v2",
+            "status": "review",
+            "lineage": "human",
+            "fit_profile": "broad",
+            "cell": {
+                "width": 128,
+                "height": 128
+            },
+            "views": ["front", "side", "back"],
+            "animation_states": ["idle"],
+            "layers": ["shadow", "weapon_back", "body", "face", "eyes", "hair"],
+            "manifest": "/game/characters/v2/manifests/human-broad-d2.json",
+            "review_route": "/character/sprite-v2-lab"
+        }
     }
 }

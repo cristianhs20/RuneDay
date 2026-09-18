@@ -20,6 +20,7 @@
         "type": {
             "enum": [
                 "character_base",
+                "character_assembly",
                 "equipment",
                 "customization",
                 "fx",
@@ -52,7 +53,7 @@
             "additionalProperties": false
         },
         "views": {
-            "$ref": "#/$defs/views"
+            "type": "object"
         },
         "fits": {
             "type": "object",
@@ -184,6 +185,104 @@
                     "$ref": "#/$defs/views"
                 }
             ]
+        },
+        "layer": {
+            "type": "object",
+            "required": ["id", "z", "sheet", "frames"],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "z": {
+                    "type": "integer"
+                },
+                "sheet": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\.png$"
+                },
+                "frames": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "fps": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                },
+                "loop": {
+                    "type": "boolean"
+                },
+                "opacity": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                }
+            },
+            "additionalProperties": false
+        },
+        "assemblyAnimations": {
+            "type": "object",
+            "properties": {
+                "idle": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/layer"
+                    },
+                    "minItems": 1
+                },
+                "walk": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/layer"
+                    },
+                    "minItems": 1
+                },
+                "attack": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/layer"
+                    },
+                    "minItems": 1
+                },
+                "cast": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/layer"
+                    },
+                    "minItems": 1
+                },
+                "celebrate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/layer"
+                    },
+                    "minItems": 1
+                },
+                "hurt": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/layer"
+                    },
+                    "minItems": 1
+                }
+            },
+            "additionalProperties": false
+        },
+        "assemblyViews": {
+            "type": "object",
+            "properties": {
+                "front": {
+                    "$ref": "#/$defs/assemblyAnimations"
+                },
+                "side": {
+                    "$ref": "#/$defs/assemblyAnimations"
+                },
+                "back": {
+                    "$ref": "#/$defs/assemblyAnimations"
+                }
+            },
+            "additionalProperties": false
         }
     },
     "allOf": [
@@ -208,7 +307,29 @@
                 }
             },
             "then": {
-                "required": ["lineage", "fit_profile", "cell", "views"]
+                "required": ["lineage", "fit_profile", "cell", "views"],
+                "properties": {
+                    "views": {
+                        "$ref": "#/$defs/views"
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "character_assembly"
+                    }
+                }
+            },
+            "then": {
+                "required": ["lineage", "fit_profile", "cell", "views"],
+                "properties": {
+                    "views": {
+                        "$ref": "#/$defs/assemblyViews"
+                    }
+                }
             }
         }
     ],

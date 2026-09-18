@@ -4,7 +4,7 @@
 
 ## Status
 
-**Official replacement phase — approved for execution.**
+**In execution — D1 complete. D2 Human Broad master implemented and awaiting visual approval.**
 
 Phase D replaces the current SVG/shape-based visual direction as the final production path for RuneDay characters.
 
@@ -145,6 +145,18 @@ Required:
 - no CSS-generated anatomy.
 
 # D2 — Human Broad Master
+
+## Current D2 status
+
+Implemented in Sprite Engine v2 and available for review at:
+
+`/character/sprite-v2-lab`
+
+Reference:
+
+- [D2 Human Broad Production Master](d2-human-broad-master.md)
+
+Gate state: **implemented / awaiting visual approval**.
 
 ## Goal
 

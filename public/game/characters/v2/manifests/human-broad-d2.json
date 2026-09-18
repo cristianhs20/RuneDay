@@ -1,0 +1,176 @@
+{
+    "engine": "runeday-sprite-v2",
+    "version": "2.0.0",
+    "asset_id": "human_broad_d2_master",
+    "type": "character_assembly",
+    "lineage": "human",
+    "fit_profile": "broad",
+    "cell": {
+        "width": 128,
+        "height": 128
+    },
+    "source": {
+        "phase": "D2",
+        "status": "production-master-review",
+        "art_direction": "RuneDay Heroic Compact Fantasy",
+        "generated_from_approved_concept": true
+    },
+    "views": {
+        "front": {
+            "idle": [
+                {
+                    "id": "shadow",
+                    "z": 0,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/front-shadow.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "weapon_back",
+                    "z": 10,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/front-weapon_back.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "body",
+                    "z": 20,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/front-body.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "face",
+                    "z": 30,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/front-face.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "eyes",
+                    "z": 40,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/front-eyes.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "hair",
+                    "z": 50,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/front-hair.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                }
+            ]
+        },
+        "side": {
+            "idle": [
+                {
+                    "id": "shadow",
+                    "z": 0,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/side-shadow.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "weapon_back",
+                    "z": 10,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/side-weapon_back.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "body",
+                    "z": 20,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/side-body.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "face",
+                    "z": 30,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/side-face.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "eyes",
+                    "z": 40,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/side-eyes.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "hair",
+                    "z": 50,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/side-hair.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                }
+            ]
+        },
+        "back": {
+            "idle": [
+                {
+                    "id": "shadow",
+                    "z": 0,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/back-shadow.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "weapon_back",
+                    "z": 10,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/back-weapon_back.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "body",
+                    "z": 20,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/back-body.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "face",
+                    "z": 30,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/back-face.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "eyes",
+                    "z": 40,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/back-eyes.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                },
+                {
+                    "id": "hair",
+                    "z": 50,
+                    "sheet": "/game/characters/v2/characters/human/broad/master/back-hair.png",
+                    "frames": 1,
+                    "fps": 4,
+                    "loop": true
+                }
+            ]
+        }
+    }
+}
