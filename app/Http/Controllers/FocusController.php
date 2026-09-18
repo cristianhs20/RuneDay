@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Game\Services\AchievementEngine;
 use App\Domain\Productivity\Actions\RecordFocusSession;
 use App\Domain\Productivity\Models\FocusSession;
 use App\Domain\Productivity\Models\Task;
@@ -46,8 +47,11 @@ class FocusController extends Controller
         ]);
     }
 
-    public function store(StoreFocusSessionRequest $request, RecordFocusSession $record): RedirectResponse
-    {
+    public function store(
+        StoreFocusSessionRequest $request,
+        RecordFocusSession $record,
+        AchievementEngine $achievements,
+    ): RedirectResponse {
         $data = $request->validated();
         $reward = $record->handle(
             $request->user()->id,
@@ -56,6 +60,15 @@ class FocusController extends Controller
             $data['mode'] ?? 'focus',
         );
 
-        return back()->with('reward', ['xp' => $reward['xp'], 'gold' => $reward['gold']]);
+        $unlocked = $achievements->evaluate($request->user());
+
+        return back()
+            ->with('reward', ['xp' => $reward['xp'], 'gold' => $reward['gold']])
+            ->with('game_event', [
+                'type' => 'focus_complete',
+                'xp' => $reward['xp'],
+                'gold' => $reward['gold'],
+                'achievements' => $unlocked,
+            ]);
     }
 }

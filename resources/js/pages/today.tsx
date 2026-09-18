@@ -1,4 +1,4 @@
-import { Head, Link, router, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import {
     Check,
     Coins,
@@ -9,10 +9,12 @@ import {
     Sword,
     TimerReset,
 } from 'lucide-react';
+import { CharacterSprite } from '@/components/game/character-sprite';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import type { Difficulty, Quest } from '@/lib/runeday';
+import type { GameCharacter } from '@/types/game';
 import { formatDateTime, rewards } from '@/lib/runeday';
 
 type Profile = {
@@ -53,6 +55,10 @@ export default function Today({
     dailies: Daily[];
     stats: TodayStats;
 }) {
+    const { gameCharacter } = usePage<{
+        gameCharacter?: GameCharacter | null;
+    }>().props;
+
     const form = useForm({
         title: '',
         difficulty: 'normal' as Difficulty,
@@ -91,22 +97,36 @@ export default function Today({
                                 and protect time for focused work.
                             </p>
                         </div>
-                        <div className="grid grid-cols-3 gap-3 text-center">
-                            <Stat
-                                icon={<Sword />}
-                                label="Level"
-                                value={profile.level}
-                            />
-                            <Stat
-                                icon={<Sparkles />}
-                                label="XP"
-                                value={profile.xp}
-                            />
-                            <Stat
-                                icon={<Coins />}
-                                label="Gold"
-                                value={profile.gold}
-                            />
+                        <div className="flex items-end gap-4">
+                            {gameCharacter && (
+                                <Link
+                                    href="/character"
+                                    className="hidden rounded-2xl bg-white/5 p-2 transition hover:bg-white/10 lg:block"
+                                    aria-label="Open hero"
+                                >
+                                    <CharacterSprite
+                                        character={gameCharacter}
+                                        className="size-24"
+                                    />
+                                </Link>
+                            )}
+                            <div className="grid grid-cols-3 gap-3 text-center">
+                                <Stat
+                                    icon={<Sword />}
+                                    label="Level"
+                                    value={profile.level}
+                                />
+                                <Stat
+                                    icon={<Sparkles />}
+                                    label="XP"
+                                    value={profile.xp}
+                                />
+                                <Stat
+                                    icon={<Coins />}
+                                    label="Gold"
+                                    value={profile.gold}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="mt-6 h-2 overflow-hidden rounded-full bg-white/10">

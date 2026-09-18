@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DailyController;
 use App\Http\Controllers\FocusController;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\InsightsController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +53,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
     Route::post('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
+
+    Route::get('character', [CharacterController::class, 'show'])->name('character.show');
+    Route::put('character', [CharacterController::class, 'update'])->name('character.update');
+
+    Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
+    Route::post('inventory/{inventoryItem}/equip', [InventoryController::class, 'equip'])->name('inventory.equip');
+    Route::delete('equipment/{slot}', [InventoryController::class, 'unequip'])->name('inventory.unequip');
+
+    Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
+    Route::post('shop/{item}/purchase', [ShopController::class, 'purchase'])->name('shop.purchase');
+
+    Route::get('achievements', AchievementController::class)->name('achievements.index');
 });
 
 require __DIR__.'/settings.php';

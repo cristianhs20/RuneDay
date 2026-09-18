@@ -1,5 +1,6 @@
 import { createInertiaApp } from '@inertiajs/react';
 import { RewardFlash } from '@/components/reward-flash';
+import { GameEventOverlay } from '@/components/game/game-event-overlay';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
@@ -29,6 +30,7 @@ void createInertiaApp({
             <TooltipProvider delayDuration={0}>
                 {app}
                 <RewardFlash />
+                <GameEventOverlay />
                 <Toaster />
             </TooltipProvider>
         );

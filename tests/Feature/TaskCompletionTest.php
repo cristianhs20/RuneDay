@@ -13,7 +13,7 @@ class TaskCompletionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_completing_a_quest_grants_xp_and_gold_once(): void
+    public function test_completing_a_quest_grants_base_reward_once(): void
     {
         $user = User::factory()->create(['email_verified_at' => now()]);
         $task = Task::create([
@@ -25,12 +25,37 @@ class TaskCompletionTest extends TestCase
 
         $this->actingAs($user)->post("/tasks/{$task->id}/complete")->assertRedirect();
 
+        $this->assertDatabaseHas('reward_transactions', [
+            'user_id' => $user->id,
+            'source_type' => 'task_completion',
+            'source_id' => $task->id,
+            'xp_delta' => 60,
+            'gold_delta' => 20,
+        ]);
+
+        $this->assertSame(
+            1,
+            RewardTransaction::query()
+                ->where('user_id', $user->id)
+                ->where('source_type', 'task_completion')
+                ->count(),
+        );
+
         $profile = CharacterProfile::where('user_id', $user->id)->firstOrFail();
-        $this->assertSame(60, $profile->total_xp);
-        $this->assertSame(20, $profile->gold);
-        $this->assertDatabaseCount(RewardTransaction::class, 1);
+        $xpAfterFirst = $profile->total_xp;
+        $goldAfterFirst = $profile->gold;
 
         $this->actingAs($user)->post("/tasks/{$task->id}/complete");
-        $this->assertDatabaseCount(RewardTransaction::class, 1);
+
+        $profile->refresh();
+        $this->assertSame($xpAfterFirst, $profile->total_xp);
+        $this->assertSame($goldAfterFirst, $profile->gold);
+        $this->assertSame(
+            1,
+            RewardTransaction::query()
+                ->where('user_id', $user->id)
+                ->where('source_type', 'task_completion')
+                ->count(),
+        );
     }
 }

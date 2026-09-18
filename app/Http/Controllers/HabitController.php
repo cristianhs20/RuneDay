@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Game\Services\AchievementEngine;
 use App\Domain\Productivity\Actions\LogHabit;
 use App\Domain\Productivity\Models\Habit;
 use App\Http\Requests\Habits\LogHabitRequest;
@@ -72,8 +73,12 @@ class HabitController extends Controller
         return back()->with('success', 'Habit archived.');
     }
 
-    public function log(LogHabitRequest $request, Habit $habit, LogHabit $logHabit): RedirectResponse
-    {
+    public function log(
+        LogHabitRequest $request,
+        Habit $habit,
+        LogHabit $logHabit,
+        AchievementEngine $achievements,
+    ): RedirectResponse {
         $this->authorizeHabit($request, $habit);
         $direction = $request->validated('direction');
 
@@ -88,7 +93,16 @@ class HabitController extends Controller
 
         $reward = $logHabit->handle($habit, $direction, $request->validated('note'));
 
-        return back()->with('reward', ['xp' => $reward['xp'], 'gold' => $reward['gold']]);
+        $unlocked = $achievements->evaluate($request->user());
+
+        return back()
+            ->with('reward', ['xp' => $reward['xp'], 'gold' => $reward['gold']])
+            ->with('game_event', [
+                'type' => 'habit_logged',
+                'xp' => $reward['xp'],
+                'gold' => $reward['gold'],
+                'achievements' => $unlocked,
+            ]);
     }
 
     private function authorizeHabit(Request $request, Habit $habit): void

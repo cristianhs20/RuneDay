@@ -117,7 +117,15 @@ class TaskController extends Controller
         $this->authorizeTask($request, $task);
         $reward = $completeTask->handle($task);
 
-        return back()->with('reward', ['xp' => $reward['xp'], 'gold' => $reward['gold']]);
+        return back()
+            ->with('reward', ['xp' => $reward['xp'], 'gold' => $reward['gold']])
+            ->with('game_event', [
+                'type' => 'quest_complete',
+                'xp' => $reward['xp'],
+                'gold' => $reward['gold'],
+                'loot' => $reward['loot'],
+                'achievements' => $reward['achievements'],
+            ]);
     }
 
     private function authorizeTask(Request $request, Task $task): void

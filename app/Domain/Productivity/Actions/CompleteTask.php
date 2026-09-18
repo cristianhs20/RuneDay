@@ -3,7 +3,7 @@
 namespace App\Domain\Productivity\Actions;
 
 use App\Domain\Game\Models\RewardTransaction;
-use App\Domain\Game\Services\RewardEngine;
+use App\Domain\Game\Services\QuestCompletionGameService;
 use App\Domain\Productivity\Models\Task;
 use App\Support\UserTime;
 use Illuminate\Support\Facades\DB;
@@ -12,11 +12,19 @@ use Illuminate\Validation\ValidationException;
 class CompleteTask
 {
     public function __construct(
-        private readonly RewardEngine $rewards,
+        private readonly QuestCompletionGameService $game,
         private readonly UserTime $time,
     ) {}
 
-    /** @return array{granted: bool, xp: int, gold: int} */
+    /**
+     * @return array{
+     *     granted: bool,
+     *     xp: int,
+     *     gold: int,
+     *     loot: array<string, mixed>|null,
+     *     achievements: array<int, array<string, mixed>>
+     * }
+     */
     public function handle(Task $task): array
     {
         return DB::transaction(function () use ($task) {
@@ -51,12 +59,11 @@ class CompleteTask
                 default => 0.0,
             };
 
-            return $this->rewards->grant(
-                $task->user_id,
-                'task_completion',
-                $task->id,
+            return $this->game->handle(
+                $task,
                 (int) floor($baseXp * $factor),
                 (int) floor($baseGold * $factor),
+                $factor,
                 [
                     'difficulty' => $task->difficulty->value,
                     'base_xp' => $baseXp,
