@@ -1,5 +1,22 @@
-export const CHARACTER_STYLE_VERSION = '1.1.0' as const;
+export const CHARACTER_STYLE_VERSION = '1.2.0' as const;
 export const CHARACTER_STYLE_ID = 'runeday-heroic-compact-fantasy' as const;
+
+export const CHARACTER_ART_PASSES = {
+    humanBroad: {
+        id: 'human-broad-c2.1',
+        lineage: 'human',
+        frame: 'broad',
+        status: 'implemented',
+        goals: [
+            'stronger shoulder silhouette',
+            'clearer torso taper',
+            'heavier legs and boots',
+            'readable facial clusters',
+            'authored hair volume',
+            'consistent front side back mass',
+        ],
+    },
+} as const;
 
 export const CHARACTER_CANVAS = {
     width: 64,
@@ -435,6 +452,7 @@ export function equipmentMaterial(visualKey?: string): CharacterMaterialName {
     if (visualKey.includes('shadow') || visualKey.includes('void')) {
         return 'darkLeather';
     }
+    if (visualKey.includes('linen')) return 'clothBlue';
     if (visualKey.includes('ranger') || visualKey.includes('scout')) {
         return 'clothGreen';
     }

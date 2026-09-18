@@ -77,6 +77,10 @@ export function CharacterSprite({
     const eyeColor = CHARACTER_PALETTE.eyes[character.appearance.eye_color];
     const eyeGlow = CHARACTER_PALETTE.eyeGlow[character.appearance.eye_glow];
     const archetypePalette = CHARACTER_PALETTE.archetype[character.archetype];
+    const artPass =
+        lineage === 'human' && frame === 'broad'
+            ? 'human-broad-c2.1'
+            : 'phase-b-base';
 
     return (
         <div
@@ -85,6 +89,7 @@ export function CharacterSprite({
             data-lineage={lineage}
             data-frame={frame}
             data-view={view}
+            data-art-pass={artPass}
             className={['runeday-sprite', 'runeday-sprite-' + state, className]
                 .filter(Boolean)
                 .join(' ')}
@@ -178,6 +183,22 @@ function FrontHero({
 }) {
     const { appearance, equipment } = character;
 
+    if (
+        lineage === 'human' &&
+        normalizeBodyFrame(appearance.body) === 'broad'
+    ) {
+        return (
+            <HumanBroadFrontC21
+                character={character}
+                geometry={geometry}
+                bodyPalette={bodyPalette}
+                hairPalette={hairPalette}
+                eyeColor={eyeColor}
+                archetypePalette={archetypePalette}
+            />
+        );
+    }
+
     return (
         <>
             <BackLayer item={equipment.back} view="front" geometry={geometry} />
@@ -262,6 +283,23 @@ function SideHero({
     archetypePalette: Tone;
 }) {
     const { appearance, equipment } = character;
+
+    if (
+        lineage === 'human' &&
+        normalizeBodyFrame(appearance.body) === 'broad'
+    ) {
+        return (
+            <HumanBroadSideC21
+                character={character}
+                geometry={geometry}
+                bodyPalette={bodyPalette}
+                hairPalette={hairPalette}
+                eyeColor={eyeColor}
+                archetypePalette={archetypePalette}
+            />
+        );
+    }
+
     const heavy = appearance.body === 'heavy';
     const torsoX = heavy ? 23 : 25;
     const torsoWidth = heavy ? 20 : 16;
@@ -390,6 +428,21 @@ function BackHero({
 }) {
     const { appearance, equipment } = character;
 
+    if (
+        lineage === 'human' &&
+        normalizeBodyFrame(appearance.body) === 'broad'
+    ) {
+        return (
+            <HumanBroadBackC21
+                character={character}
+                geometry={geometry}
+                bodyPalette={bodyPalette}
+                hairPalette={hairPalette}
+                archetypePalette={archetypePalette}
+            />
+        );
+    }
+
     return (
         <>
             <WeaponLayer item={equipment.weapon} view="back" />
@@ -439,6 +492,917 @@ function BackHero({
                 geometry={geometry}
             />
             <HeadLayer item={equipment.head} view="back" geometry={geometry} />
+        </>
+    );
+}
+
+function HumanBroadFrontC21({
+    character,
+    geometry,
+    bodyPalette,
+    hairPalette,
+    eyeColor,
+    archetypePalette,
+}: {
+    character: SpriteCharacter;
+    geometry: Geometry;
+    bodyPalette: Tone;
+    hairPalette: Tone;
+    eyeColor: string;
+    archetypePalette: Tone;
+}) {
+    const { appearance, equipment } = character;
+
+    return (
+        <>
+            <BackLayer item={equipment.back} view="front" geometry={geometry} />
+            <HumanBroadLegsC21 archetypePalette={archetypePalette} />
+            <FeetLayer item={equipment.feet} view="front" geometry={geometry} />
+            <HumanBroadArmsC21
+                bodyPalette={bodyPalette}
+                archetypePalette={archetypePalette}
+            />
+            <HumanBroadTorsoC21
+                bodyPalette={bodyPalette}
+                archetypePalette={archetypePalette}
+            />
+            {equipment.chest && (
+                <HumanBroadChestC21 item={equipment.chest} view="front" />
+            )}
+            <HumanBroadHeadC21 bodyPalette={bodyPalette} />
+            <HumanBroadFaceC21
+                appearance={appearance}
+                bodyPalette={bodyPalette}
+                eyeColor={eyeColor}
+            />
+            <HumanBroadHairC21
+                appearance={appearance}
+                palette={hairPalette}
+                view="front"
+            />
+            <HeadLayer item={equipment.head} view="front" geometry={geometry} />
+            <AccessoryLayer item={equipment.accessory} view="front" />
+            <WeaponLayer item={equipment.weapon} view="front" />
+        </>
+    );
+}
+
+function HumanBroadSideC21({
+    character,
+    geometry,
+    bodyPalette,
+    hairPalette,
+    eyeColor,
+    archetypePalette,
+}: {
+    character: SpriteCharacter;
+    geometry: Geometry;
+    bodyPalette: Tone;
+    hairPalette: Tone;
+    eyeColor: string;
+    archetypePalette: Tone;
+}) {
+    const { appearance, equipment } = character;
+
+    return (
+        <>
+            <BackLayer item={equipment.back} view="side" geometry={geometry} />
+
+            <PixelBlock
+                x={26}
+                y={42}
+                width={8}
+                height={15}
+                fill={archetypePalette.shadow}
+            />
+            <PixelBlock
+                x={34}
+                y={42}
+                width={8}
+                height={15}
+                fill={archetypePalette.shadow}
+            />
+            <rect
+                x="27"
+                y="43"
+                width="4"
+                height="2"
+                fill={archetypePalette.base}
+            />
+            <FeetLayer item={equipment.feet} view="side" geometry={geometry} />
+
+            <PixelBlock
+                x={24}
+                y={29}
+                width={7}
+                height={15}
+                fill={bodyPalette.shadow}
+            />
+            <PixelBlock
+                x={39}
+                y={29}
+                width={7}
+                height={16}
+                fill={bodyPalette.base}
+            />
+            <rect
+                x="40"
+                y="31"
+                width="3"
+                height="6"
+                fill={bodyPalette.highlight}
+            />
+
+            <PixelBlock
+                x={24}
+                y={27}
+                width={19}
+                height={17}
+                fill={archetypePalette.base}
+            />
+            <rect
+                x="25"
+                y="29"
+                width="7"
+                height="2"
+                fill={archetypePalette.highlight}
+            />
+            <rect
+                x="25"
+                y="40"
+                width="17"
+                height="2"
+                fill={archetypePalette.shadow}
+            />
+
+            <PixelBlock
+                x={28}
+                y={23}
+                width={8}
+                height={6}
+                fill={bodyPalette.base}
+            />
+            <rect
+                x="26"
+                y="25"
+                width="14"
+                height="3"
+                fill={archetypePalette.shadow}
+            />
+            <rect
+                x="28"
+                y="25"
+                width="9"
+                height="1"
+                fill={archetypePalette.highlight}
+            />
+
+            {equipment.chest && (
+                <HumanBroadChestC21 item={equipment.chest} view="side" />
+            )}
+
+            <PixelBlock
+                x={24}
+                y={9}
+                width={19}
+                height={18}
+                fill={bodyPalette.base}
+            />
+            <rect
+                x="25"
+                y="11"
+                width="7"
+                height="2"
+                fill={bodyPalette.highlight}
+            />
+            <PixelBlock
+                x={22}
+                y={15}
+                width={4}
+                height={6}
+                fill={bodyPalette.shadow}
+            />
+            <rect x="42" y="16" width="4" height="5" fill={bodyPalette.base} />
+            <rect
+                x="43"
+                y="18"
+                width="2"
+                height="1"
+                fill={bodyPalette.highlight}
+            />
+            <rect x="37" y="17" width="3" height="2" fill={eyeColor} />
+            <rect
+                x="36"
+                y="15"
+                width="5"
+                height="1"
+                fill={CHARACTER_RENDER_RULES.internalOutline}
+            />
+            <rect
+                x="39"
+                y="22"
+                width="4"
+                height="1"
+                fill={bodyPalette.shadow}
+            />
+
+            <HumanBroadHairC21
+                appearance={appearance}
+                palette={hairPalette}
+                view="side"
+            />
+            <HeadLayer item={equipment.head} view="side" geometry={geometry} />
+            <AccessoryLayer item={equipment.accessory} view="side" />
+            <WeaponLayer item={equipment.weapon} view="side" />
+        </>
+    );
+}
+
+function HumanBroadBackC21({
+    character,
+    geometry,
+    bodyPalette,
+    hairPalette,
+    archetypePalette,
+}: {
+    character: SpriteCharacter;
+    geometry: Geometry;
+    bodyPalette: Tone;
+    hairPalette: Tone;
+    archetypePalette: Tone;
+}) {
+    const { appearance, equipment } = character;
+
+    return (
+        <>
+            <WeaponLayer item={equipment.weapon} view="back" />
+            <BackLayer item={equipment.back} view="back" geometry={geometry} />
+            <HumanBroadLegsC21 archetypePalette={archetypePalette} />
+            <FeetLayer item={equipment.feet} view="back" geometry={geometry} />
+            <HumanBroadArmsC21
+                bodyPalette={bodyPalette}
+                archetypePalette={archetypePalette}
+            />
+            <HumanBroadTorsoC21
+                bodyPalette={bodyPalette}
+                archetypePalette={archetypePalette}
+                back
+            />
+            {equipment.chest && (
+                <HumanBroadChestC21 item={equipment.chest} view="back" />
+            )}
+            <PixelBlock
+                x={22}
+                y={9}
+                width={20}
+                height={18}
+                fill={bodyPalette.base}
+            />
+            <rect
+                x="23"
+                y="11"
+                width="7"
+                height="2"
+                fill={bodyPalette.highlight}
+            />
+            <HumanBroadHairC21
+                appearance={appearance}
+                palette={hairPalette}
+                view="back"
+            />
+            <HeadLayer item={equipment.head} view="back" geometry={geometry} />
+        </>
+    );
+}
+
+function HumanBroadTorsoC21({
+    bodyPalette,
+    archetypePalette,
+    back = false,
+}: {
+    bodyPalette: Tone;
+    archetypePalette: Tone;
+    back?: boolean;
+}) {
+    return (
+        <>
+            <PixelBlock
+                x={29}
+                y={23}
+                width={6}
+                height={6}
+                fill={bodyPalette.base}
+            />
+            <PixelBlock
+                x={19}
+                y={27}
+                width={26}
+                height={7}
+                fill={archetypePalette.shadow}
+            />
+            <PixelBlock
+                x={21}
+                y={32}
+                width={22}
+                height={11}
+                fill={archetypePalette.base}
+            />
+            <rect
+                x="23"
+                y="33"
+                width="8"
+                height="2"
+                fill={archetypePalette.highlight}
+            />
+            <rect
+                x="23"
+                y="40"
+                width="18"
+                height="2"
+                fill={archetypePalette.shadow}
+            />
+            <rect
+                x="22"
+                y="41"
+                width="20"
+                height="3"
+                fill={CHARACTER_PALETTE.material.leather.base}
+            />
+            {!back && (
+                <rect
+                    x="30"
+                    y="41"
+                    width="4"
+                    height="3"
+                    fill={CHARACTER_PALETTE.material.gold.base}
+                />
+            )}
+            <rect
+                x="23"
+                y="25"
+                width="18"
+                height="3"
+                fill={archetypePalette.base}
+            />
+            <rect
+                x="25"
+                y="25"
+                width="8"
+                height="1"
+                fill={archetypePalette.highlight}
+            />
+        </>
+    );
+}
+
+function HumanBroadArmsC21({
+    bodyPalette,
+    archetypePalette,
+}: {
+    bodyPalette: Tone;
+    archetypePalette: Tone;
+}) {
+    return (
+        <>
+            <PixelBlock
+                x={15}
+                y={28}
+                width={9}
+                height={8}
+                fill={archetypePalette.shadow}
+            />
+            <PixelBlock
+                x={40}
+                y={28}
+                width={9}
+                height={8}
+                fill={archetypePalette.shadow}
+            />
+            <rect
+                x="17"
+                y="29"
+                width="4"
+                height="2"
+                fill={archetypePalette.highlight}
+            />
+            <rect
+                x="42"
+                y="29"
+                width="4"
+                height="2"
+                fill={archetypePalette.highlight}
+            />
+            <PixelBlock
+                x={17}
+                y={35}
+                width={7}
+                height={11}
+                fill={bodyPalette.base}
+            />
+            <PixelBlock
+                x={40}
+                y={35}
+                width={7}
+                height={11}
+                fill={bodyPalette.base}
+            />
+            <rect
+                x="18"
+                y="36"
+                width="2"
+                height="5"
+                fill={bodyPalette.highlight}
+            />
+            <rect
+                x="41"
+                y="36"
+                width="2"
+                height="5"
+                fill={bodyPalette.highlight}
+            />
+            <PixelBlock
+                x={18}
+                y={44}
+                width={6}
+                height={6}
+                fill={bodyPalette.base}
+            />
+            <PixelBlock
+                x={40}
+                y={44}
+                width={6}
+                height={6}
+                fill={bodyPalette.base}
+            />
+        </>
+    );
+}
+
+function HumanBroadLegsC21({ archetypePalette }: { archetypePalette: Tone }) {
+    return (
+        <>
+            <PixelBlock
+                x={21}
+                y={41}
+                width={10}
+                height={10}
+                fill={archetypePalette.shadow}
+            />
+            <PixelBlock
+                x={33}
+                y={41}
+                width={10}
+                height={10}
+                fill={archetypePalette.shadow}
+            />
+            <rect
+                x="23"
+                y="43"
+                width="5"
+                height="2"
+                fill={archetypePalette.base}
+            />
+            <rect
+                x="35"
+                y="43"
+                width="5"
+                height="2"
+                fill={archetypePalette.base}
+            />
+            <PixelBlock
+                x={22}
+                y={49}
+                width={9}
+                height={9}
+                fill={archetypePalette.base}
+            />
+            <PixelBlock
+                x={33}
+                y={49}
+                width={9}
+                height={9}
+                fill={archetypePalette.base}
+            />
+            <rect
+                x="23"
+                y="50"
+                width="4"
+                height="1"
+                fill={archetypePalette.highlight}
+            />
+            <rect
+                x="34"
+                y="50"
+                width="4"
+                height="1"
+                fill={archetypePalette.highlight}
+            />
+        </>
+    );
+}
+
+function HumanBroadHeadC21({ bodyPalette }: { bodyPalette: Tone }) {
+    return (
+        <>
+            <PixelBlock
+                x={22}
+                y={9}
+                width={20}
+                height={18}
+                fill={bodyPalette.base}
+            />
+            <PixelBlock
+                x={20}
+                y={15}
+                width={4}
+                height={7}
+                fill={bodyPalette.shadow}
+            />
+            <PixelBlock
+                x={40}
+                y={15}
+                width={4}
+                height={7}
+                fill={bodyPalette.base}
+            />
+            <rect
+                x="24"
+                y="11"
+                width="7"
+                height="2"
+                fill={bodyPalette.highlight}
+            />
+            <rect
+                x="25"
+                y="24"
+                width="14"
+                height="2"
+                fill={bodyPalette.shadow}
+            />
+        </>
+    );
+}
+
+function HumanBroadFaceC21({
+    appearance,
+    bodyPalette,
+    eyeColor,
+}: {
+    appearance: GameAppearance;
+    bodyPalette: Tone;
+    eyeColor: string;
+}) {
+    const strong = appearance.face_style === 'strong';
+    const soft = appearance.face_style === 'soft';
+
+    return (
+        <>
+            <rect
+                x="25"
+                y={strong ? 15 : 16}
+                width="5"
+                height="1"
+                fill={CHARACTER_RENDER_RULES.internalOutline}
+            />
+            <rect
+                x="34"
+                y={strong ? 15 : 16}
+                width="5"
+                height="1"
+                fill={CHARACTER_RENDER_RULES.internalOutline}
+            />
+            <rect x="26" y="17" width="3" height="3" fill={eyeColor} />
+            <rect x="35" y="17" width="3" height="3" fill={eyeColor} />
+            <rect x="27" y="17" width="1" height="1" fill="#f8fbff" />
+            <rect x="36" y="17" width="1" height="1" fill="#f8fbff" />
+            <rect
+                x="31"
+                y="19"
+                width="2"
+                height="3"
+                fill={bodyPalette.shadow}
+            />
+            <rect
+                x="32"
+                y="19"
+                width="1"
+                height="2"
+                fill={bodyPalette.highlight}
+            />
+            <rect
+                x={soft ? 30 : 29}
+                y="23"
+                width={soft ? 4 : 6}
+                height="1"
+                fill={CHARACTER_RENDER_RULES.internalOutline}
+                opacity="0.78"
+            />
+            {strong && (
+                <>
+                    <rect
+                        x="24"
+                        y="21"
+                        width="2"
+                        height="2"
+                        fill={bodyPalette.shadow}
+                    />
+                    <rect
+                        x="38"
+                        y="21"
+                        width="2"
+                        height="2"
+                        fill={bodyPalette.shadow}
+                    />
+                </>
+            )}
+        </>
+    );
+}
+
+function HumanBroadHairC21({
+    appearance,
+    palette,
+    view,
+}: {
+    appearance: GameAppearance;
+    palette: Tone;
+    view: CharacterView;
+}) {
+    const style = appearance.hair_style;
+    if (style === 'none') return null;
+
+    if (view === 'back') {
+        return (
+            <>
+                <PixelBlock
+                    x={20}
+                    y={6}
+                    width={24}
+                    height={10}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={19}
+                    y={11}
+                    width={7}
+                    height={10}
+                    fill={palette.shadow}
+                />
+                <PixelBlock
+                    x={38}
+                    y={10}
+                    width={7}
+                    height={11}
+                    fill={palette.base}
+                />
+                <rect
+                    x="23"
+                    y="7"
+                    width="8"
+                    height="2"
+                    fill={palette.highlight}
+                />
+                {style === 'braid' && (
+                    <PixelBlock
+                        x={29}
+                        y={15}
+                        width={6}
+                        height={18}
+                        fill={palette.shadow}
+                    />
+                )}
+            </>
+        );
+    }
+
+    if (view === 'side') {
+        return (
+            <>
+                <PixelBlock
+                    x={22}
+                    y={6}
+                    width={22}
+                    height={9}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={21}
+                    y={10}
+                    width={7}
+                    height={10}
+                    fill={palette.shadow}
+                />
+                <rect
+                    x="25"
+                    y="7"
+                    width="8"
+                    height="2"
+                    fill={palette.highlight}
+                />
+                <PixelBlock
+                    x={35}
+                    y={5}
+                    width={7}
+                    height={6}
+                    fill={palette.base}
+                />
+                {style === 'braid' && (
+                    <PixelBlock
+                        x={22}
+                        y={17}
+                        width={5}
+                        height={16}
+                        fill={palette.shadow}
+                    />
+                )}
+            </>
+        );
+    }
+
+    if (style === 'crest') {
+        return (
+            <>
+                <PixelBlock
+                    x={21}
+                    y={7}
+                    width={22}
+                    height={8}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={28}
+                    y={3}
+                    width={8}
+                    height={7}
+                    fill={palette.base}
+                />
+                <rect
+                    x="24"
+                    y="8"
+                    width="8"
+                    height="2"
+                    fill={palette.highlight}
+                />
+            </>
+        );
+    }
+
+    if (style === 'braid') {
+        return (
+            <>
+                <PixelBlock
+                    x={20}
+                    y={6}
+                    width={24}
+                    height={9}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={19}
+                    y={10}
+                    width={7}
+                    height={11}
+                    fill={palette.shadow}
+                />
+                <PixelBlock
+                    x={18}
+                    y={19}
+                    width={6}
+                    height={14}
+                    fill={palette.base}
+                />
+                <rect
+                    x="23"
+                    y="7"
+                    width="9"
+                    height="2"
+                    fill={palette.highlight}
+                />
+            </>
+        );
+    }
+
+    const wild = style === 'wild';
+    return (
+        <>
+            <PixelBlock
+                x={20}
+                y={6}
+                width={24}
+                height={9}
+                fill={palette.base}
+            />
+            <PixelBlock
+                x={18}
+                y={10}
+                width={7}
+                height={10}
+                fill={palette.shadow}
+            />
+            <PixelBlock
+                x={39}
+                y={9}
+                width={7}
+                height={10}
+                fill={palette.base}
+            />
+            <PixelBlock x={24} y={4} width={7} height={5} fill={palette.base} />
+            <PixelBlock x={32} y={3} width={7} height={6} fill={palette.base} />
+            {wild && (
+                <PixelBlock
+                    x={39}
+                    y={5}
+                    width={6}
+                    height={6}
+                    fill={palette.base}
+                />
+            )}
+            <rect x="23" y="7" width="10" height="2" fill={palette.highlight} />
+            <rect x="34" y="6" width="5" height="1" fill={palette.highlight} />
+        </>
+    );
+}
+
+function HumanBroadChestC21({
+    item,
+    view,
+}: {
+    item: EquippedVisual;
+    view: CharacterView;
+}) {
+    const palette = materialPalette(equipmentMaterial(item.visual_key));
+    const accent = CHARACTER_RARITY_RULES[item.rarity].accent;
+    const leather = CHARACTER_PALETTE.material.leather;
+    const isLinen = item.visual_key.includes('linen');
+
+    if (view === 'side') {
+        return (
+            <>
+                <PixelBlock
+                    x={24}
+                    y={28}
+                    width={18}
+                    height={15}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={38}
+                    y={27}
+                    width={9}
+                    height={8}
+                    fill={isLinen ? palette.shadow : palette.base}
+                />
+                <rect
+                    x="26"
+                    y="29"
+                    width="7"
+                    height="2"
+                    fill={palette.highlight}
+                />
+                <rect x="26" y="40" width="15" height="2" fill={leather.base} />
+            </>
+        );
+    }
+
+    return (
+        <>
+            <PixelBlock
+                x={20}
+                y={28}
+                width={24}
+                height={15}
+                fill={palette.base}
+            />
+            <PixelBlock
+                x={15}
+                y={27}
+                width={10}
+                height={8}
+                fill={isLinen ? palette.shadow : palette.base}
+            />
+            <PixelBlock
+                x={39}
+                y={27}
+                width={10}
+                height={8}
+                fill={isLinen ? palette.shadow : palette.base}
+            />
+            <rect x="17" y="28" width="5" height="2" fill={palette.highlight} />
+            <rect x="22" y="29" width="8" height="2" fill={palette.highlight} />
+            <rect x="22" y="40" width="20" height="2" fill={palette.shadow} />
+            <rect x="22" y="41" width="20" height="3" fill={leather.base} />
+            {view !== 'back' && (
+                <rect
+                    x="30"
+                    y="41"
+                    width="4"
+                    height="3"
+                    fill={CHARACTER_PALETTE.material.gold.base}
+                />
+            )}
+            {item.rarity !== 'common' && view !== 'back' && (
+                <rect x="31" y="33" width="3" height="3" fill={accent} />
+            )}
         </>
     );
 }

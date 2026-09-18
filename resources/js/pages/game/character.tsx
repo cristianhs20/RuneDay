@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
     CHARACTER_LINEAGES,
-    CHARACTER_SYSTEM,
     frameConfig,
     lineageConfig,
     lineageDefaults,
@@ -332,8 +331,7 @@ export default function Character({ character }: { character: GameCharacter }) {
                                     options={selectedLineage.allowedFrames.map(
                                         (frame) => [
                                             frame,
-                                            CHARACTER_SYSTEM.frames[frame]
-                                                .label,
+                                            frameConfig(frame).label,
                                         ],
                                     )}
                                     onChange={(value) =>

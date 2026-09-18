@@ -193,5 +193,15 @@
     "legacyBodyMap": {
         "type_a": "broad",
         "type_b": "lean"
+    },
+    "artPasses": {
+        "humanBroad": {
+            "id": "human-broad-c2.1",
+            "lineage": "human",
+            "frame": "broad",
+            "status": "implemented",
+            "views": ["front", "side", "back"],
+            "reference": "docs/character-engine/human-broad-c2-1.md"
+        }
     }
 }

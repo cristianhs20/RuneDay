@@ -2,7 +2,7 @@
 
 ## Status
 
-**Execution plan approved.**
+**In execution. C1 complete. C2.1 Human Broad implemented and awaiting visual approval.**
 
 Phase C is the Base Hero Art Pass & Authored Motion phase.
 
@@ -126,6 +126,20 @@ Review:
 - material readability.
 
 Do not skip directly to C2.3.
+
+## Current execution status
+
+### C2.1 — Human Broad
+
+Implemented in production renderer.
+
+Review reference:
+
+- [Human Broad C2.1](human-broad-c2-1.md)
+
+Gate state: **implemented / awaiting visual approval**.
+
+Human Lean and remaining lineages intentionally remain on Phase B art until this gate is approved.
 
 ## Acceptance
 

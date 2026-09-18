@@ -31,6 +31,30 @@ const states: CharacterSpriteState[] = [
     'hurt',
 ];
 
+const humanBroadReviewEquipment: Record<string, EquippedVisual> = {
+    weapon: item(
+        81,
+        'training-sword',
+        'Training Sword',
+        'common',
+        'weapon_training_sword',
+    ),
+    chest: item(
+        82,
+        'linen-tunic',
+        'Linen Tunic',
+        'common',
+        'chest_linen_tunic',
+    ),
+    feet: item(
+        83,
+        'simple-boots',
+        'Simple Boots',
+        'common',
+        'feet_simple_boots',
+    ),
+};
+
 const stressEquipment: Record<string, EquippedVisual> = {
     weapon: item(91, 'emberfang', 'Emberfang', 'epic', 'weapon_emberfang'),
     head: item(
@@ -104,6 +128,109 @@ export default function CharacterLineageLab() {
                         value={'v' + CHARACTER_SYSTEM.version}
                     />
                 </section>
+
+                <Card className="overflow-hidden rounded-3xl border-2">
+                    <CardHeader>
+                        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+                            <div>
+                                <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">
+                                    Phase C · C2.1 implemented
+                                </p>
+                                <CardTitle className="mt-1">
+                                    Human Broad refined art pass
+                                </CardTitle>
+                            </div>
+                            <span className="rounded-full border px-3 py-1 text-xs font-medium">
+                                {CHARACTER_SYSTEM.artPasses.humanBroad.id}
+                            </span>
+                        </div>
+                    </CardHeader>
+                    <CardContent className="grid gap-6 p-0 xl:grid-cols-[1.25fr_0.75fr]">
+                        <div className="grid gap-px bg-white/10 sm:grid-cols-3">
+                            {views.map((view) => (
+                                <div
+                                    key={view}
+                                    className="flex min-h-[340px] flex-col items-center justify-center bg-zinc-950 p-5 text-white"
+                                >
+                                    <CharacterSprite
+                                        character={character(
+                                            'human',
+                                            undefined,
+                                            humanBroadReviewEquipment,
+                                        )}
+                                        view={view}
+                                        className="size-64"
+                                    />
+                                    <span className="mt-3 text-xs font-semibold tracking-wide text-zinc-500 uppercase">
+                                        {view}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="space-y-5 p-5 md:p-6">
+                            <div>
+                                <p className="font-medium">Native-size check</p>
+                                <p className="text-muted-foreground mt-1 text-xs">
+                                    The same production sprite at three UI
+                                    review sizes.
+                                </p>
+                                <div className="mt-3 flex items-end gap-4 rounded-2xl border bg-zinc-950 p-4 text-white">
+                                    {[64, 96, 128].map((size) => (
+                                        <div
+                                            key={size}
+                                            className="flex flex-col items-center"
+                                        >
+                                            <CharacterSprite
+                                                character={character(
+                                                    'human',
+                                                    undefined,
+                                                    humanBroadReviewEquipment,
+                                                )}
+                                                className={
+                                                    size === 64
+                                                        ? 'size-16'
+                                                        : size === 96
+                                                          ? 'size-24'
+                                                          : 'size-32'
+                                                }
+                                            />
+                                            <span className="mt-2 text-[10px] text-zinc-500">
+                                                {size}px
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="grid gap-2">
+                                {[
+                                    'Broader shoulder read without increasing socket span',
+                                    'Tapered torso and explicit waist/belt break',
+                                    'Heavier thighs, knees and grounded lower body',
+                                    'Readable brow, eyes, nose and mouth clusters',
+                                    'Messier authored hair volume closer to approved target',
+                                    'Refined Broad starter chest mask instead of rectangular block',
+                                    'Front / Side / Back mass kept visually consistent',
+                                ].map((item) => (
+                                    <div
+                                        key={item}
+                                        className="flex items-start gap-2 rounded-xl border px-3 py-2 text-sm"
+                                    >
+                                        <Check className="mt-0.5 size-4 shrink-0 text-emerald-500" />
+                                        <span>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <p className="text-muted-foreground text-xs">
+                                Only Human Broad uses this C2.1 art branch. The
+                                other six canonical body targets remain on Phase
+                                B art until individually reviewed.
+                            </p>
+                        </div>
+                    </CardContent>
+                </Card>
 
                 <Card className="overflow-hidden rounded-3xl">
                     <CardHeader>

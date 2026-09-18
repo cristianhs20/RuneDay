@@ -192,6 +192,13 @@ Phase C is intentionally art-first and is split into gated subphases:
 - C5 — production-quality lineage personalization art
 - C6 — controlled equipment integration benchmark
 
+Current execution:
+
+- C1 — complete
+- C2.1 Human Broad — implemented, awaiting visual approval
+
+Review Human Broad in `/character/lineage-lab`.
+
 Execution rule: do not scale equipment quantity until the Base Hero, multi-view set, authored motion and benchmark equipment pass visual approval.
 
 See:
@@ -199,6 +206,7 @@ See:
 - [Phase C](docs/character-engine/phase-c.md)
 - [Base Hero Art Target v1](docs/character-engine/base-hero-art-target-v1.md)
 - [Authored Animation Spec v1](docs/character-engine/authored-animation-spec-v1.md)
+- [Human Broad C2.1](docs/character-engine/human-broad-c2-1.md)
 
 ## Local setup
 
