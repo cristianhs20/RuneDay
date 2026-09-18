@@ -125,6 +125,7 @@ class TaskController extends Controller
                 'gold' => $reward['gold'],
                 'loot' => $reward['loot'],
                 'achievements' => $reward['achievements'],
+                'combat' => $reward['combat'],
             ]);
     }
 

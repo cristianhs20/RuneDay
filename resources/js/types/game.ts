@@ -1,3 +1,5 @@
+import type { AdventureCombatResult } from '@/types/adventure';
+
 export type GameAppearance = {
     body: 'type_a' | 'type_b';
     skin_tone: 'moon' | 'sun' | 'bronze' | 'deep';
@@ -60,7 +62,8 @@ export type GameEvent = {
         | 'focus_complete'
         | 'habit_logged'
         | 'equipment_changed'
-        | 'shop_purchase';
+        | 'shop_purchase'
+        | 'encounter_started';
     xp?: number;
     gold?: number;
     loot?: GameLoot | null;
@@ -68,4 +71,5 @@ export type GameEvent = {
     slot?: string;
     item?: Partial<GameLoot>;
     gold_spent?: number;
+    combat?: AdventureCombatResult | null;
 };

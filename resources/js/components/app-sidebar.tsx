@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import {
     Backpack,
+    BookOpen,
     BarChart3,
     Bell,
     CalendarDays,
@@ -13,6 +14,7 @@ import {
     TimerReset,
     Trophy,
     UserRound,
+    Map,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -40,10 +42,12 @@ const productivityItems: NavItem[] = [
 ];
 
 const adventureItems: NavItem[] = [
+    { title: 'World', href: '/adventure', icon: Map },
     { title: 'Hero', href: '/character', icon: UserRound },
     { title: 'Inventory', href: '/inventory', icon: Backpack },
     { title: 'Shop', href: '/shop', icon: Store },
     { title: 'Achievements', href: '/achievements', icon: Trophy },
+    { title: 'Bestiary', href: '/bestiary', icon: BookOpen },
 ];
 
 const systemItems: NavItem[] = [

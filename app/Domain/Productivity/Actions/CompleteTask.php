@@ -2,6 +2,7 @@
 
 namespace App\Domain\Productivity\Actions;
 
+use App\Domain\Adventure\Services\CombatService;
 use App\Domain\Game\Models\RewardTransaction;
 use App\Domain\Game\Services\QuestCompletionGameService;
 use App\Domain\Productivity\Models\Task;
@@ -13,6 +14,7 @@ class CompleteTask
 {
     public function __construct(
         private readonly QuestCompletionGameService $game,
+        private readonly CombatService $combat,
         private readonly UserTime $time,
     ) {}
 
@@ -22,7 +24,8 @@ class CompleteTask
      *     xp: int,
      *     gold: int,
      *     loot: array<string, mixed>|null,
-     *     achievements: array<int, array<string, mixed>>
+     *     achievements: array<int, array<string, mixed>>,
+     *     combat: array<string, mixed>|null
      * }
      */
     public function handle(Task $task): array
@@ -59,7 +62,7 @@ class CompleteTask
                 default => 0.0,
             };
 
-            return $this->game->handle(
+            $game = $this->game->handle(
                 $task,
                 (int) floor($baseXp * $factor),
                 (int) floor($baseGold * $factor),
@@ -72,6 +75,10 @@ class CompleteTask
                     'local_date' => $this->time->today($user)->toDateString(),
                 ],
             );
+
+            $combat = $this->combat->applyTask($task, $factor);
+
+            return [...$game, 'combat' => $combat];
         });
     }
 }

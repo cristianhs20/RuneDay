@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Adventure\Services\EncounterService;
 use App\Domain\Game\Models\CharacterProfile;
 use App\Domain\Productivity\Models\Daily;
 use App\Domain\Productivity\Models\FocusSession;
@@ -14,8 +15,11 @@ use Inertia\Response;
 
 class TodayController extends Controller
 {
-    public function __invoke(Request $request, UserTime $time): Response
-    {
+    public function __invoke(
+        Request $request,
+        UserTime $time,
+        EncounterService $encounters,
+    ): Response {
         $user = $request->user();
         $userId = $user->id;
         $profile = CharacterProfile::firstOrCreate(['user_id' => $userId]);
@@ -53,10 +57,27 @@ class TodayController extends Controller
                 'completed_today' => $daily->completions->isNotEmpty(),
             ]);
 
+        $activeEncounter = $encounters->activeFor($user);
+
         return Inertia::render('today', [
             'profile' => $profile->only(['level', 'xp', 'gold', 'total_xp']),
             'tasks' => $tasks,
             'dailies' => $dailies,
+            'adventureEncounter' => $activeEncounter ? [
+                'id' => $activeEncounter->id,
+                'enemy_hp_remaining' => $activeEncounter->enemy_hp_remaining,
+                'enemy_max_hp' => $activeEncounter->enemy->max_hp,
+                'hero_hp_remaining' => $activeEncounter->hero_hp_remaining,
+                'hero_max_hp' => $activeEncounter->hero_max_hp,
+                'enemy' => [
+                    'name' => $activeEncounter->enemy->name,
+                    'type' => $activeEncounter->enemy->type->value,
+                    'visual_key' => $activeEncounter->enemy->visual_key,
+                ],
+                'region' => [
+                    'name' => $activeEncounter->region->name,
+                ],
+            ] : null,
             'stats' => [
                 'completed_today' => Task::query()
                     ->where('user_id', $userId)

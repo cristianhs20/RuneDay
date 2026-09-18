@@ -54,6 +54,26 @@ See [docs/phase-1.md](docs/phase-1.md).
 
 See [docs/phase-2.md](docs/phase-2.md).
 
+**Phase 3 — Adventure PvE MVP: complete.**
+
+- separate Adventure domain
+- 3 regions with level/boss gating
+- 9 enemies / 3 bosses
+- persistent encounters
+- quest-driven combat with no manual attack button
+- Power/Guard/Focus/Luck combat effects
+- deterministic critical hits
+- enemy counterattacks + non-punitive Camp Rest
+- anti-farming applied to combat damage
+- immutable Renown ledger
+- region quests / objectives
+- first-clear boss equipment
+- Bestiary discovery and victory history
+- World UI + active encounter on Today
+- combat overlay with HP, damage, criticals, rewards and region unlocks
+
+See [docs/phase-3.md](docs/phase-3.md).
+
 ## Local setup
 
 ```bash
@@ -84,4 +104,7 @@ GitHub Actions installs PHP/Node, runs migrations, builds the frontend to genera
 - Reward and spend operations have traceable ledger sources.
 - Repeated requests cannot reroll task loot.
 - Rare and Epic equipment are loot-only in Phase 2.
+- Real quest completion is the only Phase 3 combat input.
+- A task can create at most one combat action.
+- Renown is ledger-backed and not purchasable.
 - No competitive currency is purchasable.

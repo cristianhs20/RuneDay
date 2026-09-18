@@ -9,6 +9,7 @@ import {
     Sword,
     TimerReset,
 } from 'lucide-react';
+import { EnemySprite } from '@/components/adventure/enemy-sprite';
 import { CharacterSprite } from '@/components/game/character-sprite';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,6 +38,22 @@ type TodayStats = {
     habit_logs_today: number;
 };
 
+type TodayAdventureEncounter = {
+    id: number;
+    enemy_hp_remaining: number;
+    enemy_max_hp: number;
+    hero_hp_remaining: number;
+    hero_max_hp: number;
+    enemy: {
+        name: string;
+        type: string;
+        visual_key: string;
+    };
+    region: {
+        name: string;
+    };
+};
+
 const localDateTimeNow = () => {
     const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -49,11 +66,13 @@ export default function Today({
     tasks,
     dailies,
     stats,
+    adventureEncounter,
 }: {
     profile: Profile;
     tasks: Quest[];
     dailies: Daily[];
     stats: TodayStats;
+    adventureEncounter?: TodayAdventureEncounter | null;
 }) {
     const { gameCharacter } = usePage<{
         gameCharacter?: GameCharacter | null;
@@ -157,6 +176,78 @@ export default function Today({
 
                 <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
                     <div className="space-y-6">
+                        {adventureEncounter && (
+                            <Card className="overflow-hidden rounded-3xl border-2">
+                                <CardContent className="p-0">
+                                    <div className="grid grid-cols-[110px_1fr] bg-zinc-950 text-white">
+                                        <div className="flex items-center justify-center p-3">
+                                            <EnemySprite
+                                                visualKey={
+                                                    adventureEncounter.enemy
+                                                        .visual_key
+                                                }
+                                                className="size-24"
+                                            />
+                                        </div>
+                                        <div className="flex min-w-0 flex-col justify-center p-4">
+                                            <p className="text-[10px] font-semibold tracking-[0.14em] text-zinc-500 uppercase">
+                                                Active encounter ·{' '}
+                                                {adventureEncounter.region.name}
+                                            </p>
+                                            <p className="mt-1 truncate font-semibold">
+                                                {adventureEncounter.enemy.name}
+                                            </p>
+                                            <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
+                                                <div
+                                                    className="h-full rounded-full bg-white/75"
+                                                    style={{
+                                                        width:
+                                                            Math.max(
+                                                                0,
+                                                                Math.min(
+                                                                    100,
+                                                                    (adventureEncounter.enemy_hp_remaining /
+                                                                        adventureEncounter.enemy_max_hp) *
+                                                                        100,
+                                                                ),
+                                                            ) + '%',
+                                                    }}
+                                                />
+                                            </div>
+                                            <p className="mt-1 text-[10px] text-zinc-500">
+                                                {
+                                                    adventureEncounter.enemy_hp_remaining
+                                                }{' '}
+                                                /{' '}
+                                                {
+                                                    adventureEncounter.enemy_max_hp
+                                                }{' '}
+                                                HP
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="p-4">
+                                        <p className="text-sm font-medium">
+                                            Your next completed quest attacks.
+                                        </p>
+                                        <p className="text-muted-foreground mt-1 text-xs">
+                                            Finish real work here, then RuneDay
+                                            resolves the combat turn.
+                                        </p>
+                                        <Button
+                                            asChild
+                                            variant="secondary"
+                                            className="mt-3 w-full"
+                                        >
+                                            <Link href="/adventure">
+                                                Open encounter
+                                            </Link>
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )}
+
                         <Card className="rounded-3xl">
                             <CardHeader>
                                 <CardTitle className="flex items-center justify-between">
@@ -413,6 +504,17 @@ export default function Today({
                                     className="justify-start"
                                 >
                                     <Link href="/habits">Log a habit</Link>
+                                </Button>
+                                <Button
+                                    asChild
+                                    variant="secondary"
+                                    className="justify-start"
+                                >
+                                    <Link href="/adventure">
+                                        {adventureEncounter
+                                            ? 'View active encounter'
+                                            : 'Choose an adventure'}
+                                    </Link>
                                 </Button>
                             </CardContent>
                         </Card>

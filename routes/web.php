@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\AdventureController;
+use App\Http\Controllers\AdventureEncounterController;
+use App\Http\Controllers\BestiaryController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DailyController;
@@ -65,6 +68,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('shop/{item}/purchase', [ShopController::class, 'purchase'])->name('shop.purchase');
 
     Route::get('achievements', AchievementController::class)->name('achievements.index');
+
+    Route::get('adventure', AdventureController::class)->name('adventure.index');
+    Route::post('adventure/enemies/{enemy}/encounter', [AdventureEncounterController::class, 'store'])->name('adventure.encounters.store');
+    Route::delete('adventure/encounters/{encounter}', [AdventureEncounterController::class, 'destroy'])->name('adventure.encounters.destroy');
+    Route::get('bestiary', BestiaryController::class)->name('bestiary.index');
 });
 
 require __DIR__.'/settings.php';
