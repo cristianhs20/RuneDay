@@ -8,17 +8,26 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DailyController;
 use App\Http\Controllers\FocusController;
+use App\Http\Controllers\FriendRequestController;
+use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PublicSocialProfileController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SocialBlockController;
+use App\Http\Controllers\SocialController;
+use App\Http\Controllers\SocialProfileSettingsController;
+use App\Http\Controllers\SocialReactionController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
+Route::get('u/{profile:handle}', PublicSocialProfileController::class)
+    ->name('social.public');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', TodayController::class)->name('dashboard');
@@ -73,6 +82,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('adventure/enemies/{enemy}/encounter', [AdventureEncounterController::class, 'store'])->name('adventure.encounters.store');
     Route::delete('adventure/encounters/{encounter}', [AdventureEncounterController::class, 'destroy'])->name('adventure.encounters.destroy');
     Route::get('bestiary', BestiaryController::class)->name('bestiary.index');
+
+    Route::get('friends', SocialController::class)->name('social.index');
+    Route::get('social/profile', [SocialProfileSettingsController::class, 'show'])->name('social.profile.show');
+    Route::put('social/profile', [SocialProfileSettingsController::class, 'update'])->name('social.profile.update');
+
+    Route::post('friend-requests', [FriendRequestController::class, 'store'])->middleware('throttle:10,1')->name('friend-requests.store');
+    Route::post('friend-requests/{friendRequest}/accept', [FriendRequestController::class, 'accept'])->name('friend-requests.accept');
+    Route::post('friend-requests/{friendRequest}/decline', [FriendRequestController::class, 'decline'])->name('friend-requests.decline');
+    Route::delete('friend-requests/{friendRequest}', [FriendRequestController::class, 'cancel'])->name('friend-requests.cancel');
+
+    Route::delete('friends/{profile:handle}', [FriendshipController::class, 'destroy'])->name('friends.destroy');
+    Route::post('social/blocks/{profile:handle}', [SocialBlockController::class, 'store'])->name('social.blocks.store');
+    Route::delete('social/blocks/{profile:handle}', [SocialBlockController::class, 'destroy'])->name('social.blocks.destroy');
+    Route::post('social/activities/{activity}/reaction', [SocialReactionController::class, 'store'])->middleware('throttle:60,1')->name('social.reactions.store');
 });
 
 require __DIR__.'/settings.php';

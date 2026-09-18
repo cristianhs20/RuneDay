@@ -74,6 +74,27 @@ See [docs/phase-2.md](docs/phase-2.md).
 
 See [docs/phase-3.md](docs/phase-3.md).
 
+**Phase 4 — Friends & Social MVP: complete.**
+
+- social profiles created at registration
+- unique handles + stable friend codes
+- friend requests and crossed-request auto-accept
+- canonical friendships
+- blocking and privacy enforcement
+- Public / Friends / Private profile visibility
+- retroactive activity visibility
+- Friends hub + party feed
+- predefined Cheer / Fire / Sword / Crown reactions
+- friend-request / acceptance / reaction notifications
+- public hero inspection with privacy toggles
+- Party standings by level with no competitive rewards
+- public profile share links
+- client-side PNG share cards
+- milestone publisher for hero, level, achievements, Rare/Epic loot, bosses and regions
+- no task titles, notes, gold, email or calendar data exposed socially
+
+See [docs/phase-4.md](docs/phase-4.md).
+
 ## Local setup
 
 ```bash
@@ -107,4 +128,7 @@ GitHub Actions installs PHP/Node, runs migrations, builds the frontend to genera
 - Real quest completion is the only Phase 3 combat input.
 - A task can create at most one combat action.
 - Renown is ledger-backed and not purchasable.
+- Social profiles are Friends-only by default; Public is opt-in.
+- Task titles, notes, schedules, email and private economy data never enter Social activity.
+- Blocks override Public visibility.
 - No competitive currency is purchasable.

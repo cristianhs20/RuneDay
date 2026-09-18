@@ -4,6 +4,7 @@ namespace App\Domain\Game\Services;
 
 use App\Domain\Game\Models\CharacterProfile;
 use App\Domain\Game\Models\ItemDefinition;
+use App\Domain\Social\Services\SocialActivityPublisher;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -12,6 +13,7 @@ class CharacterCreationService
     public function __construct(
         private readonly InventoryGrantService $inventory,
         private readonly EquipmentService $equipment,
+        private readonly SocialActivityPublisher $social,
     ) {}
 
     /**
@@ -50,6 +52,17 @@ class CharacterCreationService
                     );
                     $this->equipment->equip($user, $inventoryItem);
                 }
+
+                $this->social->publish(
+                    $user,
+                    'hero_created',
+                    'character_creation',
+                    $profile->id,
+                    [
+                        'hero_name' => $name,
+                        'archetype' => $archetype,
+                    ],
+                );
             }
 
             return $profile->fresh();

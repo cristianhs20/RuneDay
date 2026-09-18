@@ -10,11 +10,15 @@ use App\Domain\Game\Models\LootDrop;
 use App\Domain\Productivity\Models\FocusSession;
 use App\Domain\Productivity\Models\HabitLog;
 use App\Domain\Productivity\Models\Task;
+use App\Domain\Social\Services\SocialActivityPublisher;
 use App\Models\User;
 
 class AchievementEngine
 {
-    public function __construct(private readonly RewardEngine $rewards) {}
+    public function __construct(
+        private readonly RewardEngine $rewards,
+        private readonly SocialActivityPublisher $social,
+    ) {}
 
     /**
      * @return array<int, array<string, mixed>>
@@ -55,6 +59,18 @@ class AchievementEngine
                 $achievement->reward_xp,
                 $achievement->reward_gold,
                 ['achievement' => $achievement->slug],
+            );
+
+            $this->social->publish(
+                $user,
+                'achievement_unlocked',
+                'achievement_unlock',
+                $unlock->id,
+                [
+                    'slug' => $achievement->slug,
+                    'name' => $achievement->name,
+                    'icon' => $achievement->icon,
+                ],
             );
 
             $unlocked[] = [

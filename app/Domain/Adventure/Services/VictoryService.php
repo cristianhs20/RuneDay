@@ -13,6 +13,7 @@ use App\Domain\Game\Models\InventoryItem;
 use App\Domain\Game\Models\ItemDefinition;
 use App\Domain\Game\Services\InventoryGrantService;
 use App\Domain\Game\Services\RewardEngine;
+use App\Domain\Social\Services\SocialActivityPublisher;
 use Illuminate\Support\Facades\DB;
 
 class VictoryService
@@ -23,6 +24,7 @@ class VictoryService
         private readonly ObjectiveEngine $objectives,
         private readonly InventoryGrantService $inventory,
         private readonly WorldAccessService $access,
+        private readonly SocialActivityPublisher $social,
     ) {}
 
     /**
@@ -138,6 +140,33 @@ class VictoryService
                     'min_level' => $nextRegion->min_level,
                 ]
                 : null;
+
+            if ($firstBossClear) {
+                $this->social->publish(
+                    $user,
+                    'boss_victory',
+                    'boss_victory',
+                    $encounter->id,
+                    [
+                        'enemy' => $enemy->name,
+                        'enemy_slug' => $enemy->slug,
+                        'region' => $region->name,
+                    ],
+                );
+            }
+
+            if ($unlockedRegion) {
+                $this->social->publish(
+                    $user,
+                    'region_unlocked',
+                    'region_unlock',
+                    $nextRegion->id,
+                    [
+                        'region' => $nextRegion->name,
+                        'region_slug' => $nextRegion->slug,
+                    ],
+                );
+            }
 
             return [
                 'gold' => $enemy->reward_gold,

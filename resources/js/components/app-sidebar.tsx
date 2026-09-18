@@ -14,6 +14,8 @@ import {
     TimerReset,
     Trophy,
     UserRound,
+    UsersRound,
+    AtSign,
     Map,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
@@ -50,6 +52,11 @@ const adventureItems: NavItem[] = [
     { title: 'Bestiary', href: '/bestiary', icon: BookOpen },
 ];
 
+const communityItems: NavItem[] = [
+    { title: 'Friends', href: '/friends', icon: UsersRound },
+    { title: 'Social Profile', href: '/social/profile', icon: AtSign },
+];
+
 const systemItems: NavItem[] = [
     { title: 'Notifications', href: '/notifications', icon: Bell },
 ];
@@ -71,6 +78,7 @@ export function AppSidebar() {
             <SidebarContent>
                 <NavMain items={productivityItems} label="Productivity" />
                 <NavMain items={adventureItems} label="Adventure" />
+                <NavMain items={communityItems} label="Community" />
                 <NavMain items={systemItems} label="System" />
             </SidebarContent>
             <SidebarFooter>

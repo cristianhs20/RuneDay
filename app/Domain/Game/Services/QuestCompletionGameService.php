@@ -2,7 +2,9 @@
 
 namespace App\Domain\Game\Services;
 
+use App\Domain\Game\Models\CharacterProfile;
 use App\Domain\Productivity\Models\Task;
+use App\Domain\Social\Services\SocialActivityPublisher;
 
 class QuestCompletionGameService
 {
@@ -10,6 +12,7 @@ class QuestCompletionGameService
         private readonly RewardEngine $rewards,
         private readonly LootEngine $loot,
         private readonly AchievementEngine $achievements,
+        private readonly SocialActivityPublisher $social,
     ) {}
 
     /**
@@ -29,6 +32,10 @@ class QuestCompletionGameService
         float $rewardFactor,
         array $metadata = [],
     ): array {
+        $levelBefore = CharacterProfile::firstOrCreate([
+            'user_id' => $task->user_id,
+        ])->level;
+
         $reward = $this->rewards->grant(
             $task->user_id,
             'task_completion',
@@ -59,6 +66,39 @@ class QuestCompletionGameService
 
         $user = $task->user()->firstOrFail();
         $achievements = $this->achievements->evaluate($user);
+
+        $profile = CharacterProfile::where('user_id', $task->user_id)
+            ->firstOrFail();
+        $profile->refresh();
+
+        if ($profile->level > $levelBefore) {
+            $this->social->publish(
+                $user,
+                'level_up',
+                'level_up',
+                $profile->level,
+                ['level' => $profile->level],
+            );
+        }
+
+        if (
+            $inventoryItem
+            && in_array($inventoryItem->item->rarity->value, ['rare', 'epic'], true)
+        ) {
+            $item = $inventoryItem->item;
+
+            $this->social->publish(
+                $user,
+                'loot_found',
+                'loot_drop',
+                $lootResult['drop']->id,
+                [
+                    'name' => $item->name,
+                    'rarity' => $item->rarity->value,
+                    'slot' => $item->slot?->value,
+                ],
+            );
+        }
 
         return [
             ...$reward,
