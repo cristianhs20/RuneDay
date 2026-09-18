@@ -10,6 +10,10 @@ use App\Http\Controllers\DailyController;
 use App\Http\Controllers\FocusController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendshipController;
+use App\Http\Controllers\GuildController;
+use App\Http\Controllers\GuildInviteController;
+use App\Http\Controllers\GuildMemberController;
+use App\Http\Controllers\GuildRaidController;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\InventoryController;
@@ -96,6 +100,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('social/blocks/{profile:handle}', [SocialBlockController::class, 'store'])->name('social.blocks.store');
     Route::delete('social/blocks/{profile:handle}', [SocialBlockController::class, 'destroy'])->name('social.blocks.destroy');
     Route::post('social/activities/{activity}/reaction', [SocialReactionController::class, 'store'])->middleware('throttle:60,1')->name('social.reactions.store');
+
+    Route::get('guild', [GuildController::class, 'index'])->name('guild.index');
+    Route::post('guild', [GuildController::class, 'store'])->name('guild.store');
+    Route::put('guild/{guild:slug}', [GuildController::class, 'update'])->name('guild.update');
+    Route::delete('guild/membership', [GuildController::class, 'leave'])->name('guild.leave');
+    Route::delete('guild', [GuildController::class, 'destroy'])->name('guild.destroy');
+
+    Route::post('guild/invites/{profile:handle}', [GuildInviteController::class, 'store'])->name('guild.invites.store');
+    Route::post('guild/invites/{guildInvite}/accept', [GuildInviteController::class, 'accept'])->name('guild.invites.accept');
+    Route::post('guild/invites/{guildInvite}/decline', [GuildInviteController::class, 'decline'])->name('guild.invites.decline');
+    Route::delete('guild/invites/{guildInvite}', [GuildInviteController::class, 'cancel'])->name('guild.invites.cancel');
+
+    Route::put('guild/members/{guildMember}/role', [GuildMemberController::class, 'update'])->name('guild.members.role');
+    Route::post('guild/members/{guildMember}/transfer-leadership', [GuildMemberController::class, 'transfer'])->name('guild.members.transfer');
+    Route::delete('guild/members/{guildMember}', [GuildMemberController::class, 'destroy'])->name('guild.members.destroy');
+
+    Route::post('guild/raids/{raidBoss}', [GuildRaidController::class, 'store'])->name('guild.raids.store');
+    Route::delete('guild/raids/{guildRaid}', [GuildRaidController::class, 'destroy'])->name('guild.raids.destroy');
 });
 
 require __DIR__.'/settings.php';

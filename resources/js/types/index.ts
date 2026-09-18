@@ -4,3 +4,4 @@ export type * from './ui';
 export type * from './game';
 export type * from './adventure';
 export type * from './social';
+export type * from './guild';

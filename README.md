@@ -95,6 +95,32 @@ See [docs/phase-3.md](docs/phase-3.md).
 
 See [docs/phase-4.md](docs/phase-4.md).
 
+**Phase 5 — Guilds & Cooperative Raids MVP: complete.**
+
+- one guild membership per user
+- guild founding with unique name/tag
+- Leader / Officer / Member roles
+- friend-only guild invitations
+- role promotion/demotion + leadership transfer
+- server-enforced member capacity
+- Guild XP immutable ledger
+- quest-driven Guild XP contributions
+- Camp → Tavern → Guild Hall → Fortress → Castle progression
+- member contribution stats
+- 3 cooperative raid bosses
+- Hall-gated raid unlocks
+- one active raid per guild
+- quest-driven raid damage with Power/Focus/Luck
+- deterministic raid criticals
+- anti-farming applied to Guild XP and raid damage
+- contributor-only raid victory XP/gold
+- idempotent raid settlement
+- Guild invite / join / raid victory notifications
+- Guild Hall + roster + contributions + raid UI
+- Guild feedback inside the global RuneDay event overlay
+
+See [docs/phase-5.md](docs/phase-5.md).
+
 ## Local setup
 
 ```bash
@@ -131,4 +157,8 @@ GitHub Actions installs PHP/Node, runs migrations, builds the frontend to genera
 - Social profiles are Friends-only by default; Public is opt-in.
 - Task titles, notes, schedules, email and private economy data never enter Social activity.
 - Blocks override Public visibility.
+- Guild invitations are limited to accepted friends.
+- Guild XP and raid turns come only from real quest completions.
+- The same anti-farming factor applies to Guild XP and raid damage.
+- Raid personal rewards go only to members who dealt positive damage.
 - No competitive currency is purchasable.

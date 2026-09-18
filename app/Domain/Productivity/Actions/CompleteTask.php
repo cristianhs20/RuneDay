@@ -5,6 +5,7 @@ namespace App\Domain\Productivity\Actions;
 use App\Domain\Adventure\Services\CombatService;
 use App\Domain\Game\Models\RewardTransaction;
 use App\Domain\Game\Services\QuestCompletionGameService;
+use App\Domain\Guild\Services\GuildContributionService;
 use App\Domain\Productivity\Models\Task;
 use App\Support\UserTime;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,7 @@ class CompleteTask
     public function __construct(
         private readonly QuestCompletionGameService $game,
         private readonly CombatService $combat,
+        private readonly GuildContributionService $guilds,
         private readonly UserTime $time,
     ) {}
 
@@ -25,7 +27,8 @@ class CompleteTask
      *     gold: int,
      *     loot: array<string, mixed>|null,
      *     achievements: array<int, array<string, mixed>>,
-     *     combat: array<string, mixed>|null
+     *     combat: array<string, mixed>|null,
+     *     guild: array<string, mixed>|null
      * }
      */
     public function handle(Task $task): array
@@ -77,8 +80,13 @@ class CompleteTask
             );
 
             $combat = $this->combat->applyTask($task, $factor);
+            $guild = $this->guilds->applyTask($task, $factor);
 
-            return [...$game, 'combat' => $combat];
+            return [
+                ...$game,
+                'combat' => $combat,
+                'guild' => $guild,
+            ];
         });
     }
 }

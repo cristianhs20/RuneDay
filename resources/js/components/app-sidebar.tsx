@@ -17,6 +17,7 @@ import {
     UsersRound,
     AtSign,
     Map,
+    Castle,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -54,6 +55,7 @@ const adventureItems: NavItem[] = [
 
 const communityItems: NavItem[] = [
     { title: 'Friends', href: '/friends', icon: UsersRound },
+    { title: 'Guild', href: '/guild', icon: Castle },
     { title: 'Social Profile', href: '/social/profile', icon: AtSign },
 ];
 

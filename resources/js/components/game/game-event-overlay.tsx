@@ -2,6 +2,7 @@ import { usePage } from '@inertiajs/react';
 import {
     Coins,
     Crown,
+    Castle,
     Gem,
     Map,
     Shield,
@@ -13,9 +14,11 @@ import {
 import { useEffect, useState } from 'react';
 import { EnemySprite } from '@/components/adventure/enemy-sprite';
 import { CharacterSprite } from '@/components/game/character-sprite';
+import { RaidBossSprite } from '@/components/guild/raid-boss-sprite';
 import { Button } from '@/components/ui/button';
 import type { AdventureCombatResult } from '@/types/adventure';
 import type { GameCharacter, GameEvent } from '@/types/game';
+import type { GuildProgressResult } from '@/types/guild';
 
 type PageProps = {
     gameCharacter?: GameCharacter | null;
@@ -229,6 +232,7 @@ function CombatEvent({
                 )}
 
                 <AchievementList achievements={event.achievements ?? []} />
+                <GuildProgressPanel guild={event.guild ?? null} />
             </div>
         </>
     );
@@ -335,10 +339,18 @@ function ProgressEvent({
 
             <div className="min-w-0">
                 <p className="text-muted-foreground text-xs font-semibold tracking-[0.18em] uppercase">
-                    {isQuest ? 'Quest cleared' : 'Progress recorded'}
+                    {event.type === 'guild_raid_started'
+                        ? 'Guild raid opened'
+                        : isQuest
+                          ? 'Quest cleared'
+                          : 'Progress recorded'}
                 </p>
                 <h2 className="mt-1 text-2xl font-semibold tracking-tight">
-                    {isQuest ? 'Your hero grows stronger.' : 'Momentum gained.'}
+                    {event.type === 'guild_raid_started'
+                        ? 'Your guild has a new target.'
+                        : isQuest
+                          ? 'Your hero grows stronger.'
+                          : 'Momentum gained.'}
                 </h2>
 
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -380,6 +392,7 @@ function ProgressEvent({
                 )}
 
                 <AchievementList achievements={event.achievements ?? []} />
+                <GuildProgressPanel guild={event.guild ?? null} />
 
                 {event.type === 'equipment_changed' && (
                     <p className="text-muted-foreground mt-5 text-sm">
@@ -423,6 +436,105 @@ function AchievementList({
                     </div>
                 </div>
             ))}
+        </div>
+    );
+}
+
+function GuildProgressPanel({ guild }: { guild: GuildProgressResult | null }) {
+    if (!guild) return null;
+
+    const raid = guild.raid ?? null;
+    const hasGuildXp = (guild.guild_xp ?? 0) > 0;
+
+    return (
+        <div className="mt-5 rounded-2xl border bg-sky-500/5 p-4">
+            <div className="flex items-center gap-2">
+                <Castle className="size-4" />
+                <span className="text-xs font-semibold tracking-wide uppercase">
+                    Guild progress
+                </span>
+            </div>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+                {hasGuildXp && (
+                    <RewardChip
+                        icon={<Sparkles />}
+                        text={'+' + guild.guild_xp + ' Guild XP'}
+                    />
+                )}
+                {guild.hall_upgraded && guild.hall && (
+                    <RewardChip
+                        icon={<Castle />}
+                        text={'Hall upgraded · ' + guild.hall.name}
+                    />
+                )}
+                {raid && raid.damage > 0 && (
+                    <RewardChip
+                        icon={<Swords />}
+                        text={
+                            raid.critical
+                                ? raid.damage + ' raid damage · CRIT'
+                                : raid.damage + ' raid damage'
+                        }
+                    />
+                )}
+            </div>
+
+            {raid && (
+                <div className="bg-background/60 mt-3 rounded-xl border p-3">
+                    <div className="flex items-center gap-3">
+                        <div className="flex size-16 items-center justify-center rounded-lg bg-zinc-950 text-white">
+                            <RaidBossSprite
+                                visualKey={raid.boss.visual_key}
+                                className="size-14"
+                            />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                            <p className="font-medium">{raid.boss.name}</p>
+                            <p className="text-muted-foreground mt-1 text-xs">
+                                {raid.capped
+                                    ? 'Daily cap reached · 0 raid damage'
+                                    : raid.victory
+                                      ? 'Raid defeated'
+                                      : raid.hp_remaining +
+                                        ' / ' +
+                                        raid.max_hp +
+                                        ' HP remaining'}
+                            </p>
+                        </div>
+                    </div>
+
+                    {raid.settlement && (
+                        <div className="mt-3 flex flex-wrap gap-2 border-t pt-3">
+                            <RewardChip
+                                icon={<Sparkles />}
+                                text={
+                                    '+' + raid.settlement.guild_xp + ' Guild XP'
+                                }
+                            />
+                            <RewardChip
+                                icon={<Sparkles />}
+                                text={'+' + raid.settlement.member_xp + ' XP'}
+                            />
+                            <RewardChip
+                                icon={<Coins />}
+                                text={
+                                    '+' + raid.settlement.member_gold + ' gold'
+                                }
+                            />
+                            {raid.settlement.hall_upgraded && (
+                                <RewardChip
+                                    icon={<Castle />}
+                                    text={
+                                        'Hall upgraded · ' +
+                                        raid.settlement.hall.name
+                                    }
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

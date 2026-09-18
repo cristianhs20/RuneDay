@@ -1,4 +1,5 @@
 import type { AdventureCombatResult } from '@/types/adventure';
+import type { GuildProgressResult } from '@/types/guild';
 
 export type GameAppearance = {
     body: 'type_a' | 'type_b';
@@ -63,7 +64,8 @@ export type GameEvent = {
         | 'habit_logged'
         | 'equipment_changed'
         | 'shop_purchase'
-        | 'encounter_started';
+        | 'encounter_started'
+        | 'guild_raid_started';
     xp?: number;
     gold?: number;
     loot?: GameLoot | null;
@@ -72,4 +74,5 @@ export type GameEvent = {
     item?: Partial<GameLoot>;
     gold_spent?: number;
     combat?: AdventureCombatResult | null;
+    guild?: GuildProgressResult | null;
 };
