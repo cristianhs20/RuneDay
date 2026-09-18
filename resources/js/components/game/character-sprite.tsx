@@ -1,46 +1,50 @@
-import type { GameAppearance, GameCharacter } from '@/types/game';
+import {
+    CHARACTER_ANCHORS,
+    CHARACTER_CANVAS,
+    CHARACTER_PALETTE,
+    CHARACTER_RARITY_RULES,
+    CHARACTER_RENDER_RULES,
+    CHARACTER_STYLE_ID,
+    CHARACTER_STYLE_VERSION,
+    equipmentMaterial,
+    materialPalette,
+} from '@/game/character-style';
+import type {
+    EquippedVisual,
+    GameAppearance,
+    GameCharacter,
+} from '@/types/game';
 
-type State = 'idle' | 'attack' | 'celebrate';
+export type CharacterSpriteState = 'idle' | 'attack' | 'celebrate';
+export type CharacterSpriteDebug = 'none' | 'bounds' | 'anchors';
 
-const skin: Record<GameAppearance['skin_tone'], string> = {
-    moon: '#f0d2c2',
-    sun: '#d9a06f',
-    bronze: '#a96842',
-    deep: '#6f412f',
-};
-
-const hair: Record<GameAppearance['hair_color'], string> = {
-    onyx: '#1e2028',
-    chestnut: '#6d3f2c',
-    blonde: '#d8b35e',
-    silver: '#b7bdc8',
-    ember: '#9f3f2d',
-};
-
-const eyes: Record<GameAppearance['eye_color'], string> = {
-    emerald: '#3ba66b',
-    azure: '#3a7fc4',
-    amber: '#c78b34',
-    violet: '#7a5bc6',
-};
+type SpriteCharacter = Pick<
+    GameCharacter,
+    'appearance' | 'equipment' | 'archetype'
+>;
 
 export function CharacterSprite({
     character,
     state = 'idle',
+    debug = 'none',
     className = '',
 }: {
-    character: Pick<GameCharacter, 'appearance' | 'equipment' | 'archetype'>;
-    state?: State;
+    character: SpriteCharacter;
+    state?: CharacterSpriteState;
+    debug?: CharacterSpriteDebug;
     className?: string;
 }) {
     const { appearance, equipment } = character;
-    const skinTone = skin[appearance.skin_tone];
-    const hairTone = hair[appearance.hair_color];
-    const eyeTone = eyes[appearance.eye_color];
-    const bodyB = appearance.body === 'type_b';
+    const skin = CHARACTER_PALETTE.skin[appearance.skin_tone];
+    const hair = CHARACTER_PALETTE.hair[appearance.hair_color];
+    const eye = CHARACTER_PALETTE.eyes[appearance.eye_color];
+    const archetype = CHARACTER_PALETTE.archetype[character.archetype];
+    const lean = appearance.body === 'type_b';
 
     return (
         <div
+            data-character-style={CHARACTER_STYLE_ID}
+            data-character-style-version={CHARACTER_STYLE_VERSION}
             className={[
                 'runeday-sprite',
                 state === 'attack' && 'runeday-sprite-attack',
@@ -52,7 +56,12 @@ export function CharacterSprite({
                 .join(' ')}
         >
             <svg
-                viewBox="0 0 64 64"
+                viewBox={
+                    '0 0 ' +
+                    CHARACTER_CANVAS.width +
+                    ' ' +
+                    CHARACTER_CANVAS.height
+                }
                 role="img"
                 aria-label="RuneDay hero"
                 className="h-full w-full"
@@ -60,91 +69,176 @@ export function CharacterSprite({
             >
                 <ellipse
                     cx="32"
-                    cy="58"
+                    cy={CHARACTER_CANVAS.baselineY}
                     rx="15"
                     ry="3"
-                    fill="currentColor"
-                    opacity="0.12"
+                    fill={CHARACTER_RENDER_RULES.castShadow}
+                    opacity={CHARACTER_RENDER_RULES.castShadowOpacity}
                 />
 
-                <BackLayer visualKey={equipment.back?.visual_key} />
+                <BackLayer item={equipment.back} />
 
+                <PixelBlock
+                    x={lean ? 23 : 22}
+                    y={41}
+                    width={lean ? 8 : 9}
+                    height={15}
+                    fill={archetype.shadow}
+                />
+                <PixelBlock
+                    x={34}
+                    y={41}
+                    width={lean ? 8 : 9}
+                    height={15}
+                    fill={archetype.shadow}
+                />
+                <FeetLayer item={equipment.feet} />
+
+                <PixelBlock
+                    x={lean ? 18 : 17}
+                    y={27}
+                    width={lean ? 8 : 9}
+                    height={16}
+                    fill={skin.base}
+                />
+                <PixelBlock
+                    x={38}
+                    y={27}
+                    width={lean ? 8 : 9}
+                    height={16}
+                    fill={skin.base}
+                />
+
+                <PixelBlock
+                    x={lean ? 24 : 23}
+                    y={24}
+                    width={lean ? 16 : 18}
+                    height={20}
+                    fill={archetype.base}
+                />
                 <rect
-                    x={bodyB ? 23 : 22}
-                    y="42"
-                    width={bodyB ? 7 : 8}
-                    height="13"
-                    fill="#2a2f3b"
+                    x={lean ? 25 : 24}
+                    y="25"
+                    width={lean ? 6 : 7}
+                    height="2"
+                    fill={archetype.highlight}
+                />
+
+                <ChestLayer item={equipment.chest} />
+
+                <PixelBlock
+                    x={22}
+                    y={10}
+                    width={20}
+                    height={17}
+                    fill={skin.base}
                 />
                 <rect
-                    x="34"
-                    y="42"
-                    width={bodyB ? 7 : 8}
-                    height="13"
-                    fill="#2a2f3b"
+                    x="24"
+                    y="11"
+                    width="7"
+                    height="2"
+                    fill={skin.highlight}
                 />
-                <FeetLayer visualKey={equipment.feet?.visual_key} />
+                <rect x="23" y="24" width="18" height="2" fill={skin.shadow} />
 
+                <rect x="26" y="18" width="3" height="3" fill={eye} />
+                <rect x="35" y="18" width="3" height="3" fill={eye} />
                 <rect
-                    x={bodyB ? 19 : 18}
-                    y="26"
-                    width={bodyB ? 7 : 8}
-                    height="16"
-                    fill={skinTone}
-                />
-                <rect
-                    x="38"
-                    y="26"
-                    width={bodyB ? 7 : 8}
-                    height="16"
-                    fill={skinTone}
+                    x="27"
+                    y="18"
+                    width="1"
+                    height="1"
+                    fill="#f6fbff"
+                    opacity="0.8"
                 />
                 <rect
-                    x={bodyB ? 25 : 24}
-                    y="24"
-                    width={bodyB ? 14 : 16}
-                    height="21"
-                    fill={archetypeBase(character.archetype)}
+                    x="36"
+                    y="18"
+                    width="1"
+                    height="1"
+                    fill="#f6fbff"
+                    opacity="0.8"
                 />
-                <ChestLayer visualKey={equipment.chest?.visual_key} />
 
-                <rect x="23" y="11" width="18" height="15" fill={skinTone} />
-                <rect x="26" y="18" width="3" height="3" fill={eyeTone} />
-                <rect x="35" y="18" width="3" height="3" fill={eyeTone} />
+                <HairLayer style={appearance.hair_style} palette={hair} />
+                <HeadLayer item={equipment.head} />
 
-                <HairLayer style={appearance.hair_style} color={hairTone} />
-                <HeadLayer visualKey={equipment.head?.visual_key} />
+                <AccessoryLayer item={equipment.accessory} />
+                <WeaponLayer item={equipment.weapon} />
 
-                <AccessoryLayer visualKey={equipment.accessory?.visual_key} />
-                <WeaponLayer visualKey={equipment.weapon?.visual_key} />
+                {debug !== 'none' && <DebugOverlay mode={debug} />}
             </svg>
         </div>
     );
 }
 
-function archetypeBase(archetype: GameCharacter['archetype']) {
-    return {
-        wanderer: '#495365',
-        warden: '#3f6b55',
-        rogue: '#454252',
-        arcanist: '#4e4b72',
-    }[archetype];
+function PixelBlock({
+    x,
+    y,
+    width,
+    height,
+    fill,
+    outline = CHARACTER_RENDER_RULES.silhouetteOutline,
+}: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    fill: string;
+    outline?: string;
+}) {
+    return (
+        <>
+            <rect x={x} y={y} width={width} height={height} fill={outline} />
+            <rect
+                x={x + 1}
+                y={y + 1}
+                width={Math.max(1, width - 2)}
+                height={Math.max(1, height - 2)}
+                fill={fill}
+            />
+        </>
+    );
 }
 
 function HairLayer({
     style,
-    color,
+    palette,
 }: {
     style: GameAppearance['hair_style'];
-    color: string;
+    palette: {
+        shadow: string;
+        base: string;
+        highlight: string;
+    };
 }) {
     if (style === 'none') return null;
 
     if (style === 'crest') {
         return (
             <>
-                <rect x="25" y="6" width="14" height="5" fill={color} />
-                <rect x="29" y="3" width="6" height="4" fill={color} />
+                <PixelBlock
+                    x={24}
+                    y={6}
+                    width={16}
+                    height={7}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={29}
+                    y={3}
+                    width={7}
+                    height={5}
+                    fill={palette.base}
+                />
+                <rect
+                    x="26"
+                    y="7"
+                    width="5"
+                    height="1"
+                    fill={palette.highlight}
+                />
             </>
         );
     }
@@ -152,11 +246,48 @@ function HairLayer({
     if (style === 'wild') {
         return (
             <>
-                <rect x="21" y="8" width="22" height="6" fill={color} />
-                <rect x="19" y="11" width="5" height="9" fill={color} />
-                <rect x="40" y="10" width="5" height="8" fill={color} />
-                <rect x="25" y="5" width="5" height="4" fill={color} />
-                <rect x="35" y="4" width="5" height="5" fill={color} />
+                <PixelBlock
+                    x={20}
+                    y={7}
+                    width={24}
+                    height={8}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={18}
+                    y={10}
+                    width={6}
+                    height={10}
+                    fill={palette.shadow}
+                />
+                <PixelBlock
+                    x={40}
+                    y={9}
+                    width={6}
+                    height={10}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={25}
+                    y={4}
+                    width={6}
+                    height={5}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={35}
+                    y={3}
+                    width={6}
+                    height={6}
+                    fill={palette.base}
+                />
+                <rect
+                    x="23"
+                    y="8"
+                    width="9"
+                    height="2"
+                    fill={palette.highlight}
+                />
             </>
         );
     }
@@ -164,178 +295,286 @@ function HairLayer({
     if (style === 'braid') {
         return (
             <>
-                <rect x="21" y="8" width="22" height="6" fill={color} />
-                <rect x="21" y="11" width="4" height="13" fill={color} />
-                <rect x="18" y="22" width="5" height="5" fill={color} />
+                <PixelBlock
+                    x={20}
+                    y={7}
+                    width={24}
+                    height={8}
+                    fill={palette.base}
+                />
+                <PixelBlock
+                    x={19}
+                    y={11}
+                    width={6}
+                    height={14}
+                    fill={palette.shadow}
+                />
+                <PixelBlock
+                    x={17}
+                    y={22}
+                    width={6}
+                    height={6}
+                    fill={palette.base}
+                />
+                <rect
+                    x="23"
+                    y="8"
+                    width="8"
+                    height="2"
+                    fill={palette.highlight}
+                />
             </>
         );
     }
 
     return (
         <>
-            <rect x="22" y="8" width="20" height="6" fill={color} />
-            <rect x="22" y="12" width="4" height="5" fill={color} />
+            <PixelBlock
+                x={21}
+                y={7}
+                width={22}
+                height={8}
+                fill={palette.base}
+            />
+            <PixelBlock
+                x={21}
+                y={11}
+                width={6}
+                height={7}
+                fill={palette.shadow}
+            />
+            <rect x="24" y="8" width="8" height="2" fill={palette.highlight} />
         </>
     );
 }
 
-function WeaponLayer({ visualKey }: { visualKey?: string }) {
-    if (!visualKey) return null;
+function WeaponLayer({ item }: { item?: EquippedVisual }) {
+    if (!item) return null;
 
-    const rare =
-        visualKey.includes('moonsteel') || visualKey.includes('emberfang');
-    const blade = visualKey.includes('emberfang')
-        ? '#e66f3f'
-        : visualKey.includes('moonsteel')
-          ? '#86a6c9'
-          : visualKey.includes('mossblade')
-            ? '#6f9b62'
-            : '#aeb7c4';
+    const palette = materialPalette(equipmentMaterial(item.visual_key));
+    const accent = CHARACTER_RARITY_RULES[item.rarity].accent;
+    const rare = item.rarity === 'rare' || item.rarity === 'epic';
 
     return (
         <g className="runeday-weapon-layer">
-            <rect x="48" y="21" width="3" height="24" fill="#684832" />
-            <rect x="46" y="20" width="7" height="3" fill="#c0964d" />
-            <rect x="49" y="7" width="4" height="15" fill={blade} />
-            <rect
-                x="48"
-                y="8"
-                width="1"
-                height="13"
-                fill="#eef3f7"
-                opacity="0.7"
+            <PixelBlock
+                x={48}
+                y={21}
+                width={4}
+                height={25}
+                fill={CHARACTER_PALETTE.material.wood.base}
             />
-            {rare && <rect x="50" y="5" width="2" height="2" fill="#f4d47b" />}
+            <rect
+                x="46"
+                y="20"
+                width="8"
+                height="3"
+                fill={CHARACTER_PALETTE.material.gold.base}
+            />
+            <PixelBlock
+                x={48}
+                y={6}
+                width={6}
+                height={17}
+                fill={palette.base}
+            />
+            <rect x="50" y="8" width="1" height="11" fill={palette.highlight} />
+            {rare && (
+                <>
+                    <rect x="53" y="5" width="2" height="2" fill={accent} />
+                    {item.rarity === 'epic' && (
+                        <rect x="55" y="8" width="1" height="1" fill={accent} />
+                    )}
+                </>
+            )}
         </g>
     );
 }
 
-function ChestLayer({ visualKey }: { visualKey?: string }) {
-    if (!visualKey) return null;
+function ChestLayer({ item }: { item?: EquippedVisual }) {
+    if (!item) return null;
 
-    const color = visualKey.includes('dragonplate')
-        ? '#713c35'
-        : visualKey.includes('runic')
-          ? '#536987'
-          : visualKey.includes('ranger')
-            ? '#49664e'
-            : '#7b6858';
+    const palette = materialPalette(equipmentMaterial(item.visual_key));
+    const accent = CHARACTER_RARITY_RULES[item.rarity].accent;
 
     return (
         <>
-            <rect x="23" y="25" width="18" height="17" fill={color} />
-            <rect
-                x="26"
-                y="28"
-                width="12"
-                height="3"
-                fill="#ffffff"
-                opacity="0.12"
+            <PixelBlock
+                x={22}
+                y={24}
+                width={20}
+                height={19}
+                fill={palette.base}
             />
-            {visualKey.includes('runic') && (
-                <rect x="30" y="32" width="4" height="4" fill="#8fc3d5" />
+            <rect x="24" y="26" width="8" height="2" fill={palette.highlight} />
+            <rect x="23" y="39" width="18" height="2" fill={palette.shadow} />
+            {(item.visual_key.includes('runic') || item.rarity === 'epic') && (
+                <rect x="30" y="32" width="4" height="4" fill={accent} />
             )}
         </>
     );
 }
 
-function HeadLayer({ visualKey }: { visualKey?: string }) {
-    if (!visualKey) return null;
+function HeadLayer({ item }: { item?: EquippedVisual }) {
+    if (!item) return null;
 
-    if (visualKey.includes('crown')) {
+    const palette = materialPalette(equipmentMaterial(item.visual_key));
+    const accent = CHARACTER_RARITY_RULES[item.rarity].accent;
+
+    if (item.visual_key.includes('crown')) {
         return (
             <>
-                <rect x="23" y="8" width="18" height="4" fill="#d5ac4c" />
-                <rect x="24" y="5" width="3" height="4" fill="#d5ac4c" />
-                <rect x="31" y="4" width="3" height="5" fill="#d5ac4c" />
-                <rect x="38" y="5" width="3" height="4" fill="#d5ac4c" />
+                <rect x="22" y="9" width="20" height="4" fill={palette.base} />
+                <rect x="23" y="5" width="4" height="5" fill={palette.base} />
+                <rect x="30" y="4" width="4" height="6" fill={palette.base} />
+                <rect x="38" y="5" width="4" height="5" fill={palette.base} />
+                <rect x="31" y="5" width="2" height="2" fill={accent} />
             </>
         );
     }
 
-    if (visualKey.includes('circlet')) {
-        return <rect x="22" y="13" width="20" height="3" fill="#6da6d3" />;
+    if (item.visual_key.includes('circlet')) {
+        return (
+            <>
+                <rect x="21" y="13" width="22" height="3" fill={palette.base} />
+                <rect x="31" y="12" width="3" height="3" fill={accent} />
+            </>
+        );
     }
 
-    const color = visualKey.includes('scout') ? '#405f49' : '#5d534d';
-
     return (
         <>
-            <rect x="21" y="8" width="22" height="7" fill={color} />
-            <rect x="20" y="13" width="24" height="3" fill={color} />
+            <PixelBlock
+                x={20}
+                y={7}
+                width={24}
+                height={10}
+                fill={palette.base}
+            />
+            <rect x="23" y="9" width="8" height="2" fill={palette.highlight} />
+            {item.rarity === 'epic' && (
+                <rect x="40" y="8" width="2" height="2" fill={accent} />
+            )}
         </>
     );
 }
 
-function FeetLayer({ visualKey }: { visualKey?: string }) {
-    if (!visualKey) return null;
+function FeetLayer({ item }: { item?: EquippedVisual }) {
+    if (!item) return null;
 
-    const color = visualKey.includes('void')
-        ? '#403657'
-        : visualKey.includes('shadow')
-          ? '#30333f'
-          : visualKey.includes('trail')
-            ? '#5d4935'
-            : '#58453a';
+    const palette = materialPalette(equipmentMaterial(item.visual_key));
 
     return (
         <>
-            <rect x="20" y="53" width="11" height="5" fill={color} />
-            <rect x="33" y="53" width="11" height="5" fill={color} />
+            <PixelBlock
+                x={20}
+                y={52}
+                width={12}
+                height={7}
+                fill={palette.base}
+            />
+            <PixelBlock
+                x={32}
+                y={52}
+                width={12}
+                height={7}
+                fill={palette.base}
+            />
+            <rect x="22" y="53" width="5" height="1" fill={palette.highlight} />
+            <rect x="34" y="53" width="5" height="1" fill={palette.highlight} />
         </>
     );
 }
 
-function BackLayer({ visualKey }: { visualKey?: string }) {
-    if (!visualKey) return null;
+function BackLayer({ item }: { item?: EquippedVisual }) {
+    if (!item) return null;
 
-    if (visualKey.includes('satchel')) {
-        return <rect x="15" y="29" width="8" height="13" fill="#73553b" />;
+    const palette = materialPalette(equipmentMaterial(item.visual_key));
+
+    if (item.visual_key.includes('satchel')) {
+        return (
+            <PixelBlock
+                x={14}
+                y={29}
+                width={10}
+                height={14}
+                fill={palette.base}
+            />
+        );
     }
 
-    const color = visualKey.includes('phoenix')
-        ? '#a84331'
-        : visualKey.includes('starcloak')
-          ? '#253a63'
-          : '#485468';
-
     return (
         <>
-            <rect
-                x="20"
-                y="24"
-                width="24"
-                height="25"
-                fill={color}
-                opacity="0.95"
+            <PixelBlock
+                x={19}
+                y={23}
+                width={26}
+                height={27}
+                fill={palette.base}
             />
-            <rect
-                x="18"
-                y="42"
-                width="28"
-                height="8"
-                fill={color}
-                opacity="0.9"
-            />
+            <rect x="21" y="25" width="7" height="2" fill={palette.highlight} />
+            <rect x="18" y="42" width="28" height="8" fill={palette.shadow} />
         </>
     );
 }
 
-function AccessoryLayer({ visualKey }: { visualKey?: string }) {
-    if (!visualKey) return null;
+function AccessoryLayer({ item }: { item?: EquippedVisual }) {
+    if (!item) return null;
 
-    const color = visualKey.includes('astral')
-        ? '#af8ce0'
-        : visualKey.includes('lucky')
-          ? '#72b6c7'
-          : visualKey.includes('emerald')
-            ? '#4daa78'
-            : '#bf854e';
+    const palette = materialPalette(equipmentMaterial(item.visual_key));
+    const accent = CHARACTER_RARITY_RULES[item.rarity].accent;
 
     return (
         <>
-            <rect x="30" y="34" width="4" height="4" fill={color} />
-            <rect x="31" y="38" width="2" height="4" fill={color} />
+            <rect x="30" y="34" width="4" height="4" fill={accent} />
+            <rect x="31" y="38" width="2" height="4" fill={palette.base} />
+            <rect x="31" y="34" width="1" height="1" fill={palette.highlight} />
+        </>
+    );
+}
+
+function DebugOverlay({ mode }: { mode: CharacterSpriteDebug }) {
+    if (mode === 'bounds') {
+        const bounds = CHARACTER_CANVAS.heroBounds;
+
+        return (
+            <>
+                <rect
+                    x={bounds.left}
+                    y={bounds.top}
+                    width={bounds.right - bounds.left}
+                    height={bounds.bottom - bounds.top}
+                    fill="none"
+                    stroke="#ff4f87"
+                    strokeWidth="0.5"
+                    strokeDasharray="2 1"
+                />
+                <line
+                    x1="0"
+                    x2={CHARACTER_CANVAS.width}
+                    y1={CHARACTER_CANVAS.baselineY}
+                    y2={CHARACTER_CANVAS.baselineY}
+                    stroke="#55d6ff"
+                    strokeWidth="0.5"
+                />
+            </>
+        );
+    }
+
+    return (
+        <>
+            {Object.entries(CHARACTER_ANCHORS).map(([name, point]) => (
+                <g key={name}>
+                    <rect
+                        x={point.x - 1}
+                        y={point.y - 1}
+                        width="3"
+                        height="3"
+                        fill="#ff4f87"
+                        opacity="0.8"
+                    />
+                </g>
+            ))}
         </>
     );
 }

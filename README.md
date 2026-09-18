@@ -121,6 +121,40 @@ See [docs/phase-4.md](docs/phase-4.md).
 
 See [docs/phase-5.md](docs/phase-5.md).
 
+## Character Engine focus
+
+**Character Engine — Phase A: Art Direction Foundation v1: complete.**
+
+The playable-character system now has a versioned visual source of truth rather than renderer-specific styling.
+
+Locked in Phase A:
+
+- RuneDay Heroic Compact Fantasy art direction
+- 64×64 canonical playable-character canvas
+- Y=58 baseline and hero/effect bounds
+- fixed equipment/body anchors
+- canonical layer order
+- shared skin / hair / eye palettes
+- reusable three-tone material library
+- top-left lighting rule
+- silhouette/internal outline rules
+- rarity accent + FX budgets
+- animation frame/FPS/root-travel targets
+- machine-readable asset naming convention
+- production renderer consuming shared style tokens
+- bounds/anchor debug renderer
+- authenticated Character Style Lab at /character/style-lab
+- versioned artist handoff + QA checklist
+
+See:
+
+- [Phase A](docs/character-engine/phase-a.md)
+- [Character Style Bible v1](docs/character-engine/style-bible-v1.md)
+- [Asset Production Spec v1](docs/character-engine/asset-production-spec-v1.md)
+- [Visual QA Checklist v1](docs/character-engine/qa-checklist-v1.md)
+
+Phase A deliberately prioritizes **system consistency before asset quantity**. Large cosmetic production should wait until the authored base hero and animation set are approved in Character Engine Phase B.
+
 ## Local setup
 
 ```bash

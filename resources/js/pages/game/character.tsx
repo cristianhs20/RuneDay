@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Shield, Sparkles, Swords, WandSparkles } from 'lucide-react';
 import { CharacterSprite } from '@/components/game/character-sprite';
 import { Button } from '@/components/ui/button';
@@ -61,17 +61,26 @@ export default function Character({ character }: { character: GameCharacter }) {
         <>
             <Head title="Hero" />
             <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 p-4 md:p-8">
-                <header>
-                    <p className="text-muted-foreground text-sm">
-                        Phase 2 · Character RPG
-                    </p>
-                    <h1 className="text-3xl font-semibold tracking-tight">
-                        {character.created ? 'Your Hero' : 'Create your Hero'}
-                    </h1>
-                    <p className="text-muted-foreground mt-2 max-w-2xl text-sm">
-                        Appearance is cosmetic. Progress comes from the work you
-                        complete, not from buying power.
-                    </p>
+                <header className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+                    <div>
+                        <p className="text-muted-foreground text-sm">
+                            Character Engine · Hero
+                        </p>
+                        <h1 className="text-3xl font-semibold tracking-tight">
+                            {character.created
+                                ? 'Your Hero'
+                                : 'Create your Hero'}
+                        </h1>
+                        <p className="text-muted-foreground mt-2 max-w-2xl text-sm">
+                            Appearance is cosmetic. Progress comes from the work
+                            you complete, not from buying power.
+                        </p>
+                    </div>
+                    <Button asChild variant="outline">
+                        <Link href="/character/style-lab">
+                            Character Style Lab
+                        </Link>
+                    </Button>
                 </header>
 
                 <div className="grid gap-6 lg:grid-cols-[420px_1fr]">

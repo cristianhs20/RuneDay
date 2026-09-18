@@ -72,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('character', [CharacterController::class, 'show'])->name('character.show');
     Route::put('character', [CharacterController::class, 'update'])->name('character.update');
+    Route::inertia('character/style-lab', 'game/character-style-lab')->name('character.style-lab');
 
     Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
     Route::post('inventory/{inventoryItem}/equip', [InventoryController::class, 'equip'])->name('inventory.equip');
