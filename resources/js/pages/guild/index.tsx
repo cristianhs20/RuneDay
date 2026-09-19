@@ -14,7 +14,7 @@ import {
     UsersRound,
     X,
 } from 'lucide-react';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { GuildHallVisual } from '@/components/guild/guild-hall-visual';
 import { RaidBossSprite } from '@/components/guild/raid-boss-sprite';
 import { Button } from '@/components/ui/button';
@@ -787,7 +787,10 @@ function MemberCard({
                     href={'/u/' + member.handle}
                     className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-zinc-950 text-white"
                 >
-                    <CharacterSprite character={member} className="size-14" />
+                    <ProductionCharacter
+                        character={member}
+                        className="size-14"
+                    />
                 </Link>
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
@@ -942,7 +945,7 @@ function InvitePanel({
                             className="flex items-center gap-3 rounded-xl border p-3"
                         >
                             <div className="flex size-10 items-center justify-center overflow-hidden rounded-lg bg-zinc-950 text-white">
-                                <CharacterSprite
+                                <ProductionCharacter
                                     character={friend}
                                     className="size-9"
                                 />
