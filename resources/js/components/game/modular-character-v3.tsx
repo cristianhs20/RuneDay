@@ -34,17 +34,17 @@ type Props = {
 
 const manifestUrl = '/game/characters/v3/manifests/modular-v3.json';
 
-const atlasCache = new Map<string, HTMLImageElement>();
+const imageCache = new Map<string, HTMLImageElement>();
 
-async function loadAtlas(src: string): Promise<HTMLImageElement> {
-    const existing = atlasCache.get(src);
+async function loadImage(src: string): Promise<HTMLImageElement> {
+    const existing = imageCache.get(src);
     if (existing) return existing;
 
     return new Promise((resolve, reject) => {
         const image = new Image();
         image.decoding = 'async';
         image.onload = () => {
-            atlasCache.set(src, image);
+            imageCache.set(src, image);
             resolve(image);
         };
         image.onerror = reject;
@@ -57,6 +57,14 @@ function resolveModule(
     id: string,
 ): ModularV3Module | null {
     return manifest.modules[id] ?? null;
+}
+
+function moduleOffsetY(module: ModularV3Module, view: ModularV3View): number {
+    if (!['head', 'face', 'hair'].includes(module.category)) return 0;
+
+    if (view === 'front') return 24;
+    if (view === 'side') return 19;
+    return 4;
 }
 
 export function ModularCharacterV3({
@@ -146,9 +154,9 @@ export function ModularCharacterV3({
             .filter((module): module is ModularV3Module => module !== null);
 
         Promise.all(
-            Array.from(new Set(modules.map((module) => module.atlas))).map(
-                (atlas) => loadAtlas(atlas),
-            ),
+            Array.from(
+                new Set(modules.map((module) => module.png ?? module.atlas)),
+            ).map((src) => loadImage(src)),
         )
             .then(() => {
                 if (canceled) return;
@@ -171,20 +179,27 @@ export function ModularCharacterV3({
                 context.scale(scale, scale);
 
                 for (const module of modules) {
-                    const image = atlasCache.get(module.atlas);
+                    const source = module.png ?? module.atlas;
+                    const image = imageCache.get(source);
                     if (!image) continue;
 
-                    context.drawImage(
-                        image,
-                        module.x,
-                        module.y,
-                        module.w,
-                        module.h,
-                        0,
-                        0,
-                        width,
-                        height,
-                    );
+                    const yOffset = moduleOffsetY(module, view);
+
+                    if (module.png) {
+                        context.drawImage(image, 0, yOffset, width, height);
+                    } else {
+                        context.drawImage(
+                            image,
+                            module.x,
+                            module.y,
+                            module.w,
+                            module.h,
+                            0,
+                            yOffset,
+                            width,
+                            height,
+                        );
+                    }
                 }
 
                 context.restore();
