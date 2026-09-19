@@ -10,7 +10,7 @@ import {
     TimerReset,
 } from 'lucide-react';
 import { EnemySprite } from '@/components/adventure/enemy-sprite';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -123,7 +123,7 @@ export default function Today({
                                     className="hidden rounded-2xl bg-white/5 p-2 transition hover:bg-white/10 lg:block"
                                     aria-label="Open hero"
                                 >
-                                    <CharacterSprite
+                                    <ProductionCharacter
                                         character={gameCharacter}
                                         className="size-24"
                                     />
