@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "styleId": "runeday-heroic-compact-fantasy",
     "rig": {
         "id": "humanoid",
@@ -189,7 +189,20 @@
     },
     "views": ["front", "side", "back"],
     "animations": ["idle", "walk", "attack", "cast", "celebrate", "hurt"],
-    "equipmentSlots": ["weapon", "head", "chest", "feet", "back", "accessory"],
+    "equipmentSlots": [
+        "weapon",
+        "offhand",
+        "head",
+        "neck",
+        "shoulder",
+        "chest",
+        "hands",
+        "waist",
+        "legs",
+        "feet",
+        "back",
+        "accessory"
+    ],
     "legacyBodyMap": {
         "type_a": "broad",
         "type_b": "lean"
@@ -256,7 +269,7 @@
         "humanBroadModularV3": {
             "id": "human_broad_modular_v3",
             "engine": "runeday-modular-v3",
-            "status": "integrated-review",
+            "status": "production",
             "lineage": "human",
             "fit_profile": "broad",
             "cell": {
