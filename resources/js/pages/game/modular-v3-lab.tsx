@@ -25,7 +25,7 @@ type Hair =
     | 'none';
 type Expression = 'base' | 'neutral' | 'determined' | 'happy' | 'serious';
 
-const views: ModularV3View[] = ['front', 'side', 'back'];
+const views: ModularV3View[] = ['front'];
 const skins: Skin[] = ['fair', 'light_tan', 'tan', 'dark'];
 const hairs: Hair[] = [
     'messy',
@@ -112,7 +112,7 @@ export default function ModularV3Lab() {
                                     Official modular character pipeline
                                 </p>
                                 <CardTitle className="mt-1">
-                                    Live assembly · Front / Side / Back
+                                    Live assembly · Front production preview
                                 </CardTitle>
                             </div>
                             <span className="rounded-full border px-3 py-1 text-xs font-medium">
@@ -122,7 +122,7 @@ export default function ModularV3Lab() {
                     </CardHeader>
 
                     <CardContent className="p-0">
-                        <div className="grid gap-px bg-white/10 lg:grid-cols-3">
+                        <div className="grid gap-px bg-white/10">
                             {views.map((view) => (
                                 <div
                                     key={view}
@@ -142,9 +142,7 @@ export default function ModularV3Lab() {
                                             {view}
                                         </p>
                                         <p className="mt-1 text-xs text-zinc-500">
-                                            {view === 'side' && hair !== 'none'
-                                                ? 'side hair sheet pending'
-                                                : 'modular atlas composition'}
+                                            production modular composition
                                         </p>
                                     </div>
                                 </div>
@@ -328,12 +326,9 @@ export default function ModularV3Lab() {
                             Next art work is explicit, not procedural
                         </p>
                         <p className="text-muted-foreground mt-1 text-sm">
-                            The current generated sheets did not include
-                            side-view hair sprites, and the iron/gold armor pack
-                            is not yet fitted to the body anchors. Those assets
-                            are registered in the engine, but we will author the
-                            missing views and fit profiles rather than stretch
-                            or guess them.
+                            Only complete production-ready views are shown here.
+                            Incomplete side/back V3 art is intentionally hidden
+                            instead of rendering broken anatomy.
                         </p>
                     </div>
                 </div>
