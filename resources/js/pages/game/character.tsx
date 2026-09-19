@@ -1,7 +1,7 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Shield, Sparkles, Swords, WandSparkles } from 'lucide-react';
 import { useState } from 'react';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -95,7 +95,7 @@ export default function Character({ character }: { character: GameCharacter }) {
                 <header className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
                     <div>
                         <p className="text-muted-foreground text-sm">
-                            Character Engine · Phase B
+                            Character Engine · Modular V3
                         </p>
                         <h1 className="text-3xl font-semibold tracking-tight">
                             {character.created
@@ -103,10 +103,10 @@ export default function Character({ character }: { character: GameCharacter }) {
                                 : 'Create your Hero'}
                         </h1>
                         <p className="text-muted-foreground mt-2 max-w-3xl text-sm">
-                            Choose a lineage, frame and identity. Equipment
-                            stays compatible across the shared RuneDay Humanoid
-                            Rig, while anatomy and personalization make each
-                            lineage visually distinct.
+                            Create your hero and see equipped gear update in
+                            real time. Human Broad now uses the production
+                            Modular V3 renderer; other lineages keep a
+                            compatible fallback while their V3 art is completed.
                         </p>
                     </div>
 
@@ -116,7 +116,7 @@ export default function Character({ character }: { character: GameCharacter }) {
                         </Button>
                         <Button asChild>
                             <Link href="/character/modular-v3-lab">
-                                Modular v3 Lab
+                                Advanced V3 preview
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
@@ -137,7 +137,7 @@ export default function Character({ character }: { character: GameCharacter }) {
                         <Card className="overflow-hidden rounded-3xl">
                             <CardContent className="p-0">
                                 <div className="flex min-h-[470px] items-center justify-center bg-zinc-950 p-8 text-white">
-                                    <CharacterSprite
+                                    <ProductionCharacter
                                         character={preview}
                                         view={view}
                                         className="size-80 max-w-full"
