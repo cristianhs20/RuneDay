@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { EnemySprite } from '@/components/adventure/enemy-sprite';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { RaidBossSprite } from '@/components/guild/raid-boss-sprite';
 import { Button } from '@/components/ui/button';
 import type { AdventureCombatResult } from '@/types/adventure';
@@ -113,7 +113,7 @@ function CombatEvent({
         <>
             <div className="grid bg-zinc-950 text-white md:grid-cols-[1fr_auto_1fr]">
                 <div className="flex min-h-52 flex-col items-center justify-center p-5">
-                    <CharacterSprite
+                    <ProductionCharacter
                         character={character}
                         state={
                             started ? 'idle' : victory ? 'celebrate' : 'attack'
@@ -330,7 +330,7 @@ function ProgressEvent({
     return (
         <div className="grid gap-5 p-6 md:grid-cols-[180px_1fr] md:p-8">
             <div className="flex items-center justify-center rounded-3xl bg-zinc-950 p-4 text-white">
-                <CharacterSprite
+                <ProductionCharacter
                     character={character}
                     state={isQuest ? 'attack' : 'celebrate'}
                     className="size-36"
