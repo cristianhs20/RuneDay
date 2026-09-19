@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useRef } from 'react';
 import { toast } from 'sonner';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { ActivityCard } from '@/components/social/activity-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -210,7 +210,7 @@ export default function PublicProfile(props: PublicSocialProfile) {
                                     ref={heroRef}
                                     className="flex min-h-[390px] items-center justify-center bg-zinc-950 p-8 text-white"
                                 >
-                                    <CharacterSprite
+                                    <ProductionCharacter
                                         character={character}
                                         className="size-72 max-w-full"
                                     />
