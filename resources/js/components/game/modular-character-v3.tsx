@@ -12,6 +12,7 @@ type EquipmentSelection = {
     neck: boolean;
     waist: boolean;
     feet: boolean;
+    armorModules?: string[];
 };
 
 type Props = {
@@ -103,6 +104,10 @@ export function ModularCharacterV3({
 
         if (equipment.feet) {
             ids.push('boots_starter.' + view);
+        }
+
+        if (view === 'front') {
+            ids.push(...(equipment.armorModules ?? []));
         }
 
         return ids;
