@@ -22,7 +22,7 @@ class Phase2GameTest extends TestCase
 
     public function test_phase_two_catalog_is_available_after_migrations(): void
     {
-        $this->assertSame(24, ItemDefinition::count());
+        $this->assertSame(42, ItemDefinition::count());
         $this->assertSame(7, Achievement::count());
         $this->assertSame(
             6,
@@ -35,6 +35,58 @@ class Phase2GameTest extends TestCase
                 ->where('shop_enabled', true)
                 ->count(),
         );
+    }
+
+    public function test_modular_v3_iron_gold_catalog_is_available(): void
+    {
+        $this->assertSame(
+            18,
+            ItemDefinition::query()->where('visual_key', 'like', 'v3_armor_%')->count(),
+        );
+        $this->assertSame(
+            8,
+            ItemDefinition::query()->where('slot', 'shoulder')->count(),
+        );
+        $this->assertSame(
+            6,
+            ItemDefinition::query()->where('slot', 'legs')->count(),
+        );
+        $this->assertSame(
+            4,
+            ItemDefinition::query()
+                ->where('slot', 'chest')
+                ->where('visual_key', 'like', 'v3_armor_chest_%')
+                ->count(),
+        );
+    }
+
+    public function test_user_can_equip_modular_v3_armor_piece(): void
+    {
+        $user = User::factory()->create(['email_verified_at' => now()]);
+        $profile = CharacterProfile::create([
+            'user_id' => $user->id,
+            'appearance' => CharacterProfile::defaultAppearance(),
+        ]);
+        $item = ItemDefinition::where('slug', 'iron-gold-shoulder-0')->firstOrFail();
+        $inventory = InventoryItem::create([
+            'user_id' => $user->id,
+            'item_definition_id' => $item->id,
+            'quantity' => 1,
+            'acquired_from' => 'test',
+            'source_type' => 'test',
+            'source_id' => $profile->id,
+            'acquired_at' => now(),
+        ]);
+
+        $this->actingAs($user)
+            ->post("/inventory/{$inventory->id}/equip")
+            ->assertRedirect();
+
+        $this->assertDatabaseHas('equipped_items', [
+            'user_id' => $user->id,
+            'slot' => 'shoulder',
+            'inventory_item_id' => $inventory->id,
+        ]);
     }
 
     public function test_creating_a_hero_grants_and_equips_starter_gear(): void
