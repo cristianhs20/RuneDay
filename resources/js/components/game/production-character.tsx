@@ -56,7 +56,8 @@ export function ProductionCharacter({
     const canUseV3 =
         (character.lineage ?? 'human') === 'human' &&
         character.appearance.body === 'broad' &&
-        character.appearance.skin_tone in skinMap;
+        character.appearance.skin_tone in skinMap &&
+        view === 'front';
 
     if (!canUseV3 || state !== 'idle') {
         return (
