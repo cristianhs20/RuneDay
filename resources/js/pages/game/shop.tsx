@@ -1,6 +1,6 @@
 import { Head, router } from '@inertiajs/react';
 import { Coins, LockKeyhole, Store } from 'lucide-react';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { GameCharacter } from '@/types/game';
@@ -65,7 +65,7 @@ export default function Shop({
                     <Card className="h-fit overflow-hidden rounded-3xl">
                         <CardContent className="p-0">
                             <div className="flex min-h-72 items-center justify-center bg-zinc-950 p-5 text-white">
-                                <CharacterSprite
+                                <ProductionCharacter
                                     character={character}
                                     className="size-52"
                                 />
