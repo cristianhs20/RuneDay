@@ -65,6 +65,32 @@ class CharacterEngineModularV3Test extends TestCase
         }
     }
 
+    public function test_every_modular_v3_entry_has_an_individual_png_source(): void
+    {
+        $manifest = json_decode(
+            (string) file_get_contents(
+                public_path('game/characters/v3/manifests/modular-v3.json'),
+            ),
+            true,
+            flags: JSON_THROW_ON_ERROR,
+        );
+
+        $this->assertCount(73, $manifest['modules']);
+
+        foreach ($manifest['modules'] as $module) {
+            $this->assertArrayHasKey('png', $module);
+
+            $path = public_path(ltrim($module['png'], '/'));
+            $this->assertFileExists($path);
+
+            $info = getimagesize($path);
+            $this->assertIsArray($info);
+            $this->assertSame(256, $info[0]);
+            $this->assertSame(256, $info[1]);
+            $this->assertSame(IMAGETYPE_PNG, $info[2]);
+        }
+    }
+
     public function test_all_modular_v3_atlases_exist_as_png_images(): void
     {
         $atlases = [

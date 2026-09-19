@@ -37,7 +37,8 @@
             "h": 256,
             "category": "body",
             "tone": "fair",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/body/fair/front.png"
         },
         "body.fair.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -48,7 +49,8 @@
             "h": 256,
             "category": "body",
             "tone": "fair",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/body/fair/side.png"
         },
         "body.fair.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -59,7 +61,8 @@
             "h": 256,
             "category": "body",
             "tone": "fair",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/body/fair/back.png"
         },
         "body.light_tan.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -70,7 +73,8 @@
             "h": 256,
             "category": "body",
             "tone": "light_tan",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/body/light_tan/front.png"
         },
         "body.light_tan.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -81,7 +85,8 @@
             "h": 256,
             "category": "body",
             "tone": "light_tan",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/body/light_tan/side.png"
         },
         "body.light_tan.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -92,7 +97,8 @@
             "h": 256,
             "category": "body",
             "tone": "light_tan",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/body/light_tan/back.png"
         },
         "body.tan.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -103,7 +109,8 @@
             "h": 256,
             "category": "body",
             "tone": "tan",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/body/tan/front.png"
         },
         "body.tan.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -114,7 +121,8 @@
             "h": 256,
             "category": "body",
             "tone": "tan",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/body/tan/side.png"
         },
         "body.tan.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -125,7 +133,8 @@
             "h": 256,
             "category": "body",
             "tone": "tan",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/body/tan/back.png"
         },
         "body.dark.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -136,7 +145,8 @@
             "h": 256,
             "category": "body",
             "tone": "dark",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/body/dark/front.png"
         },
         "body.dark.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -147,7 +157,8 @@
             "h": 256,
             "category": "body",
             "tone": "dark",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/body/dark/side.png"
         },
         "body.dark.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -158,7 +169,8 @@
             "h": 256,
             "category": "body",
             "tone": "dark",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/body/dark/back.png"
         },
         "head.fair.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -169,7 +181,8 @@
             "h": 256,
             "category": "head",
             "tone": "fair",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/head/fair/front.png"
         },
         "head.fair.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -180,7 +193,8 @@
             "h": 256,
             "category": "head",
             "tone": "fair",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/head/fair/side.png"
         },
         "head.fair.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -191,7 +205,8 @@
             "h": 256,
             "category": "head",
             "tone": "fair",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/head/fair/back.png"
         },
         "head.light_tan.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -202,7 +217,8 @@
             "h": 256,
             "category": "head",
             "tone": "light_tan",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/head/light_tan/front.png"
         },
         "head.light_tan.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -213,7 +229,8 @@
             "h": 256,
             "category": "head",
             "tone": "light_tan",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/head/light_tan/side.png"
         },
         "head.light_tan.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -224,7 +241,8 @@
             "h": 256,
             "category": "head",
             "tone": "light_tan",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/head/light_tan/back.png"
         },
         "head.tan.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -235,7 +253,8 @@
             "h": 256,
             "category": "head",
             "tone": "tan",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/head/tan/front.png"
         },
         "head.tan.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -246,7 +265,8 @@
             "h": 256,
             "category": "head",
             "tone": "tan",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/head/tan/side.png"
         },
         "head.tan.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -257,7 +277,8 @@
             "h": 256,
             "category": "head",
             "tone": "tan",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/head/tan/back.png"
         },
         "head.dark.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -268,7 +289,8 @@
             "h": 256,
             "category": "head",
             "tone": "dark",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/head/dark/front.png"
         },
         "head.dark.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -279,7 +301,8 @@
             "h": 256,
             "category": "head",
             "tone": "dark",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/head/dark/side.png"
         },
         "head.dark.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-base.png",
@@ -290,7 +313,8 @@
             "h": 256,
             "category": "head",
             "tone": "dark",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/head/dark/back.png"
         },
         "hair.messy.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -301,7 +325,8 @@
             "h": 256,
             "category": "hair",
             "style": "messy",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/hair/messy/front.png"
         },
         "hair.messy.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -312,7 +337,8 @@
             "h": 256,
             "category": "hair",
             "style": "messy",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/hair/messy/back.png"
         },
         "hair.short_spiky.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -323,7 +349,8 @@
             "h": 256,
             "category": "hair",
             "style": "short_spiky",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/hair/short_spiky/front.png"
         },
         "hair.short_spiky.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -334,7 +361,8 @@
             "h": 256,
             "category": "hair",
             "style": "short_spiky",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/hair/short_spiky/back.png"
         },
         "hair.medium_parted.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -345,7 +373,8 @@
             "h": 256,
             "category": "hair",
             "style": "medium_parted",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/hair/medium_parted/front.png"
         },
         "hair.medium_parted.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -356,7 +385,8 @@
             "h": 256,
             "category": "hair",
             "style": "medium_parted",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/hair/medium_parted/back.png"
         },
         "hair.long.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -367,7 +397,8 @@
             "h": 256,
             "category": "hair",
             "style": "long",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/hair/long/front.png"
         },
         "hair.long.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -378,7 +409,8 @@
             "h": 256,
             "category": "hair",
             "style": "long",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/hair/long/back.png"
         },
         "hair.ponytail.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -389,7 +421,8 @@
             "h": 256,
             "category": "hair",
             "style": "ponytail",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/hair/ponytail/front.png"
         },
         "hair.ponytail.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -400,7 +433,8 @@
             "h": 256,
             "category": "hair",
             "style": "ponytail",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/hair/ponytail/back.png"
         },
         "hair.wild.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -411,7 +445,8 @@
             "h": 256,
             "category": "hair",
             "style": "wild",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/hair/wild/front.png"
         },
         "hair.wild.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -422,7 +457,8 @@
             "h": 256,
             "category": "hair",
             "style": "wild",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/hair/wild/back.png"
         },
         "face.neutral.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -433,7 +469,8 @@
             "h": 256,
             "category": "face",
             "expression": "neutral",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/face/neutral/front.png"
         },
         "face.determined.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -444,7 +481,8 @@
             "h": 256,
             "category": "face",
             "expression": "determined",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/face/determined/front.png"
         },
         "face.happy.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -455,7 +493,8 @@
             "h": 256,
             "category": "face",
             "expression": "happy",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/face/happy/front.png"
         },
         "face.serious.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-hair-face.png",
@@ -466,7 +505,8 @@
             "h": 256,
             "category": "face",
             "expression": "serious",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/face/serious/front.png"
         },
         "scarf_royal_blue.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -478,7 +518,8 @@
             "category": "equipment",
             "asset": "scarf_royal_blue",
             "slot": "neck",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/scarf_royal_blue/front.png"
         },
         "scarf_royal_blue.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -490,7 +531,8 @@
             "category": "equipment",
             "asset": "scarf_royal_blue",
             "slot": "neck",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/scarf_royal_blue/side.png"
         },
         "scarf_royal_blue.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -502,7 +544,8 @@
             "category": "equipment",
             "asset": "scarf_royal_blue",
             "slot": "neck",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/scarf_royal_blue/back.png"
         },
         "chest_blue_harness.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -514,7 +557,8 @@
             "category": "equipment",
             "asset": "chest_blue_harness",
             "slot": "chest",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/chest_blue_harness/front.png"
         },
         "chest_blue_harness.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -526,7 +570,8 @@
             "category": "equipment",
             "asset": "chest_blue_harness",
             "slot": "chest",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/chest_blue_harness/side.png"
         },
         "chest_blue_harness.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -538,7 +583,8 @@
             "category": "equipment",
             "asset": "chest_blue_harness",
             "slot": "chest",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/chest_blue_harness/back.png"
         },
         "belt_starter_tabard.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -550,7 +596,8 @@
             "category": "equipment",
             "asset": "belt_starter_tabard",
             "slot": "waist",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/belt_starter_tabard/front.png"
         },
         "belt_starter_tabard.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -562,7 +609,8 @@
             "category": "equipment",
             "asset": "belt_starter_tabard",
             "slot": "waist",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/belt_starter_tabard/side.png"
         },
         "belt_starter_tabard.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -574,7 +622,8 @@
             "category": "equipment",
             "asset": "belt_starter_tabard",
             "slot": "waist",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/belt_starter_tabard/back.png"
         },
         "boots_starter.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -586,7 +635,8 @@
             "category": "equipment",
             "asset": "boots_starter",
             "slot": "feet",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/boots_starter/front.png"
         },
         "boots_starter.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -598,7 +648,8 @@
             "category": "equipment",
             "asset": "boots_starter",
             "slot": "feet",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/boots_starter/side.png"
         },
         "boots_starter.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -610,7 +661,8 @@
             "category": "equipment",
             "asset": "boots_starter",
             "slot": "feet",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/boots_starter/back.png"
         },
         "training_sword.front": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -622,7 +674,8 @@
             "category": "equipment",
             "asset": "training_sword",
             "slot": "weapon_back",
-            "view": "front"
+            "view": "front",
+            "png": "/game/characters/v3/modules/training_sword/front.png"
         },
         "training_sword.side": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -634,7 +687,8 @@
             "category": "equipment",
             "asset": "training_sword",
             "slot": "weapon_back",
-            "view": "side"
+            "view": "side",
+            "png": "/game/characters/v3/modules/training_sword/side.png"
         },
         "training_sword.back": {
             "atlas": "/game/characters/v3/atlases/human-broad-starter-equipment.png",
@@ -646,7 +700,8 @@
             "category": "equipment",
             "asset": "training_sword",
             "slot": "weapon_back",
-            "view": "back"
+            "view": "back",
+            "png": "/game/characters/v3/modules/training_sword/back.png"
         },
         "armor.shoulder.00": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -657,7 +712,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 0
+            "variant": 0,
+            "png": "/game/characters/v3/modules/armor/shoulder/00.png"
         },
         "armor.shoulder.01": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -668,7 +724,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 1
+            "variant": 1,
+            "png": "/game/characters/v3/modules/armor/shoulder/01.png"
         },
         "armor.shoulder.02": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -679,7 +736,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 2
+            "variant": 2,
+            "png": "/game/characters/v3/modules/armor/shoulder/02.png"
         },
         "armor.shoulder.03": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -690,7 +748,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 3
+            "variant": 3,
+            "png": "/game/characters/v3/modules/armor/shoulder/03.png"
         },
         "armor.shoulder.04": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -701,7 +760,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 4
+            "variant": 4,
+            "png": "/game/characters/v3/modules/armor/shoulder/04.png"
         },
         "armor.shoulder.05": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -712,7 +772,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 5
+            "variant": 5,
+            "png": "/game/characters/v3/modules/armor/shoulder/05.png"
         },
         "armor.shoulder.06": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -723,7 +784,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 6
+            "variant": 6,
+            "png": "/game/characters/v3/modules/armor/shoulder/06.png"
         },
         "armor.shoulder.07": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -734,7 +796,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "shoulder",
-            "variant": 7
+            "variant": 7,
+            "png": "/game/characters/v3/modules/armor/shoulder/07.png"
         },
         "armor.chest.08": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -745,7 +808,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "chest",
-            "variant": 8
+            "variant": 8,
+            "png": "/game/characters/v3/modules/armor/chest/08.png"
         },
         "armor.chest.09": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -756,7 +820,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "chest",
-            "variant": 9
+            "variant": 9,
+            "png": "/game/characters/v3/modules/armor/chest/09.png"
         },
         "armor.chest.10": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -767,7 +832,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "chest",
-            "variant": 10
+            "variant": 10,
+            "png": "/game/characters/v3/modules/armor/chest/10.png"
         },
         "armor.chest.11": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -778,7 +844,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "chest",
-            "variant": 11
+            "variant": 11,
+            "png": "/game/characters/v3/modules/armor/chest/11.png"
         },
         "armor.greave.12": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -789,7 +856,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "greave",
-            "variant": 12
+            "variant": 12,
+            "png": "/game/characters/v3/modules/armor/greave/12.png"
         },
         "armor.greave.13": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -800,7 +868,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "greave",
-            "variant": 13
+            "variant": 13,
+            "png": "/game/characters/v3/modules/armor/greave/13.png"
         },
         "armor.greave.14": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -811,7 +880,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "greave",
-            "variant": 14
+            "variant": 14,
+            "png": "/game/characters/v3/modules/armor/greave/14.png"
         },
         "armor.greave.15": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -822,7 +892,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "greave",
-            "variant": 15
+            "variant": 15,
+            "png": "/game/characters/v3/modules/armor/greave/15.png"
         },
         "armor.greave.16": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -833,7 +904,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "greave",
-            "variant": 16
+            "variant": 16,
+            "png": "/game/characters/v3/modules/armor/greave/16.png"
         },
         "armor.greave.17": {
             "atlas": "/game/characters/v3/atlases/iron-gold-armor-library.png",
@@ -844,7 +916,8 @@
             "h": 256,
             "category": "armor_library",
             "subtype": "greave",
-            "variant": 17
+            "variant": 17,
+            "png": "/game/characters/v3/modules/armor/greave/17.png"
         }
     },
     "presets": {
