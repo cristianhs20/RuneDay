@@ -10,7 +10,7 @@ import {
     X,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { ActivityCard } from '@/components/social/activity-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -252,7 +252,7 @@ export default function Social({
                                             #{index + 1}
                                         </span>
                                         <div className="flex size-9 items-center justify-center overflow-hidden rounded-lg bg-zinc-950 text-white">
-                                            <CharacterSprite
+                                            <ProductionCharacter
                                                 character={person}
                                                 className="size-8"
                                             />
@@ -312,7 +312,7 @@ function FriendCard({ person }: { person: SocialPerson }) {
             className="hover:bg-muted/30 group flex items-center gap-4 rounded-2xl border p-4 transition"
         >
             <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-zinc-950 text-white">
-                <CharacterSprite character={person} className="size-18" />
+                <ProductionCharacter character={person} className="size-18" />
             </div>
             <div className="min-w-0 flex-1">
                 <p className="truncate font-semibold">{person.name}</p>
@@ -355,7 +355,7 @@ function RequestRow({
                 href={'/u/' + person.handle}
                 className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-zinc-950 text-white"
             >
-                <CharacterSprite character={person} className="size-11" />
+                <ProductionCharacter character={person} className="size-11" />
             </Link>
 
             <div className="min-w-0 flex-1">
