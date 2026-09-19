@@ -1,6 +1,6 @@
 import { Link, router } from '@inertiajs/react';
 import { Crown, Flame, PartyPopper, Swords } from 'lucide-react';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import type { SocialActivity } from '@/types/social';
 
 const reactionMeta = {
@@ -20,7 +20,7 @@ export function ActivityCard({ activity }: { activity: SocialActivity }) {
                     href={'/u/' + activity.actor.handle}
                     className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-zinc-950 text-white"
                 >
-                    <CharacterSprite
+                    <ProductionCharacter
                         character={activity.actor}
                         className="size-11"
                     />
