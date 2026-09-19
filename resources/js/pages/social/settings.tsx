@@ -1,7 +1,7 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import { Clipboard, ExternalLink, Shield, UserRoundCog } from 'lucide-react';
 import { toast } from 'sonner';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -311,7 +311,7 @@ export default function SocialSettings({
                                             className="flex items-center gap-3 rounded-xl border p-3"
                                         >
                                             <div className="flex size-10 items-center justify-center overflow-hidden rounded-lg bg-zinc-950 text-white">
-                                                <CharacterSprite
+                                                <ProductionCharacter
                                                     character={person}
                                                     className="size-9"
                                                 />
