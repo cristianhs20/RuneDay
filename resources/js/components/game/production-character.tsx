@@ -38,6 +38,15 @@ const faceMap = {
     soft: 'happy',
 } as const;
 
+function armorModuleForVisualKey(visualKey?: string): string | null {
+    if (!visualKey?.startsWith('v3_armor_')) return null;
+
+    const match = visualKey.match(/^v3_armor_(shoulder|chest|greave)_(\d+)$/);
+    if (!match) return null;
+
+    return `armor.${match[1]}.${match[2]}`;
+}
+
 export function ProductionCharacter({
     character,
     state = 'idle',
@@ -67,6 +76,12 @@ export function ProductionCharacter({
         faceMap[character.appearance.face_style as keyof typeof faceMap] ??
         'neutral';
 
+    const armorModules = [
+        armorModuleForVisualKey(character.equipment.shoulder?.visual_key),
+        armorModuleForVisualKey(character.equipment.chest?.visual_key),
+        armorModuleForVisualKey(character.equipment.legs?.visual_key),
+    ].filter((module): module is string => module !== null);
+
     return (
         <ModularCharacterV3
             view={view}
@@ -77,10 +92,15 @@ export function ProductionCharacter({
                 weapon_back:
                     character.equipment.weapon?.visual_key ===
                     'weapon_training_sword',
-                chest: Boolean(character.equipment.chest),
+                chest:
+                    Boolean(character.equipment.chest) &&
+                    !character.equipment.chest?.visual_key.startsWith(
+                        'v3_armor_chest_',
+                    ),
                 neck: Boolean(character.equipment.neck),
                 waist: Boolean(character.equipment.waist),
                 feet: Boolean(character.equipment.feet),
+                armorModules,
             }}
             className={className}
         />
