@@ -1,6 +1,6 @@
 import { Head, router } from '@inertiajs/react';
 import { Backpack, ShieldCheck, Sparkles } from 'lucide-react';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { GameCharacter } from '@/types/game';
@@ -58,7 +58,7 @@ export default function Inventory({
                         <Card className="overflow-hidden rounded-3xl">
                             <CardContent className="p-0">
                                 <div className="flex min-h-80 items-center justify-center bg-zinc-950 p-6 text-white">
-                                    <CharacterSprite
+                                    <ProductionCharacter
                                         character={character}
                                         className="size-60"
                                     />
@@ -96,8 +96,14 @@ export default function Inventory({
                             <CardContent className="space-y-2">
                                 {[
                                     'weapon',
+                                    'offhand',
                                     'head',
+                                    'neck',
+                                    'shoulder',
                                     'chest',
+                                    'hands',
+                                    'waist',
+                                    'legs',
                                     'feet',
                                     'back',
                                     'accessory',
