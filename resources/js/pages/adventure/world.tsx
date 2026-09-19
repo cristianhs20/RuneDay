@@ -11,7 +11,7 @@ import {
     Trophy,
 } from 'lucide-react';
 import { EnemySprite } from '@/components/adventure/enemy-sprite';
-import { CharacterSprite } from '@/components/game/character-sprite';
+import { ProductionCharacter } from '@/components/game/production-character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type {
@@ -168,7 +168,7 @@ function ActiveEncounterCard({
             <CardContent className="p-0">
                 <div className="grid bg-zinc-950 text-white md:grid-cols-[1fr_auto_1fr]">
                     <div className="flex min-h-64 flex-col items-center justify-center p-6">
-                        <CharacterSprite
+                        <ProductionCharacter
                             character={character}
                             className="size-44"
                         />
