@@ -16,6 +16,7 @@ export type ModularV3Module = {
     slot?: string;
     subtype?: string;
     variant?: number;
+    png?: string;
 };
 
 export type ModularV3Manifest = {
