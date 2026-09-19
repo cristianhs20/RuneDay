@@ -75,6 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('character/style-lab', 'game/character-style-lab')->name('character.style-lab');
     Route::inertia('character/lineage-lab', 'game/character-lineage-lab')->name('character.lineage-lab');
     Route::inertia('character/sprite-v2-lab', 'game/sprite-v2-lab')->name('character.sprite-v2-lab');
+    Route::inertia('character/modular-v3-lab', 'game/modular-v3-lab')->name('character.modular-v3-lab');
 
     Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
     Route::post('inventory/{inventoryItem}/equip', [InventoryController::class, 'equip'])->name('inventory.equip');

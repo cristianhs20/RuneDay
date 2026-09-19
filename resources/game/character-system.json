@@ -211,8 +211,21 @@
             "allowedUses": ["rig-debug", "anchor-debug", "legacy-fallback"]
         },
         "productionRenderer": {
-            "id": "runeday-sprite-v2",
+            "id": "runeday-modular-v3",
             "status": "official-target",
+            "phase": "D-modular",
+            "assetFormat": "authored-pixel-art-atlas-modules",
+            "cell": {
+                "width": 256,
+                "height": 256
+            },
+            "composition": "atlas-cell-manifest-driven",
+            "inspiration": "LPC-style modularity with RuneDay art direction",
+            "animation": "authored-spritesheets-per-module"
+        },
+        "spriteV2Renderer": {
+            "id": "runeday-sprite-v2",
+            "status": "superseded-by-modular-v3",
             "phase": "D",
             "assetFormat": "layered-transparent-png",
             "cell": {
@@ -227,7 +240,7 @@
         "humanBroadD2": {
             "id": "human_broad_d2_master",
             "engine": "runeday-sprite-v2",
-            "status": "review",
+            "status": "superseded-by-modular-v3",
             "lineage": "human",
             "fit_profile": "broad",
             "cell": {
@@ -239,6 +252,38 @@
             "layers": ["shadow", "weapon_back", "body", "face", "eyes", "hair"],
             "manifest": "/game/characters/v2/manifests/human-broad-d2.json",
             "review_route": "/character/sprite-v2-lab"
+        },
+        "humanBroadModularV3": {
+            "id": "human_broad_modular_v3",
+            "engine": "runeday-modular-v3",
+            "status": "integrated-review",
+            "lineage": "human",
+            "fit_profile": "broad",
+            "cell": {
+                "width": 256,
+                "height": 256
+            },
+            "views": ["front", "side", "back"],
+            "skin_tones": ["fair", "light_tan", "tan", "dark"],
+            "hair_styles": [
+                "messy",
+                "short_spiky",
+                "medium_parted",
+                "long",
+                "ponytail",
+                "wild"
+            ],
+            "starter_equipment": [
+                "scarf_royal_blue",
+                "chest_blue_harness",
+                "belt_starter_tabard",
+                "boots_starter",
+                "training_sword"
+            ],
+            "registered_modules": 73,
+            "manifest": "/game/characters/v3/manifests/modular-v3.json",
+            "review_route": "/character/modular-v3-lab",
+            "known_gaps": ["hair-side-view", "armor-fit-calibration"]
         }
     }
 }

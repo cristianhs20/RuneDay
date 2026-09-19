@@ -1,5 +1,9 @@
 # RuneDay Character Engine — Phase D
 
+## Modular v3 supersession
+
+The original Sprite Pipeline v2 established authored PNG/manifest rendering, but the flattened-master D2 workflow was rejected. The official production renderer is now `runeday-modular-v3`: 256×256 authored body/head/skin/hair/equipment modules packed into atlases and composed by manifest. See [Modular Character Engine v3](modular-v3.md).
+
 ## Production Pixel Sprite Pipeline v2
 
 ## Status

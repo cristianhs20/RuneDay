@@ -115,6 +115,11 @@ export default function Character({ character }: { character: GameCharacter }) {
                             <Link href="/character/style-lab">Style Lab</Link>
                         </Button>
                         <Button asChild>
+                            <Link href="/character/modular-v3-lab">
+                                Modular v3 Lab
+                            </Link>
+                        </Button>
+                        <Button asChild variant="outline">
                             <Link href="/character/sprite-v2-lab">
                                 Sprite v2 Lab
                             </Link>

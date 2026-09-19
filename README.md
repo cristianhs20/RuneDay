@@ -207,36 +207,35 @@ See:
 - [Authored Animation Spec v1](docs/character-engine/authored-animation-spec-v1.md)
 - [Human Broad C2.1](docs/character-engine/human-broad-c2-1.md)
 
-**Character Engine — Phase D: Production Pixel Sprite Pipeline v2: official replacement phase.**
+**Character Engine — Phase D: Modular Pixel Character Engine v3: official production target.**
 
-Production characters now target:
+The final RuneDay character pipeline now uses LPC-style modularity with RuneDay's higher-detail pixel-art direction:
 
-- real authored pixel-art PNG layers
-- 128×128 transparent frame cells
-- manifest-driven spritesheets
-- authored frame-by-frame animation
-- Broad / Lean / Heavy visual fit profiles
-- shared gameplay item catalog with visual fit variants
-- Canvas 2D layer compositor with image smoothing disabled
-- Human Broad as the first production master asset
+- authored body/head/skin/hair/equipment modules
+- 256×256 shared character cells
+- atlas-packed runtime assets
+- manifest-driven Canvas composition
+- 4 Human Broad skin tones
+- 6 Human Broad hair styles
+- starter scarf / chest / belt / boots / sword modules
+- 18-piece iron/gold armor library registered for fit calibration
+- no SVG anatomy and no flattened-character splitting in runtime
 
-The SVG/shape renderer remains temporarily only for rig/anchor debugging and legacy fallback.
+The earlier `runeday-sprite-v2` 128px flattened-master experiment is superseded. It remains only as historical/technical reference.
 
-Current Phase D execution:
+Current execution:
 
-- D1 — Sprite Standard v2 complete
-- D2 — Human Broad Production Master implemented
-- D2 review — awaiting visual approval at `/character/sprite-v2-lab`
-- D4 authored animation is blocked until D2 visual approval
+- Modular v3 manifest: 73 logical modules
+- Human Broad live builder implemented
+- review route: `/character/modular-v3-lab`
+- known gap: side-view hair must still be authored
+- iron/gold armor is catalogued but blocked from assembly until fit calibration
 
 See:
 
+- [Modular Character Engine v3](docs/character-engine/modular-v3.md)
 - [Phase D](docs/character-engine/phase-d.md)
-- [Sprite Pipeline v2](docs/character-engine/sprite-pipeline-v2.md)
-- [Sprite Manifest v2](docs/character-engine/sprite-manifest-v2.md)
 - [Production Art Gates v2](docs/character-engine/production-art-gates-v2.md)
-- [Manifest JSON Schema](resources/game/sprite-v2/manifest.schema.json)
-- [D2 Human Broad Master](docs/character-engine/d2-human-broad-master.md)
 
 ## Local setup
 

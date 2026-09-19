@@ -19,7 +19,7 @@ class CharacterEngineD2Test extends TestCase
 
         $this->assertSame('human_broad_d2_master', $asset['id']);
         $this->assertSame('runeday-sprite-v2', $asset['engine']);
-        $this->assertSame('review', $asset['status']);
+        $this->assertSame('superseded-by-modular-v3', $asset['status']);
         $this->assertSame('human', $asset['lineage']);
         $this->assertSame('broad', $asset['fit_profile']);
         $this->assertSame(['front', 'side', 'back'], $asset['views']);
