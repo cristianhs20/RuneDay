@@ -95,7 +95,7 @@ export default function Character({ character }: { character: GameCharacter }) {
                 <header className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
                     <div>
                         <p className="text-muted-foreground text-sm">
-                            Character Engine · Modular V3
+                            Character Engine · Sprite Forge
                         </p>
                         <h1 className="text-3xl font-semibold tracking-tight">
                             {character.created
@@ -104,29 +104,16 @@ export default function Character({ character }: { character: GameCharacter }) {
                         </h1>
                         <p className="text-muted-foreground mt-2 max-w-3xl text-sm">
                             Create your hero and see equipped gear update in
-                            real time. Human Broad now uses the production
-                            Modular V3 renderer; other lineages keep a
-                            compatible fallback while their V3 art is completed.
+                            real time. Human, Elf, Skeleton and Orc share one
+                            pixel rig, so every view, animation and item fits
+                            every lineage.
                         </p>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                        <Button asChild variant="outline">
-                            <Link href="/character/style-lab">Style Lab</Link>
-                        </Button>
                         <Button asChild>
-                            <Link href="/character/modular-v3-lab">
-                                Advanced V3 preview
-                            </Link>
-                        </Button>
-                        <Button asChild variant="outline">
-                            <Link href="/character/sprite-v2-lab">
-                                Sprite v2 Lab
-                            </Link>
-                        </Button>
-                        <Button asChild variant="outline">
-                            <Link href="/character/lineage-lab">
-                                Lineage Lab
+                            <Link href="/character/sprite-forge">
+                                Sprite Forge Lab
                             </Link>
                         </Button>
                     </div>

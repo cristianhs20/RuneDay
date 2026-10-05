@@ -2,7 +2,7 @@
 
 ## Status
 
-**Integrated — official production target.**
+**Superseded by the [Sprite Forge](sprite-forge.md).** The v3 modules, atlases and lab were removed.
 
 The Character Engine now follows an LPC-style modular architecture while preserving RuneDay's more detailed pixel-art direction.
 
