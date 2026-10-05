@@ -25,7 +25,7 @@ class CharacterEnginePhaseDTest extends TestCase
         );
 
         $this->assertSame(
-            'runeday-modular-v3',
+            'runeday-sprite-forge',
             $pipeline['productionRenderer']['id'],
         );
         $this->assertSame(
@@ -33,11 +33,11 @@ class CharacterEnginePhaseDTest extends TestCase
             $pipeline['productionRenderer']['status'],
         );
         $this->assertSame(
-            'authored-pixel-art-atlas-modules',
+            'rig-driven-pixel-raster',
             $pipeline['productionRenderer']['assetFormat'],
         );
         $this->assertSame(
-            ['width' => 256, 'height' => 256],
+            ['width' => 64, 'height' => 64],
             $pipeline['productionRenderer']['cell'],
         );
     }

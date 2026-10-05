@@ -41,6 +41,10 @@ return new class extends Migration
         DB::table('item_definitions')->where('visual_key', 'like', 'v3_armor_%')->delete();
     }
 
+    /**
+     * @param  array<string, int>  $stats
+     * @return array<string, mixed>
+     */
     private function item(string $slug, string $name, string $slot, string $visualKey, int $price, int $minLevel, array $stats, int $sort): array
     {
         return [

@@ -154,8 +154,8 @@
             }
         },
         "ogre": {
-            "label": "Ogre",
-            "description": "Heavy humanoid lineage with larger mass, powerful jaw and optional horns.",
+            "label": "Orc",
+            "description": "Heavy orcish lineage with larger mass, tusked jaw and optional horns.",
             "rig": "humanoid",
             "defaultFrame": "heavy",
             "allowedFrames": ["heavy"],
@@ -224,17 +224,30 @@
             "allowedUses": ["rig-debug", "anchor-debug", "legacy-fallback"]
         },
         "productionRenderer": {
-            "id": "runeday-modular-v3",
+            "id": "runeday-sprite-forge",
+            "version": "4.0.0",
             "status": "official-target",
+            "phase": "E-forge",
+            "assetFormat": "rig-driven-pixel-raster",
+            "cell": {
+                "width": 64,
+                "height": 64
+            },
+            "composition": "shared-rig-layered-raster",
+            "animation": "rig-posed-frames",
+            "lineages": ["human", "elf", "skeleton", "ogre"],
+            "views": ["front", "side", "back"],
+            "review_route": "/character/sprite-forge"
+        },
+        "modularV3Renderer": {
+            "id": "runeday-modular-v3",
+            "status": "superseded-by-sprite-forge",
             "phase": "D-modular",
             "assetFormat": "authored-pixel-art-atlas-modules",
             "cell": {
                 "width": 256,
                 "height": 256
-            },
-            "composition": "atlas-cell-manifest-driven",
-            "inspiration": "LPC-style modularity with RuneDay art direction",
-            "animation": "authored-spritesheets-per-module"
+            }
         },
         "spriteV2Renderer": {
             "id": "runeday-sprite-v2",
@@ -265,38 +278,6 @@
             "layers": ["shadow", "weapon_back", "body", "face", "eyes", "hair"],
             "manifest": "/game/characters/v2/manifests/human-broad-d2.json",
             "review_route": "/character/sprite-v2-lab"
-        },
-        "humanBroadModularV3": {
-            "id": "human_broad_modular_v3",
-            "engine": "runeday-modular-v3",
-            "status": "production",
-            "lineage": "human",
-            "fit_profile": "broad",
-            "cell": {
-                "width": 256,
-                "height": 256
-            },
-            "views": ["front", "side", "back"],
-            "skin_tones": ["fair", "light_tan", "tan", "dark"],
-            "hair_styles": [
-                "messy",
-                "short_spiky",
-                "medium_parted",
-                "long",
-                "ponytail",
-                "wild"
-            ],
-            "starter_equipment": [
-                "scarf_royal_blue",
-                "chest_blue_harness",
-                "belt_starter_tabard",
-                "boots_starter",
-                "training_sword"
-            ],
-            "registered_modules": 73,
-            "manifest": "/game/characters/v3/manifests/modular-v3.json",
-            "review_route": "/character/modular-v3-lab",
-            "known_gaps": ["hair-side-view", "armor-fit-calibration"]
         }
     }
 }
